@@ -3,7 +3,7 @@ import * as React from 'react'
 
 ;(async () => {
   ReactDOM.render(
-    <h1>hoge</h1>,
+    <h1>Frozen</h1>,
     document.querySelector('.root')
   )
-})()
+})().catch(err => console.error(err))
