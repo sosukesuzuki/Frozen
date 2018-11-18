@@ -30,6 +30,8 @@
     "workbox-webpack-plugin": "^3.6.3"
   },
   "dependencies": {
+    "mobx": "^5.6.0",
+    "mobx-react": "^5.3.6",
     "normalize-css": "^2.3.1",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
