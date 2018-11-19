@@ -18,6 +18,9 @@ const Tab = styled.div`
   transition: 0.3s;
   display: flex;
   justify-content: space-between;
+  ${({ isCurrentFile }: { isCurrentFile: boolean }) => isCurrentFile && `
+    background-color: ${grey[1]};
+  `}
   i {
     padding: 0 10px;
   }
@@ -57,6 +60,7 @@ interface TabBarProps {
   addFile?: (file: MarkdownFile) => void
   setCurrentFile?: (file: MarkdownFile) => void
   removeFile?: (file: MarkdownFile) => void
+  file?: MarkdownFile
 }
 
 const TabBar: React.SFC<TabBarProps> = ({
@@ -64,13 +68,16 @@ const TabBar: React.SFC<TabBarProps> = ({
   addFile,
   setCurrentFile,
   removeFile,
+  file
 }) => {
+  const currentFileId = file == null ? 'NOTHING' : file.id
   return (
     <Container>
       {files!.map(file => (
         <Tab
           key={file.id}
           onClick={() => setCurrentFile!(file)}
+          isCurrentFile={file.id === currentFileId}
         >
           <span>
             <i className='far fa-file' />
@@ -98,5 +105,6 @@ export default inject((stores: Stores) => ({
   files: stores.markdownFilesStore.files,
   addFile: stores.markdownFilesStore.addFile,
   removeFile: stores.markdownFilesStore.removeFile,
-  setCurrentFile: stores.currentFileStore.setCurrentFile
+  setCurrentFile: stores.currentFileStore.setCurrentFile,
+  file: stores.currentFileStore.file
 }))(observer(TabBar))
