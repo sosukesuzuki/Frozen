@@ -13,9 +13,12 @@
     "@babel/plugin-syntax-object-rest-spread": "^7.0.0",
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
+    "@types/lodash": "^4.14.118",
     "@types/react": "^16.7.6",
     "@types/react-dom": "^16.0.9",
+    "@types/recompose": "^0.27.1",
     "@types/styled-components": "^4.1.0",
+    "@types/uuid": "^3.4.4",
     "babel-loader": "^8.0.4",
     "copy-webpack-plugin": "^4.6.0",
     "file-loader": "^2.0.0",
@@ -30,11 +33,23 @@
     "workbox-webpack-plugin": "^3.6.3"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-free": "^5.5.0",
+    "github-markdown-css": "^2.10.0",
+    "lodash": "^4.17.11",
     "mobx": "^5.6.0",
     "mobx-react": "^5.3.6",
     "normalize-css": "^2.3.1",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
-    "styled-components": "^4.1.1"
+    "recompose": "^0.30.0",
+    "remark": "^10.0.1",
+    "remark-breaks": "^1.0.1",
+    "remark-highlight.js": "^5.0.0",
+    "remark-html": "^8.0.0",
+    "remark-html-katex": "^1.2.0",
+    "remark-math": "^1.0.5",
+    "remark-react": "^4.0.3",
+    "styled-components": "^4.1.1",
+    "uuid": "^3.3.2"
   }
 }

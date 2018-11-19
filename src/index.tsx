@@ -3,7 +3,10 @@ import * as React from 'react'
 import 'normalize-css'
 import App from './components/App'
 
-ReactDOM.render(
-  <App />,
-  document.querySelector('.root')
-)
+;(async () => {
+  ReactDOM.render(
+    <App />,
+    document.querySelector('.root')
+  )
+})()
+

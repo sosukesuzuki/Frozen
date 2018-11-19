@@ -1,18 +1,18 @@
 import { observable, action } from 'mobx'
-import { MarkdownFile } from './FilesStore'
+import { MarkdownFile } from '../lib/types'
 
 export class CurrentFileStore {
   @observable public file: MarkdownFile | undefined
 
-  constructor (file: MarkdownFile) {
+  constructor () {
+    this.file = undefined
+  }
+
+  @action setCurrentFile = (file: MarkdownFile) => {
     this.file = file
   }
 
-  @action setCurrentFile (file: MarkdownFile) {
-    this.file = file
-  }
-
-  @action setEmpty () {
+  @action setEmpty = () => {
     this.file = undefined
   }
 }
