@@ -15,7 +15,7 @@ const Tab = styled.div`
   cursor: pointer;
   border-right: 1px solid ${grey[3]};
   line-height: 30px;
-  transition: 0.3s;
+  transition: 0.1s;
   display: flex;
   justify-content: space-between;
   ${({ isCurrentFile }: { isCurrentFile: boolean }) => isCurrentFile && `
@@ -25,8 +25,8 @@ const Tab = styled.div`
     padding: 0 10px;
   }
   &:hover {
-    transition: 0.3s;
-    background-color: ${grey[1]};
+    transition: 0.1s;
+    background-color: #fafafa;
   }
 `
 const CloseButton = styled.button`

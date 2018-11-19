@@ -5,7 +5,6 @@ import { inject, observer } from 'mobx-react'
 import Stores from '../../stores'
 import { markdownProcessor } from '../../lib/utils'
 import reactRenderer from 'remark-react'
-import 'github-markdown-css'
 
 interface RendererProps {
   file?: MarkdownFile
@@ -23,6 +22,7 @@ const Textarea = styled.textarea`
   color: white;
   height: 100%;
   width: 100%;
+  font-size: 18px;
 `
 const MarkdownContainer = styled.div`
   padding: 20px;
