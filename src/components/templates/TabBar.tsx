@@ -21,6 +21,7 @@ const Tab = styled.div`
   display: flex;
   justify-content: space-between;
   max-width: 250px;
+  min-width: 180px;
   ${({ isCurrentFile }: { isCurrentFile: boolean }) =>
     isCurrentFile &&
     `
@@ -80,7 +81,7 @@ const TabBar: React.SFC<TabBarProps> = ({
   removeFile,
   file
 }) => {
-  const currentFileId = file == null ? "NOTHING" : file.id;
+  const currentFileId = file! == null ? "NOTHING" : file!.id;
   return (
     <Container>
       {files!.map(file => (
@@ -119,6 +120,6 @@ export default inject((stores: Stores) => ({
   files: stores.markdownFilesStore.files,
   addFile: stores.markdownFilesStore.addFile,
   removeFile: stores.markdownFilesStore.removeFile,
-  setCurrentFile: stores.currentFileStore.setCurrentFile,
-  file: stores.currentFileStore.file
+  setCurrentFile: stores.markdownFilesStore.setCurrentFileFromFile,
+  file: stores.markdownFilesStore.file
 }))(observer(TabBar));

@@ -9,6 +9,7 @@ import reactRenderer from "remark-react";
 interface RendererProps {
   file?: MarkdownFile;
   updateFile?: (value: { content: string; id: string }) => void;
+  files?: MarkdownFile[];
 }
 
 const Container = styled.div`
@@ -32,32 +33,40 @@ const TextareaContainer = styled.div`
   background-color: black;
 `;
 
-const Renderer: React.SFC<RendererProps> = ({ file, updateFile }) => {
+const Renderer: React.SFC<RendererProps> = ({ updateFile, files, file }) => {
   return (
     <Container>
-      <TextareaContainer>
-        <Textarea
-          onChange={(e: React.ChangeEvent) =>
-            updateFile!({
-              content: (e.target as HTMLTextAreaElement).value,
-              id: file!.id
-            })
-          }
-          value={file!.content}
-        />
-      </TextareaContainer>
-      <MarkdownContainer className="markdown-body">
-        {
-          markdownProcessor()
-            .use(reactRenderer)
-            .processSync(file!.content).contents
-        }
-      </MarkdownContainer>
+      {file != null ? (
+        <>
+          <TextareaContainer>
+            <Textarea
+              onChange={(e: React.ChangeEvent) => {
+                updateFile!({
+                  content: (e.target as HTMLTextAreaElement).value,
+                  id: file!.id
+                });
+              }}
+              value={file!.content}
+              autoFocus
+            />
+          </TextareaContainer>
+          <MarkdownContainer className="markdown-body">
+            {
+              markdownProcessor()
+                .use(reactRenderer)
+                .processSync(file!.content).contents
+            }
+          </MarkdownContainer>
+        </>
+      ) : (
+        <p>Please add a new tab.</p>
+      )}
     </Container>
   );
 };
 
 export default inject((stores: Stores) => ({
-  file: stores.currentFileStore.file,
-  updateFile: stores.markdownFilesStore.updateFile
+  file: stores.markdownFilesStore.file,
+  updateFile: stores.markdownFilesStore.updateFile,
+  files: stores.markdownFilesStore.files
 }))(observer(Renderer));

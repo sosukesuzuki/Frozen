@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Provider } from "mobx-react";
 import TabBar from "./templates/TabBar";
 import Renderer from "./templates/Renderer";
-import { CurrentFileStore, MarkdownFilesStore } from "../stores";
+import { MarkdownFilesStore } from "../stores";
 import { generateFile } from "../lib/utils";
 
 const Container = styled.div`
@@ -16,16 +16,12 @@ const Container = styled.div`
 
 const App: React.SFC = () => {
   const markdownFilesStore = new MarkdownFilesStore();
-  if (markdownFilesStore.files.length === 0)
-    markdownFilesStore.addFile(generateFile(""));
-  const currentFileStore = new CurrentFileStore();
-  currentFileStore.setCurrentFile(markdownFilesStore.files[0]);
+  if (markdownFilesStore.files.length === 0) {
+    markdownFilesStore.addFile(generateFile(""), { setFile: true });
+  }
 
   return (
-    <Provider
-      currentFileStore={currentFileStore}
-      markdownFilesStore={markdownFilesStore}
-    >
+    <Provider markdownFilesStore={markdownFilesStore}>
       <Container>
         <TabBar />
         <Renderer />
