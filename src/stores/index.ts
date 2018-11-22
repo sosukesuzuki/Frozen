@@ -1,10 +1,10 @@
-import { CurrentFileStore } from './CurrentFileStore'
-import { MarkdownFilesStore } from './MarkdownFilesStore'
+import { CurrentFileStore } from "./CurrentFileStore";
+import { MarkdownFilesStore } from "./MarkdownFilesStore";
 
-export * from './CurrentFileStore'
-export * from './MarkdownFilesStore'
+export * from "./CurrentFileStore";
+export * from "./MarkdownFilesStore";
 
 export default interface Stores {
-  currentFileStore: CurrentFileStore,
-  markdownFilesStore: MarkdownFilesStore
+  currentFileStore: CurrentFileStore;
+  markdownFilesStore: MarkdownFilesStore;
 }

@@ -1,28 +1,28 @@
-import { observable, action } from 'mobx'
-import { MarkdownFile } from '../lib/types'
-import { findNoteTitle } from '../lib/utils'
+import { observable, action } from "mobx";
+import { MarkdownFile } from "../lib/types";
+import { findNoteTitle } from "../lib/utils";
 
 export class MarkdownFilesStore {
-  @observable public files: MarkdownFile[] = []
+  @observable public files: MarkdownFile[] = [];
 
-  constructor () {}
+  constructor() {}
 
   @action addFile = (file: MarkdownFile) => {
-    this.files = this.files.concat(file)
-  }
+    this.files = this.files.concat(file);
+  };
 
   @action removeFile = ({ id }: MarkdownFile) => {
-    this.files = this.files.filter(file => file.id !== id)
-  }
+    this.files = this.files.filter(file => file.id !== id);
+  };
 
-  @action updateFile = ({ content, id }: { content: string, id: string }) => {
+  @action updateFile = ({ content, id }: { content: string; id: string }) => {
     const newFiles = this.files.map(file => {
       if (file.id === id) {
-        file.content = content
-        file.title = content === '' ? 'untitled' : findNoteTitle(content)
+        file.content = content;
+        file.title = content === "" ? "untitled" : findNoteTitle(content);
       }
-      return file
-    })
-    this.files = newFiles
-  }
+      return file;
+    });
+    this.files = newFiles;
+  };
 }

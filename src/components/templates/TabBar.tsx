@@ -1,15 +1,15 @@
-import React from 'react'
-import styled from 'styled-components'
-import { observer, inject } from 'mobx-react'
-import Stores from '../../stores'
-import { MarkdownFile } from '../../lib/types'
-import { generateFile } from '../../lib/utils'
-import { grey } from '../../lib/colors'
+import React from "react";
+import styled from "styled-components";
+import { observer, inject } from "mobx-react";
+import Stores from "../../stores";
+import { MarkdownFile } from "../../lib/types";
+import { generateFile } from "../../lib/utils";
+import { grey } from "../../lib/colors";
 
 const Container = styled.div`
   display: flex;
   color: ${grey[6]};
-`
+`;
 const Tab = styled.div`
   height: 30px;
   cursor: pointer;
@@ -19,7 +19,9 @@ const Tab = styled.div`
   display: flex;
   justify-content: space-between;
   max-width: 250px;
-  ${({ isCurrentFile }: { isCurrentFile: boolean }) => isCurrentFile && `
+  ${({ isCurrentFile }: { isCurrentFile: boolean }) =>
+    isCurrentFile &&
+    `
     background-color: ${grey[1]};
   `}
   span {
@@ -34,7 +36,7 @@ const Tab = styled.div`
     transition: 0.1s;
     background-color: #fafafa;
   }
-`
+`;
 const CloseButton = styled.button`
   border: none;
   background-color: transparent;
@@ -46,7 +48,7 @@ const CloseButton = styled.button`
     transition: 0.1s;
     font-weight: bold;
   }
-`
+`;
 const AddButton = styled.button`
   border: none;
   background-color: transparent;
@@ -59,14 +61,14 @@ const AddButton = styled.button`
     transition: 0.3s;
     background-color: ${grey[1]};
   }
-`
+`;
 
 interface TabBarProps {
-  files?: MarkdownFile[]
-  addFile?: (file: MarkdownFile) => void
-  setCurrentFile?: (file: MarkdownFile) => void
-  removeFile?: (file: MarkdownFile) => void
-  file?: MarkdownFile
+  files?: MarkdownFile[];
+  addFile?: (file: MarkdownFile) => void;
+  setCurrentFile?: (file: MarkdownFile) => void;
+  removeFile?: (file: MarkdownFile) => void;
+  file?: MarkdownFile;
 }
 
 const TabBar: React.SFC<TabBarProps> = ({
@@ -74,9 +76,9 @@ const TabBar: React.SFC<TabBarProps> = ({
   addFile,
   setCurrentFile,
   removeFile,
-  file,
+  file
 }) => {
-  const currentFileId = file == null ? 'NOTHING' : file.id
+  const currentFileId = file == null ? "NOTHING" : file.id;
   return (
     <Container>
       {files!.map(file => (
@@ -86,12 +88,12 @@ const TabBar: React.SFC<TabBarProps> = ({
           isCurrentFile={file.id === currentFileId}
         >
           <span>
-            <i className='far fa-file' />
+            <i className="far fa-file" />
             {file.title}
           </span>
           <CloseButton
             onClick={() => {
-              removeFile!(file)
+              removeFile!(file);
             }}
           >
             &times;
@@ -100,18 +102,16 @@ const TabBar: React.SFC<TabBarProps> = ({
       ))}
       <AddButton
         onClick={() => {
-          const newFile = generateFile('')
-          addFile!(newFile)
-          setCurrentFile!(newFile)
+          const newFile = generateFile("");
+          addFile!(newFile);
+          setCurrentFile!(newFile);
         }}
       >
-        <div>
-          +
-        </div>
+        <div>+</div>
       </AddButton>
     </Container>
-  )
-}
+  );
+};
 
 export default inject((stores: Stores) => ({
   files: stores.markdownFilesStore.files,
@@ -119,4 +119,4 @@ export default inject((stores: Stores) => ({
   removeFile: stores.markdownFilesStore.removeFile,
   setCurrentFile: stores.currentFileStore.setCurrentFile,
   file: stores.currentFileStore.file
-}))(observer(TabBar))
+}))(observer(TabBar));
