@@ -18,9 +18,15 @@ const Tab = styled.div`
   transition: 0.1s;
   display: flex;
   justify-content: space-between;
+  max-width: 250px;
   ${({ isCurrentFile }: { isCurrentFile: boolean }) => isCurrentFile && `
     background-color: ${grey[1]};
   `}
+  span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   i {
     padding: 0 10px;
   }
@@ -68,7 +74,7 @@ const TabBar: React.SFC<TabBarProps> = ({
   addFile,
   setCurrentFile,
   removeFile,
-  file
+  file,
 }) => {
   const currentFileId = file == null ? 'NOTHING' : file.id
   return (
@@ -84,14 +90,20 @@ const TabBar: React.SFC<TabBarProps> = ({
             {file.title}
           </span>
           <CloseButton
-            onClick={() => removeFile!(file)}
+            onClick={() => {
+              removeFile!(file)
+            }}
           >
             &times;
           </CloseButton>
         </Tab>
       ))}
       <AddButton
-        onClick={() => addFile!(generateFile(''))}
+        onClick={() => {
+          const newFile = generateFile('')
+          addFile!(newFile)
+          setCurrentFile!(newFile)
+        }}
       >
         <div>
           +

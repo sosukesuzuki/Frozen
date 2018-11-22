@@ -39,13 +39,13 @@ const Renderer: React.SFC<RendererProps> = ({
   return (
     <Container>
       <TextareaContainer>
-        <Textarea
-          onChange={(e: React.ChangeEvent) => updateFile!({
-            content: (e.target as HTMLTextAreaElement).value,
-            id: file!.id
-          })}
-          value={file!.content}
-        />
+      <Textarea
+        onChange={(e: React.ChangeEvent) => updateFile!({
+          content: (e.target as HTMLTextAreaElement).value,
+          id: file!.id
+        })}
+        value={file!.content}
+      />
       </TextareaContainer>
       <MarkdownContainer>
         {
