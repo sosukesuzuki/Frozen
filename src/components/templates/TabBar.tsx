@@ -5,6 +5,8 @@ import Stores from "../../stores";
 import { MarkdownFile } from "../../lib/types";
 import { generateFile } from "../../lib/utils";
 import { grey } from "../../lib/colors";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faFile } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
   display: flex;
@@ -29,7 +31,7 @@ const Tab = styled.div`
     text-overflow: ellipsis;
     white-space: nowrap;
   }
-  i {
+  svg {
     padding: 0 10px;
   }
   &:hover {
@@ -88,7 +90,7 @@ const TabBar: React.SFC<TabBarProps> = ({
           isCurrentFile={file.id === currentFileId}
         >
           <span>
-            <i className="far fa-file" />
+            <FontAwesomeIcon icon={faFile} />
             {file.title}
           </span>
           <CloseButton
