@@ -47,7 +47,7 @@ const Renderer: React.SFC<RendererProps> = ({
         value={file!.content}
       />
       </TextareaContainer>
-      <MarkdownContainer>
+      <MarkdownContainer className='markdown-body'>
         {
           markdownProcessor()
             .use(reactRenderer)
