@@ -668,6 +668,10 @@
   dependencies:
     "@types/react" "*"
 
+"@types/remove-markdown@^0.1.1":
+  version "0.1.1"
+  resolved "https://registry.yarnpkg.com/@types/remove-markdown/-/remove-markdown-0.1.1.tgz#c79d3000df412526186b2af3808b85bee68bc907"
+
 "@types/styled-components@^4.1.0":
   version "4.1.0"
   resolved "https://registry.yarnpkg.com/@types/styled-components/-/styled-components-4.1.0.tgz#87d193ccfd4768c3b7606404646f3564c18830d0"
@@ -4299,6 +4303,10 @@ remark@^10.0.1:
 remove-array-items@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/remove-array-items/-/remove-array-items-1.1.0.tgz#e3d4aaba795a412479ea89408dee345387da7d3b"
+
+remove-markdown@^0.3.0:
+  version "0.3.0"
+  resolved "https://registry.yarnpkg.com/remove-markdown/-/remove-markdown-0.3.0.tgz#5e4b667493a93579728f3d52ecc1db9ca505dc98"
 
 remove-trailing-separator@^1.0.1:
   version "1.1.0"

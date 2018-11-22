@@ -17,6 +17,7 @@
     "@types/react": "^16.7.6",
     "@types/react-dom": "^16.0.9",
     "@types/recompose": "^0.27.1",
+    "@types/remove-markdown": "^0.1.1",
     "@types/styled-components": "^4.1.0",
     "@types/uuid": "^3.4.4",
     "babel-loader": "^8.0.4",
@@ -49,6 +50,7 @@
     "remark-html-katex": "^1.2.0",
     "remark-math": "^1.0.5",
     "remark-react": "^4.0.3",
+    "remove-markdown": "^0.3.0",
     "styled-components": "^4.1.1",
     "uuid": "^3.3.2"
   }

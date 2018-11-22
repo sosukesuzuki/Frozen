@@ -1,3 +1,5 @@
+import removeMd from 'remove-markdown'
+
 export function findNoteTitle (value:string):string {
   const splitted = value.split('\n')
   let title = null
@@ -31,5 +33,5 @@ export function findNoteTitle (value:string):string {
     })
   }
 
-  return title
+  return removeMd(title)
 }

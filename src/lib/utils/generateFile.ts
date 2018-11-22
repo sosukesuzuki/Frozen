@@ -1,10 +1,10 @@
 import { MarkdownFile } from '../types'
 import uuidv1 from 'uuid/v1'
+import { findNoteTitle } from './findNoteTitle'
 
 export function generateFile (content: string): MarkdownFile {
   const id = uuidv1()
-  // TODO: contentからtitleを生成する関数を作って使う
-  const title = content === '' ? 'untitled' : content
+  const title = content === '' ? 'untitled' : findNoteTitle(content)
   return {
     id,
     title,
