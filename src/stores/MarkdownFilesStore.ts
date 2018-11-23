@@ -1,6 +1,8 @@
 import { observable, action, computed } from "mobx";
 import { MarkdownFile } from "../lib/types";
 import { findNoteTitle } from "../lib/utils";
+import pullAt from "lodash/pullAt";
+import findIndex from "lodash/findIndex";
 
 export class MarkdownFilesStore {
   @observable public files: MarkdownFile[] = [];
@@ -18,7 +20,9 @@ export class MarkdownFilesStore {
   @action.bound
   removeFile(file: MarkdownFile) {
     const fileIndex = this.getFileIndexFromFile(file);
-    this.files.splice(fileIndex, 1);
+    pullAt(this.files, [fileIndex]);
+    if (fileIndex === this.currentFileIndex)
+      this.currentFileIndex = fileIndex - 1;
   }
 
   @action.bound
@@ -30,14 +34,9 @@ export class MarkdownFilesStore {
       }
       return file;
     });
-    const fileIndex = this.files.findIndex(file => file.id === id);
-    this.setCurrentFileIndex(fileIndex);
+    const fileIndex = this.getFileIndexFromFile({ id } as MarkdownFile);
+    this.currentFileIndex = fileIndex;
     this.files = newFiles;
-  }
-
-  @action.bound
-  setCurrentFileIndex(index: number) {
-    this.currentFileIndex = index;
   }
 
   @computed
@@ -45,12 +44,12 @@ export class MarkdownFilesStore {
     return this.files[this.currentFileIndex];
   }
 
-  getFileIndexFromFile({ id }: MarkdownFile) {
-    return this.files.findIndex(file => file.id === id);
-  }
-
   @action.bound
   setCurrentFileFromFile(file: MarkdownFile) {
     this.currentFileIndex = this.getFileIndexFromFile(file);
+  }
+
+  getFileIndexFromFile({ id }: MarkdownFile) {
+    return findIndex(this.files, file => file.id === id);
   }
 }

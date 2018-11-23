@@ -27,6 +27,9 @@ const Tab = styled.div`
     `
     background-color: ${grey[1]};
   `}
+  div {
+    width: 100%;
+  }
   span {
     overflow: hidden;
     text-overflow: ellipsis;
@@ -34,10 +37,6 @@ const Tab = styled.div`
   }
   svg {
     padding: 0 10px;
-  }
-  &:hover {
-    transition: 0.1s;
-    background-color: #fafafa;
   }
 `;
 const CloseButton = styled.button`
@@ -85,15 +84,17 @@ const TabBar: React.SFC<TabBarProps> = ({
   return (
     <Container>
       {files!.map(file => (
-        <Tab
-          key={file.id}
-          onClick={() => setCurrentFile!(file)}
-          isCurrentFile={file.id === currentFileId}
-        >
-          <span>
-            <FontAwesomeIcon icon={faFile} />
-            {file.title}
-          </span>
+        <Tab key={file.id} isCurrentFile={file.id === currentFileId}>
+          <div
+            onClick={() => {
+              setCurrentFile!(file);
+            }}
+          >
+            <span>
+              <FontAwesomeIcon icon={faFile} />
+              {file.title}
+            </span>
+          </div>
           <CloseButton
             onClick={() => {
               removeFile!(file);

@@ -9,7 +9,6 @@ import reactRenderer from "remark-react";
 interface RendererProps {
   file?: MarkdownFile;
   updateFile?: (value: { content: string; id: string }) => void;
-  files?: MarkdownFile[];
 }
 
 const Container = styled.div`
@@ -33,7 +32,7 @@ const TextareaContainer = styled.div`
   background-color: black;
 `;
 
-const Renderer: React.SFC<RendererProps> = ({ updateFile, files, file }) => {
+const Renderer: React.SFC<RendererProps> = ({ updateFile, file }) => {
   return (
     <Container>
       {file != null ? (
@@ -67,6 +66,5 @@ const Renderer: React.SFC<RendererProps> = ({ updateFile, files, file }) => {
 
 export default inject((stores: Stores) => ({
   file: stores.markdownFilesStore.file,
-  updateFile: stores.markdownFilesStore.updateFile,
-  files: stores.markdownFilesStore.files
+  updateFile: stores.markdownFilesStore.updateFile
 }))(observer(Renderer));
