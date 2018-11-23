@@ -23,6 +23,7 @@ export class MarkdownFilesStore {
     pullAt(this.files, [fileIndex]);
     if (fileIndex === this.currentFileIndex)
       this.currentFileIndex = fileIndex - 1;
+    if (fileIndex - 1 === -1) this.currentFileIndex = 0;
   }
 
   @action.bound
