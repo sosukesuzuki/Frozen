@@ -32,6 +32,12 @@ const MarkdownContainer = styled.div`
   padding: 20px;
   background-color: ${dracula.selection};
   color: ${dracula.foreground};
+  a {
+    color: ${dracula.pink};
+  }
+  pre {
+    background-color: ${dracula.background};
+  }
 `;
 const TextareaContainer = styled.div`
   padding: 20px;
