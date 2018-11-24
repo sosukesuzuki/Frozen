@@ -23,7 +23,7 @@ const Textarea = styled.textarea`
   outline: none;
   background-color: ${dracula.background};
   color: ${dracula.cyan};
-  height: 100%;
+  height: calc(100vh - 75px);
   width: 100%;
   font-size: 18px;
   border: none;
@@ -32,6 +32,8 @@ const MarkdownContainer = styled.div`
   padding: 20px;
   background-color: ${dracula.selection};
   color: ${dracula.foreground};
+  overflow-y: scroll;
+  height: calc(100vh - 75px);
   a {
     color: ${dracula.pink};
   }
