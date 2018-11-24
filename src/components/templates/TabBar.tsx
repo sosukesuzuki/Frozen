@@ -4,7 +4,7 @@ import { observer, inject } from "mobx-react";
 import Stores from "../../stores";
 import { MarkdownFile } from "../../lib/types";
 import { generateFile } from "../../lib/utils";
-import { grey, dracula } from "../../lib/colors";
+import { dracula } from "../../lib/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile } from "@fortawesome/free-solid-svg-icons";
 
