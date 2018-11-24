@@ -1,27 +1,42 @@
 <!DOCTYPE html>
-<html lang='ja'>
+<html lang="ja">
   <head>
     <title>Frozen</title>
-    <meta charset='utf8'>
+    <meta charset="utf8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.5.0/css/all.css" integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU" crossorigin="anonymous">
+    <link
+      rel="stylesheet"
+      href="https://use.fontawesome.com/releases/v5.5.0/css/all.css"
+      integrity="sha384-B4dIYHKNBt8Bc12p+WXckhzcICo0wtJAoU8YZTY5qE0Id1GSseTk6S+L3BlXeVIU"
+      crossorigin="anonymous"
+    />
   </head>
   <body>
-    <div class='root'>
-    </div>
+    <div class="root"></div>
     <style>
       body {
-        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+        font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto",
+          "Oxygen", "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans",
+          "Helvetica Neue", sans-serif;
       }
     </style>
-    <script type='module'>
+    <script type="module">
       (async () => {
         try {
-          await import('./main.js')
+          const el = document.querySelector(".root");
+          el.innerHTML = `
+                  <div style="width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; font-size: 1.5em;">
+                    <span>Loading assets</span>
+                  </div>
+                `;
+          if (location.hostname !== "localhost") {
+            navigator.serviceWorker.register("./sw.js");
+          }
+          await import("./main.js");
         } catch (error) {
-          console.error(error)
+          console.error(error);
         }
-      })()
+      })();
     </script>
   </body>
 </html>
