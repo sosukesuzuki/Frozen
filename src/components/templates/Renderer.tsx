@@ -25,7 +25,7 @@ const Textarea = styled.textarea`
   color: ${dracula.cyan};
   height: calc(100vh - 75px);
   width: 100%;
-  font-size: 18px;
+  font-size: 15px;
   border: none;
 `;
 const MarkdownContainer = styled.div`
