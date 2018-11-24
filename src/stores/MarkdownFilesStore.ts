@@ -14,16 +14,20 @@ export class MarkdownFilesStore {
   addFile(file: MarkdownFile, options?: { setFile?: boolean }) {
     this.files = this.files.concat(file);
     if (options == null) return;
-    if (options.setFile != null) this.setCurrentFileFromFile(file);
+    if (options.setFile) this.setCurrentFileFromFile(file);
   }
 
   @action.bound
   removeFile(file: MarkdownFile) {
     const fileIndex = this.getFileIndexFromFile(file);
     pullAt(this.files, [fileIndex]);
-    if (fileIndex === this.currentFileIndex)
+
+    if (fileIndex === this.currentFileIndex) {
       this.currentFileIndex = fileIndex - 1;
-    if (fileIndex - 1 === -1) this.currentFileIndex = 0;
+    }
+    if (fileIndex - 1 === -1) {
+      this.currentFileIndex = 0;
+    }
   }
 
   @action.bound
@@ -35,7 +39,7 @@ export class MarkdownFilesStore {
       }
       return file;
     });
-    const fileIndex = this.getFileIndexFromFile({ id } as MarkdownFile);
+    const fileIndex = this.getFileIndexFromFile({ id });
     this.currentFileIndex = fileIndex;
     this.files = newFiles;
   }
@@ -50,7 +54,7 @@ export class MarkdownFilesStore {
     this.currentFileIndex = this.getFileIndexFromFile(file);
   }
 
-  getFileIndexFromFile({ id }: MarkdownFile) {
+  getFileIndexFromFile({ id }: { id: string }) {
     return findIndex(this.files, file => file.id === id);
   }
 }
