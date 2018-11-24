@@ -29,11 +29,13 @@ const Tab = styled.div`
   `}
   div {
     width: 100%;
-  }
-  span {
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
+    max-width: 225px;
+  }
+  span {
+    max-width: 250px;
   }
   svg {
     padding: 0 10px;
