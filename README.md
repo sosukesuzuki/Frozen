@@ -2,6 +2,8 @@
 
 The markdown editor works on browsers and has multiple tabs.
 
+![Frozen ScreenShot](./resouces/Frozen.jpg)
+
 ## How to develop?
 
 ```
