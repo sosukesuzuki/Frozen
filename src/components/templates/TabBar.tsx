@@ -4,29 +4,31 @@ import { observer, inject } from "mobx-react";
 import Stores from "../../stores";
 import { MarkdownFile } from "../../lib/types";
 import { generateFile } from "../../lib/utils";
-import { grey } from "../../lib/colors";
+import { grey, dracula } from "../../lib/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile } from "@fortawesome/free-solid-svg-icons";
 
 const Container = styled.div`
   display: flex;
-  color: ${grey[6]};
+  color: ${dracula.foreground};
+  background-color: ${dracula.selection};
   overflow-x: scroll;
 `;
 const Tab = styled.div`
   height: 30px;
   cursor: pointer;
-  border-right: 1px solid ${grey[3]};
+  border-right: 1px solid ${dracula.foreground};
   line-height: 30px;
   transition: 0.1s;
   display: flex;
   justify-content: space-between;
   max-width: 250px;
   min-width: 180px;
+  background-color: ${dracula.selection};
   ${({ isCurrentFile }: { isCurrentFile: boolean }) =>
     isCurrentFile &&
     `
-    background-color: ${grey[1]};
+    background-color: ${dracula.background};
   `}
   div {
     width: 100%;
@@ -37,6 +39,7 @@ const Tab = styled.div`
   }
   span {
     max-width: 250px;
+    font-size: 15px;
   }
   svg {
     padding: 0 10px;
@@ -49,6 +52,7 @@ const CloseButton = styled.button`
   outline: none;
   width: 25px;
   transition: 0.1s;
+  color: ${dracula.foreground};
   &:hover {
     transition: 0.1s;
     font-weight: bold;
@@ -62,9 +66,10 @@ const AddButton = styled.button`
   width: 30px;
   outline: none;
   transition: 0.3s;
+  color: ${dracula.foreground};
   &:hover {
     transition: 0.3s;
-    background-color: ${grey[1]};
+    background-color: ${dracula.background};
   }
 `;
 

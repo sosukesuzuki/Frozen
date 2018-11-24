@@ -5,6 +5,7 @@ import { inject, observer } from "mobx-react";
 import Stores from "../../stores";
 import { markdownProcessor } from "../../lib/utils";
 import reactRenderer from "remark-react";
+import { dracula } from "../../lib/colors";
 
 interface RendererProps {
   file?: MarkdownFile;
@@ -14,22 +15,27 @@ interface RendererProps {
 const Container = styled.div`
   display: grid;
   grid-template-columns: 50% 1fr;
+  background-color: ${dracula.background};
+  color: ${dracula.foreground};
 `;
 const Textarea = styled.textarea`
   resize: none;
   outline: none;
-  background-color: black;
-  color: white;
+  background-color: ${dracula.background};
+  color: ${dracula.cyan};
   height: 100%;
   width: 100%;
   font-size: 18px;
+  border: none;
 `;
 const MarkdownContainer = styled.div`
   padding: 20px;
+  background-color: ${dracula.selection};
+  color: ${dracula.foreground};
 `;
 const TextareaContainer = styled.div`
   padding: 20px;
-  background-color: black;
+  background-color: ${dracula.background};
 `;
 
 const Renderer: React.SFC<RendererProps> = ({ updateFile, file }) => {
