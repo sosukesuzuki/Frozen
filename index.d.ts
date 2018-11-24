@@ -1,7 +1,2 @@
-declare module 'remark'
-declare module 'remark-math'
-declare module 'remark-highlight.js'
-declare module 'remark-breaks'
-declare module 'remark-html-katex'
-declare module 'remark-html'
-declare module 'remark-react'
+declare module "remark";
+declare module "remark-*";

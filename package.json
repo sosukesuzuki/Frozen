@@ -55,6 +55,7 @@
     "recompose": "^0.30.0",
     "remark": "^10.0.1",
     "remark-breaks": "^1.0.1",
+    "remark-emoji": "^2.0.2",
     "remark-highlight.js": "^5.0.0",
     "remark-html": "^8.0.0",
     "remark-html-katex": "^1.2.0",
