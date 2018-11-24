@@ -6,7 +6,8 @@
   "license": "MIT",
   "scripts": {
     "dev": "webpack-serve --no-reload --port 3333 NODE_ENV=\"development\"",
-    "format": "prettier --write \"src/**/*.{ts,tsx}\""
+    "format": "prettier --write \"src/**/*.{ts,tsx}\"",
+    "build": "rimraf dist && NODE_ENV=\"production\" webpack"
   },
   "devDependencies": {
     "@babel/core": "^7.1.6",
@@ -26,6 +27,7 @@
     "file-loader": "^2.0.0",
     "prettier": "1.15.2",
     "prettier-eslint": "^8.8.2",
+    "rimraf": "^2.6.2",
     "style-loader": "^0.23.1",
     "ts-loader": "^5.3.0",
     "tslint": "^5.11.0",
