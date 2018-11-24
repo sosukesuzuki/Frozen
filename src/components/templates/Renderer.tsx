@@ -39,6 +39,7 @@ const Renderer: React.SFC<RendererProps> = ({ updateFile, file }) => {
         <>
           <TextareaContainer>
             <Textarea
+              className="editor"
               onChange={(e: React.ChangeEvent) => {
                 updateFile!({
                   content: (e.target as HTMLTextAreaElement).value,
