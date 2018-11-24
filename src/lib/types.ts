@@ -7,5 +7,6 @@ export interface MarkdownFile {
 export interface DBItem {
   id: string;
   content: string;
+  title: string;
   updatedAt: number;
 }

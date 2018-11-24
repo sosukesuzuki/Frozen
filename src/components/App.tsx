@@ -4,7 +4,6 @@ import { Provider } from "mobx-react";
 import TabBar from "./templates/TabBar";
 import Renderer from "./templates/Renderer";
 import { MarkdownFilesStore } from "../stores";
-import { generateFile } from "../lib/utils";
 
 const Container = styled.div`
   display: grid;
@@ -14,12 +13,9 @@ const Container = styled.div`
   overflow-y: hidden;
 `;
 
-const App: React.SFC = () => {
-  const markdownFilesStore = new MarkdownFilesStore();
-  if (markdownFilesStore.files.length === 0) {
-    markdownFilesStore.addFile(generateFile(""), { setFile: true });
-  }
-
+const App: React.SFC<{ markdownFilesStore: MarkdownFilesStore }> = ({
+  markdownFilesStore
+}) => {
   return (
     <Provider markdownFilesStore={markdownFilesStore}>
       <Container>

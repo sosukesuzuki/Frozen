@@ -3,6 +3,7 @@ import { MarkdownFile } from "../lib/types";
 import { findNoteTitle } from "../lib/utils";
 import pullAt from "lodash/pullAt";
 import findIndex from "lodash/findIndex";
+import { getFiles, addFile, deleteFile, updateFile } from "../lib/storage";
 
 export class MarkdownFilesStore {
   @observable public files: MarkdownFile[] = [];
@@ -10,15 +11,22 @@ export class MarkdownFilesStore {
 
   constructor() {}
 
+  async init() {
+    this.files = await getFiles();
+  }
+
   @action.bound
-  addFile(file: MarkdownFile, options?: { setFile?: boolean }) {
+  async addFile(file: MarkdownFile, options?: { setFile?: boolean }) {
     this.files = this.files.concat(file);
+
+    await addFile(file);
+
     if (options == null) return;
     if (options.setFile) this.setCurrentFileFromFile(file);
   }
 
   @action.bound
-  removeFile(file: MarkdownFile) {
+  async removeFile(file: MarkdownFile) {
     const fileIndex = this.getFileIndexFromFile(file);
     pullAt(this.files, [fileIndex]);
 
@@ -28,10 +36,12 @@ export class MarkdownFilesStore {
     if (fileIndex - 1 === -1) {
       this.currentFileIndex = 0;
     }
+
+    await deleteFile(file.id);
   }
 
   @action.bound
-  updateFile({ content, id }: { content: string; id: string }) {
+  async updateFile({ content, id }: { content: string; id: string }) {
     const newFiles = this.files.map(file => {
       if (file.id === id) {
         file.content = content;
@@ -42,6 +52,12 @@ export class MarkdownFilesStore {
     const fileIndex = this.getFileIndexFromFile({ id });
     this.currentFileIndex = fileIndex;
     this.files = newFiles;
+
+    await updateFile({
+      id,
+      content,
+      title: findNoteTitle(content)
+    });
   }
 
   @computed
