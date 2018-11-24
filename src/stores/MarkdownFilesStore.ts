@@ -3,6 +3,7 @@ import { MarkdownFile } from "../lib/types";
 import { findNoteTitle } from "../lib/utils";
 import pullAt from "lodash/pullAt";
 import findIndex from "lodash/findIndex";
+import debounce from "lodash/debounce";
 import { getFiles, addFile, deleteFile, updateFile } from "../lib/storage";
 
 export class MarkdownFilesStore {
@@ -53,11 +54,13 @@ export class MarkdownFilesStore {
     this.currentFileIndex = fileIndex;
     this.files = newFiles;
 
-    await updateFile({
-      id,
-      content,
-      title: findNoteTitle(content)
-    });
+    await debounce(() => {
+      updateFile({
+        id,
+        content,
+        title: findNoteTitle(content)
+      });
+    }, 1000)();
   }
 
   @computed
