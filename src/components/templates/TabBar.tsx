@@ -11,6 +11,7 @@ import { faFile } from "@fortawesome/free-solid-svg-icons";
 const Container = styled.div`
   display: flex;
   color: ${grey[6]};
+  overflow-x: scroll;
 `;
 const Tab = styled.div`
   height: 30px;
