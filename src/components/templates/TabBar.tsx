@@ -40,6 +40,7 @@ const Tab = styled.div`
   span {
     max-width: 250px;
     font-size: 15px;
+    font-weight: bold;
   }
   svg {
     padding: 0 10px;
