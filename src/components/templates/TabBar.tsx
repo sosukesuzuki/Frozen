@@ -20,7 +20,7 @@ const Container = styled.div`
     background: ${dracula.scrollBarBackground};
   }
   &::-webkit-scrollbar-thumb {
-    background: ${dracula.scrollBar};
+    background: ${dracula.scrollBarThumb};
   }
 `;
 const Tab = styled.div`
