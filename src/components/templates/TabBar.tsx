@@ -12,7 +12,16 @@ const Container = styled.div`
   display: flex;
   color: ${dracula.foreground};
   background-color: ${dracula.selection};
-  overflow-x: scroll;
+  overflow-x: auto;
+  overflow-y: hidden;
+  height: 40px; /* 30px of tabs + 10px of scrollbar */
+  &::-webkit-scrollbar {
+    height: 10px;
+    background: ${dracula.scrollBarBackground};
+  }
+  &::-webkit-scrollbar-thumb {
+    background: ${dracula.scrollBar};
+  }
 `;
 const Tab = styled.div`
   height: 30px;
