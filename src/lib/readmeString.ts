@@ -1,15 +1,15 @@
-# Frozen
+export default `# Frozen
 
 The markdown editor works on browsers and has multiple tabs.
 
-![Frozen ScreenShot](./resources/Frozen.jpg)
+![Frozen ScreenShot](./resouces/Frozen.jpg)
 
 ## How to develop?
 
-```
+\`\`\`
 $ yarn
 $ yarn run dev
-```
+\`\`\`
 
 ## Author
 
@@ -21,4 +21,4 @@ You can use Rapunzel on the modern browser only.
 
 ## Licence
 
-MIT
+MIT`;
