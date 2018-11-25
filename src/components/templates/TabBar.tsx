@@ -17,7 +17,6 @@ const Container = styled.div`
 const Tab = styled.div`
   height: 30px;
   cursor: pointer;
-  border-right: 1px solid ${dracula.foreground};
   line-height: 30px;
   transition: 0.1s;
   display: flex;
