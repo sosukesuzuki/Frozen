@@ -4,7 +4,7 @@ import { findNoteTitle } from "../lib/utils";
 import pullAt from "lodash/pullAt";
 import findIndex from "lodash/findIndex";
 import debounce from "lodash/debounce";
-import { getFiles, addFile, deleteFile, updateFile } from "../lib/storage";
+import { getFiles, addFile, deleteFile, updateFile } from "../lib/db";
 
 export class MarkdownFilesStore {
   @observable public files: MarkdownFile[] = [];
