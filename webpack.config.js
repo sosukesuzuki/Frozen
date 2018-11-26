@@ -1,21 +1,25 @@
-const path = require('path')
-const CopyPlugin = require("copy-webpack-plugin")
-const WorkboxPlugin = require('workbox-webpack-plugin')
-const MODE = process.env.NODE_ENV || 'development'
-const DEV = MODE == "development"
+const path = require("path");
+const CopyPlugin = require("copy-webpack-plugin");
+const WorkboxPlugin = require("workbox-webpack-plugin");
+const MODE = process.env.NODE_ENV || "development";
+const DEV = MODE == "development";
 
 const copyRules = [
   {
-    from: __dirname + '/src/index.html',
-    to: __dirname + '/dist/index.html'
+    from: __dirname + "/src/index.html",
+    to: __dirname + "/dist/index.html"
+  },
+  {
+    from: __dirname + "/assets/**",
+    to: __dirname + "/dist"
   }
-]
+];
 
 module.exports = {
   mode: MODE,
-  devtool: DEV ? 'inline-source-map' : 'source-map',
+  devtool: DEV ? "inline-source-map" : "source-map",
   resolve: {
-    extensions: ['.ts', '.tsx', '.js', '.jsx']
+    extensions: [".ts", ".tsx", ".js", ".jsx"]
   },
   module: {
     rules: [
@@ -23,7 +27,7 @@ module.exports = {
         test: /\.tsx?$/,
         use: [
           {
-            loader: 'ts-loader',
+            loader: "ts-loader",
             options: {
               transpileOnly: true
             }
@@ -46,11 +50,11 @@ module.exports = {
   plugins: DEV
     ? [new CopyPlugin(copyRules)]
     : [
-      new CopyPlugin(copyRules),
-      new WorkboxPlugin.GenerateSW({
-        swDest: "sw.js",
-        clientsClaim: true,
-        skipWaiting: true
-      })
-    ]
-}
+        new CopyPlugin(copyRules),
+        new WorkboxPlugin.GenerateSW({
+          swDest: "sw.js",
+          clientsClaim: true,
+          skipWaiting: true
+        })
+      ]
+};
