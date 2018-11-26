@@ -33,6 +33,8 @@ const MarkdownContainer = styled.div`
   color: ${dracula.foreground};
   overflow-y: scroll;
   height: calc(100vh - 75px);
+  font-size: 14px;
+  letter-spacing: 1px;
   a {
     color: ${dracula.pink};
   }
