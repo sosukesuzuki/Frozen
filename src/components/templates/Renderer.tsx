@@ -4,7 +4,6 @@ import { MarkdownFile } from "../../lib/types";
 import { inject, observer } from "mobx-react";
 import Stores from "../../stores";
 import { markdownProcessor } from "../../lib/utils";
-import reactRenderer from "remark-react";
 import { dracula } from "../../lib/colors";
 
 interface RendererProps {
@@ -64,13 +63,12 @@ const Renderer: React.SFC<RendererProps> = ({ updateFile, file }) => {
               autoFocus
             />
           </TextareaContainer>
-          <MarkdownContainer className="markdown-body">
-            {
-              markdownProcessor()
-                .use(reactRenderer)
-                .processSync(file!.content).contents
-            }
-          </MarkdownContainer>
+          <MarkdownContainer
+            className="markdown-body"
+            dangerouslySetInnerHTML={{
+              __html: markdownProcessor.processSync(file!.content).toString()
+            }}
+          />
         </>
       ) : (
         <p>Please add a new tab.</p>
