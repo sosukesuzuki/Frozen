@@ -10,10 +10,17 @@ export class MarkdownFilesStore {
   @observable public files: MarkdownFile[] = [];
   @observable public currentFileIndex: number = 0;
 
-  constructor() {}
-
   async init() {
     this.files = await getFiles();
+  }
+
+  getFileIndexFromFile({ id }: { id: string }) {
+    return findIndex(this.files, file => file.id === id);
+  }
+
+  @computed
+  get file() {
+    return this.files[this.currentFileIndex];
   }
 
   @action.bound
@@ -43,16 +50,9 @@ export class MarkdownFilesStore {
 
   @action.bound
   async updateFile({ content, id }: { content: string; id: string }) {
-    const newFiles = this.files.map(file => {
-      if (file.id === id) {
-        file.content = content;
-        file.title = content === "" ? "untitled" : findNoteTitle(content);
-      }
-      return file;
-    });
     const fileIndex = this.getFileIndexFromFile({ id });
-    this.currentFileIndex = fileIndex;
-    this.files = newFiles;
+    this.files[fileIndex].content = content;
+    this.files[fileIndex].title = findNoteTitle(content);
 
     await debounce(() => {
       updateFile({
@@ -63,17 +63,8 @@ export class MarkdownFilesStore {
     }, 1000)();
   }
 
-  @computed
-  get file() {
-    return this.files[this.currentFileIndex];
-  }
-
   @action.bound
   setCurrentFileFromFile(file: MarkdownFile) {
     this.currentFileIndex = this.getFileIndexFromFile(file);
-  }
-
-  getFileIndexFromFile({ id }: { id: string }) {
-    return findIndex(this.files, file => file.id === id);
   }
 }
