@@ -10,5 +10,7 @@ export const dracula = {
   pink: "#ff79c6",
   purple: "#bd93f9",
   red: "#ff5555",
-  yellow: "#f1fa8c"
+  yellow: "#f1fa8c",
+  scrollBarThumb: "#222533",
+  scrollBarBackground: "#696c7b"
 };
