@@ -1,4 +1,9 @@
 import removeMd from "remove-markdown";
+import striptags from "striptags";
+
+function stripMdAndHtml(value: string): string {
+  return striptags(removeMd(value));
+}
 
 export function findNoteTitle(value: string): string {
   const splitted = value.split("\n");
@@ -37,5 +42,5 @@ export function findNoteTitle(value: string): string {
     });
   }
 
-  return removeMd(title);
+  return stripMdAndHtml(title);
 }
