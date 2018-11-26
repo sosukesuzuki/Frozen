@@ -17,7 +17,7 @@ $ yarn run dev
 
 ## Attention
 
-You can use Rapunzel on the modern browser only.
+You can use Frozen on the modern browser only.
 
 ## Licence
 
