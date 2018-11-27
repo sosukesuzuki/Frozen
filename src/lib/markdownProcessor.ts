@@ -5,7 +5,7 @@ import math from "remark-math";
 import katex from "remark-html-katex";
 import html from "remark-html";
 
-export const markdownProcessor = remark()
+export default remark()
   .use(breaks)
   .use(emoji)
   .use(math)

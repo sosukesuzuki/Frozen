@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { MarkdownFile } from "../../lib/types";
 import { inject, observer } from "mobx-react";
 import Stores from "../../stores";
-import { markdownProcessor } from "../../lib/utils";
+import markdownProcessor from "../../lib/markdownProcessor";
 import { dracula } from "../../lib/colors";
 
 interface RendererProps {
