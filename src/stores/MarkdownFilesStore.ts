@@ -39,7 +39,7 @@ export class MarkdownFilesStore {
   }
 
   @computed
-  get file() {
+  get file(): MarkdownFile | undefined {
     return this.files[this.currentFileIndex];
   }
 
