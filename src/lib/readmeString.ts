@@ -1,22 +1,22 @@
 export default `# Frozen
 
-The markdown editor works on browsers and has multiple tabs.
+:star:The markdown editor works on browsers.:star:
 
-## How to develop?
+## About
 
-\`\`\`
-$ yarn
-$ yarn run dev
-\`\`\`
+This is the text editor for writing markdown works on your browser.
+
+## Usage
+
+Please open https://frozen-editor.netlify.com.
+Also, Frozen is a PWA. So, You can install it as Desktop PWA.:fire:
+
+You can add a new tab and you can write a new markdown note. Also, notes is saved into IndexedDB.
 
 ## Author
 
 - [sosukesuzuki](https://github.com/sosukesuzuki)
 
-## Attention
-
-You can use Rapunzel on the modern browser only.
-
 ## Licence
 
-MIT`;
+- MIT`;
