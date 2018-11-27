@@ -1,18 +1,36 @@
 import { observable, action, computed } from "mobx";
 import { MarkdownFile } from "../lib/types";
-import { findNoteTitle } from "../lib/utils";
+import { findNoteTitle, generateFile } from "../lib/utils";
 import pullAt from "lodash/pullAt";
 import findIndex from "lodash/findIndex";
 import debounce from "lodash/debounce";
 import { getFiles, addFile, deleteFile, updateFile } from "../lib/db";
-import { setCurrentFileIndex } from "../lib/localStorage";
+import { LocalStorageServiceInterface } from "../lib/services/LocalStorageService";
+import Types from "../lib/services/Types";
+import { lazyInject } from "../lib/containers";
+import readmeString from "../lib/readmeString";
 
 export class MarkdownFilesStore {
   @observable public files: MarkdownFile[] = [];
   @observable public currentFileIndex: number = 0;
+  @lazyInject(Types.LocalStorageService)
+  private localStorageService!: LocalStorageServiceInterface;
 
   async init() {
     this.files = await getFiles();
+    if (
+      this.files.length === 0 &&
+      this.localStorageService.getIsFirstAccess() == null
+    ) {
+      this.localStorageService.setIsFirstAccess();
+      await this.addFile(generateFile(readmeString), {
+        setFile: true
+      });
+    }
+    const currentFileIndex = this.localStorageService.getCurrentFileIndex();
+    if (currentFileIndex != null) {
+      await this.setCurrentFileIndex(currentFileIndex);
+    }
   }
 
   getFileIndexFromFile({ id }: { id: string }) {
@@ -72,6 +90,6 @@ export class MarkdownFilesStore {
   @action.bound
   setCurrentFileFromFile(file: MarkdownFile) {
     this.currentFileIndex = this.getFileIndexFromFile(file);
-    setCurrentFileIndex(this.currentFileIndex);
+    this.localStorageService.setCurrentFileIndex(this.currentFileIndex);
   }
 }
