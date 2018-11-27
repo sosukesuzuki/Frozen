@@ -78,11 +78,11 @@ const AddButton = styled.button`
   height: 30px;
   width: 30px;
   outline: none;
-  transition: 0.3s;
+  transition: 0.1s;
   color: ${dracula.foreground};
   &:hover {
-    transition: 0.3s;
-    background-color: ${dracula.background};
+    transition: 0.1s;
+    font-weight: bold;
   }
 `;
 
