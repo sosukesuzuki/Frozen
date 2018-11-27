@@ -7,7 +7,7 @@ import debounce from "lodash/debounce";
 import { getFiles, addFile, deleteFile, updateFile } from "../lib/db";
 import { LocalStorageServiceInterface } from "../lib/services/LocalStorageService";
 import Types from "../lib/services/Types";
-import { lazyInject } from "../lib/containers";
+import { lazyInject } from "../lib/container";
 import readmeString from "../lib/readmeString";
 
 export class MarkdownFilesStore {

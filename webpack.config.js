@@ -1,3 +1,4 @@
+const webpack = require("webpack");
 const path = require("path");
 const CopyPlugin = require("copy-webpack-plugin");
 const WorkboxPlugin = require("workbox-webpack-plugin");
@@ -48,9 +49,17 @@ module.exports = {
     ]
   },
   plugins: DEV
-    ? [new CopyPlugin(copyRules)]
+    ? [
+        new CopyPlugin(copyRules),
+        new webpack.DefinePlugin({
+          "process.env.NODE_ENV": JSON.stringify(MODE)
+        })
+      ]
     : [
         new CopyPlugin(copyRules),
+        new webpack.DefinePlugin({
+          "process.env.NODE_ENV": JSON.stringify(MODE)
+        }),
         new WorkboxPlugin.GenerateSW({
           swDest: "sw.js",
           clientsClaim: true,
