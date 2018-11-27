@@ -5,6 +5,7 @@ import pullAt from "lodash/pullAt";
 import findIndex from "lodash/findIndex";
 import debounce from "lodash/debounce";
 import { getFiles, addFile, deleteFile, updateFile } from "../lib/db";
+import { setCurrentFileIndex } from "../lib/localStorage";
 
 export class MarkdownFilesStore {
   @observable public files: MarkdownFile[] = [];
@@ -64,7 +65,13 @@ export class MarkdownFilesStore {
   }
 
   @action.bound
+  setCurrentFileIndex(index: number) {
+    this.currentFileIndex = index;
+  }
+
+  @action.bound
   setCurrentFileFromFile(file: MarkdownFile) {
     this.currentFileIndex = this.getFileIndexFromFile(file);
+    setCurrentFileIndex(this.currentFileIndex);
   }
 }
