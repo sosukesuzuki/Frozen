@@ -44,6 +44,11 @@ const MarkdownContainer = styled.div`
   code {
     background-color: ${dracula.background};
   }
+  table {
+    tr {
+      background-color: ${dracula.selection};
+    }
+  }
 `;
 const TextareaContainer = styled.div`
   padding: 20px;
