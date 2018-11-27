@@ -1,3 +1,4 @@
 export default {
-  LocalStorageService: Symbol.for("LocalStorageService")
+  LocalStorageService: Symbol.for("LocalStorageService"),
+  DBService: Symbol.for("DBService")
 };

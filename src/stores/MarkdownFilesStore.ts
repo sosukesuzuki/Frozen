@@ -4,20 +4,21 @@ import { findNoteTitle, generateFile } from "../lib/utils";
 import pullAt from "lodash/pullAt";
 import findIndex from "lodash/findIndex";
 import debounce from "lodash/debounce";
-import { getFiles, addFile, deleteFile, updateFile } from "../lib/db";
 import { LocalStorageServiceInterface } from "../lib/services/LocalStorageService";
 import Types from "../lib/services/Types";
 import { lazyInject } from "../lib/container";
 import readmeString from "../lib/readmeString";
+import { DBServiceInterface } from "../lib/services/DBService";
 
 export class MarkdownFilesStore {
   @observable public files: MarkdownFile[] = [];
   @observable public currentFileIndex: number = 0;
   @lazyInject(Types.LocalStorageService)
   private localStorageService!: LocalStorageServiceInterface;
+  @lazyInject(Types.DBService) private db!: DBServiceInterface;
 
   async init() {
-    this.files = await getFiles();
+    this.files = await this.db.getFiles();
     if (
       this.files.length === 0 &&
       this.localStorageService.getIsFirstAccess() == null
@@ -46,7 +47,7 @@ export class MarkdownFilesStore {
   async addFile(file: MarkdownFile, options?: { setFile?: boolean }) {
     this.files = this.files.concat(file);
 
-    await addFile(file);
+    await this.db.addFile(file);
 
     if (options == null) return;
     if (options.setFile) this.setCurrentFileFromFile(file);
@@ -64,7 +65,7 @@ export class MarkdownFilesStore {
       this.currentFileIndex = 0;
     }
 
-    await deleteFile(file.id);
+    await this.db.deleteFile(file.id);
   }
 
   @action.bound
@@ -74,7 +75,7 @@ export class MarkdownFilesStore {
     this.files[fileIndex].title = findNoteTitle(content);
 
     await debounce(() => {
-      updateFile({
+      this.db.updateFile({
         id,
         content,
         title: findNoteTitle(content)
