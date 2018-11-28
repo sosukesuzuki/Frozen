@@ -36,7 +36,7 @@ const Tab = styled.div`
   ${({ isCurrentFile }: { isCurrentFile: boolean }) =>
     isCurrentFile &&
     `
-    background-color: ${dracula.background};
+    background-color: rgba(193, 193, 193, 0.2);
   `}
   div {
     width: 100%;
