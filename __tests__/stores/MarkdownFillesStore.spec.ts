@@ -136,5 +136,7 @@ describe("MarkdownFilesStore", () => {
       // Then
       expect(store.files).toEqual([dummyFile1]);
     });
+
+    // TODO: Add other methods test.
   });
 });
