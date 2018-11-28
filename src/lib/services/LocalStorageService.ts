@@ -13,7 +13,7 @@ export interface LocalStorageServiceInterface {
 @injectable()
 export class LocalStorageService implements LocalStorageServiceInterface {
   setIsFirstAccess(): void {
-    localStorage.setItem(IS_FIRST_ACCESS, "true");
+    localStorage.setItem(IS_FIRST_ACCESS, "false");
   }
 
   getIsFirstAccess(): string | null {
