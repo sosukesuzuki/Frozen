@@ -113,4 +113,28 @@ describe("MarkdownFilesStore", () => {
       expect(store.currentFileIndex).toBe(1);
     });
   });
+
+  describe("#removeFile", () => {
+    it("deletes the file", async () => {
+      // Given
+      const store = new MarkdownFilesStore();
+      const dummyFile1 = {
+        title: "title",
+        content: "content",
+        id: "12345"
+      };
+      const dummyFile2 = {
+        title: "title",
+        content: "content",
+        id: "67890"
+      };
+      store.files = [dummyFile1, dummyFile2];
+
+      // When
+      await store.removeFile(dummyFile2);
+
+      // Then
+      expect(store.files).toEqual([dummyFile1]);
+    });
+  });
 });
