@@ -1,19 +1,17 @@
 # Frozen
 
-:star:The markdown editor works on browsers.:star:
+The PWA Markdown editor.
 
 ![Frozen ScreenShot](./resources/Frozen.jpg)
 
 ## About
 
-This is the text editor for writing markdown works on your browser.
+This is the PWA text editor to write Markdown.
 
 ## Usage
 
 Please open https://frozen-editor.netlify.com.
-Also, Frozen is a PWA. So, You can install it as Desktop PWA.:fire:
-
-You can add a new tab and you can write a new markdown note. Also, notes is saved into IndexedDB.
+Also Frozen is a PWA, because you can install this app as a PWA.
 
 ## Author
 
