@@ -1,13 +1,14 @@
 import { injectable } from "inversify";
+import { MarkdownFile } from "../types";
 
 const IS_FIRST_ACCESS = "IS_FIRST_ACCESS";
-const CURRENT_FILE_INDEX = "CURRENT_FILE_INDEX";
+const CURRENT_FILE = "CURRENT_FILE";
 
 export interface LocalStorageServiceInterface {
   setIsFirstAccess: () => void;
   getIsFirstAccess: () => string | null;
-  setCurrentFileIndex: (index: number) => void;
-  getCurrentFileIndex: () => number | null;
+  setCurrentFile: (file: MarkdownFile) => void;
+  getCurrentFile: () => string | null;
 }
 
 @injectable()
@@ -20,13 +21,13 @@ export class LocalStorageService implements LocalStorageServiceInterface {
     return localStorage.getItem(IS_FIRST_ACCESS);
   }
 
-  setCurrentFileIndex(index: number): void {
-    localStorage.setItem(CURRENT_FILE_INDEX, index.toString());
+  setCurrentFile(file: MarkdownFile): void {
+    localStorage.setItem(CURRENT_FILE, file.id);
   }
 
-  getCurrentFileIndex(): number | null {
-    const stringifiedIndex = localStorage.getItem(CURRENT_FILE_INDEX);
-    return stringifiedIndex == null ? null : parseInt(stringifiedIndex, 10);
+  getCurrentFile(): string | null {
+    const id = localStorage.getItem(CURRENT_FILE);
+    return id == null ? null : id;
   }
 }
 
@@ -36,6 +37,6 @@ function doNothing(): any {}
 export class MockLocalStorageService implements LocalStorageServiceInterface {
   setIsFirstAccess = doNothing;
   getIsFirstAccess = doNothing;
-  setCurrentFileIndex = doNothing;
-  getCurrentFileIndex = doNothing;
+  setCurrentFile = doNothing;
+  getCurrentFile = doNothing;
 }
