@@ -12,7 +12,7 @@ This is the PWA text editor to write Markdown.
 
 Please open https://frozen-editor.netlify.com.
 
-Also Frozen is a PWA, because you can install this app as a PWA.
+Also Frozen is a PWA, because you can install this app as a desktop PWA.
 
 ## Author
 
