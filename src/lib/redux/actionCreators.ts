@@ -3,10 +3,12 @@ import { MarkdownFile } from "../types";
 export enum ActionTypes {
   INIT = "INIT",
   SET_INITIALIZATION = "SET_INITIALIZATION",
-  ADD_NOTE = "ADD_NOTE",
-  SET_NEW_NOTE = "SET_NEW_NOTE",
-  UPDATE_NOTE = "UPDATE_NOTE",
-  SET_UPDATED_NOTE = "SET_UPDATED_NOTE",
+  ADD_FILE = "ADD_FILE",
+  SET_NEW_FILE = "SET_NEW_FILE",
+  DELTE_FILE = "DELETE_FILE",
+  SET_DELETED_FILES = "SET_DELETED_FILES",
+  UPDATE_FILE = "UPDATE_FILE",
+  SET_UPDATED_FILE = "SET_UPDATED_FILE",
   SWITCH_CURRENT_FILE = "SWITCH_CURRENT_FILE",
   SET_CURRENT_FILE = "SET_CURRENT_FILE"
 }
@@ -32,34 +34,50 @@ export default {
       }
     };
   },
-  addNote(file: MarkdownFile): Action {
+  addFile(file: MarkdownFile): Action {
     return {
-      type: ActionTypes.ADD_NOTE,
+      type: ActionTypes.ADD_FILE,
       payload: {
         file
       }
     };
   },
-  setNewNote(file: MarkdownFile): Action {
+  setNewFile(file: MarkdownFile): Action {
     return {
-      type: ActionTypes.SET_NEW_NOTE,
+      type: ActionTypes.SET_NEW_FILE,
       payload: {
         file
       }
     };
   },
-  updateNote(id: string, content: string) {
+  deleteFile(file: MarkdownFile): Action {
     return {
-      type: ActionTypes.UPDATE_NOTE,
+      type: ActionTypes.DELTE_FILE,
+      payload: {
+        file
+      }
+    };
+  },
+  setDeletedFiles(files: MarkdownFile[]): Action {
+    return {
+      type: ActionTypes.SET_DELETED_FILES,
+      payload: {
+        files
+      }
+    };
+  },
+  updateFile(id: string, content: string) {
+    return {
+      type: ActionTypes.UPDATE_FILE,
       payload: {
         id,
         content
       }
     };
   },
-  setUpdatedNote(file: MarkdownFile): Action {
+  setUpdatedFile(file: MarkdownFile): Action {
     return {
-      type: ActionTypes.SET_UPDATED_NOTE,
+      type: ActionTypes.SET_UPDATED_FILE,
       payload: {
         file
       }

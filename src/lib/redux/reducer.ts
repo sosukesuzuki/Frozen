@@ -1,31 +1,39 @@
 import { ActionTypes, Action } from "./actionCreators";
 import { MarkdownFile } from "../types";
 
-interface State {
+export interface State {
   files: MarkdownFile[];
-  currentFile?: MarkdownFile;
+  currentFileId: string;
 }
 
 const initialState: State = {
   files: [],
-  currentFile: undefined
+  currentFileId: ""
 };
 
-export default function reducer(state: State = initialState, action: Action) {
+export default function reducer(
+  state: State = initialState,
+  action: Action
+): State {
   const { type, payload } = action;
   switch (type) {
     case ActionTypes.SET_INITIALIZATION:
       return {
         ...state,
         files: payload.files,
-        currentFile: payload.currentFile
+        currentFileId: payload.currentFileId
       };
-    case ActionTypes.SET_NEW_NOTE:
+    case ActionTypes.SET_NEW_FILE:
       return {
         ...state,
         files: [...state.files, payload.file]
       };
-    case ActionTypes.SET_UPDATED_NOTE:
+    case ActionTypes.SET_DELETED_FILES:
+      return {
+        ...state,
+        files: payload.files
+      };
+    case ActionTypes.SET_UPDATED_FILE:
       const { files } = state;
       const newFiles = files.map(file => {
         if (file.id === payload.file.id) return payload.file;
@@ -38,7 +46,7 @@ export default function reducer(state: State = initialState, action: Action) {
     case ActionTypes.SET_CURRENT_FILE:
       return {
         ...state,
-        currentFile: payload.file
+        currentFileId: payload.file.id
       };
     default:
       return {
