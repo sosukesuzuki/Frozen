@@ -14,6 +14,12 @@ const initialState: State = {
 export default function reducer(state: State = initialState, action: Action) {
   const { type, payload } = action;
   switch (type) {
+    case ActionTypes.SET_INITIALIZATION:
+      return {
+        ...state,
+        files: payload.files,
+        currentFile: payload.currentFile
+      };
     case ActionTypes.SET_NEW_NOTE:
       return {
         ...state,

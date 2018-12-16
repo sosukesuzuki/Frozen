@@ -1,6 +1,8 @@
 import { MarkdownFile } from "../types";
 
 export enum ActionTypes {
+  INIT = "INIT",
+  SET_INITIALIZATION = "SET_INITIALIZATION",
   ADD_NOTE = "ADD_NOTE",
   SET_NEW_NOTE = "SET_NEW_NOTE",
   UPDATE_NOTE = "UPDATE_NOTE",
@@ -15,6 +17,21 @@ export interface Action {
 }
 
 export default {
+  init(): Action {
+    return {
+      type: ActionTypes.INIT,
+      payload: null
+    };
+  },
+  setInitialization(files: MarkdownFile[], currentFile?: MarkdownFile): Action {
+    return {
+      type: ActionTypes.SET_INITIALIZATION,
+      payload: {
+        files,
+        currentFile
+      }
+    };
+  },
   addNote(file: MarkdownFile): Action {
     return {
       type: ActionTypes.ADD_NOTE,
