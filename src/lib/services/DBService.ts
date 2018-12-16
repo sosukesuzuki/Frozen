@@ -29,36 +29,36 @@ export class DBService implements DBService {
     this.files = db.files;
   }
 
-  async getFiles(): Promise<MarkdownFile[]> {
+  getFiles = async (): Promise<MarkdownFile[]> => {
     const items = await this.files.toArray();
     return items.map(({ id, title, content }) => ({
       id,
       title,
       content
     }));
-  }
+  };
 
-  async addFile({ id, content, title }: MarkdownFile): Promise<void> {
+  addFile = async ({ id, content, title }: MarkdownFile): Promise<void> => {
     await this.files.add({
       id,
       content,
       title,
       updatedAt: Date.now()
     });
-  }
+  };
 
-  async deleteFile(id: string): Promise<void> {
+  deleteFile = async (id: string): Promise<void> => {
     await this.files.delete(id);
-  }
+  };
 
-  async updateFile({ id, content, title }: MarkdownFile): Promise<void> {
+  updateFile = async ({ id, content, title }: MarkdownFile): Promise<void> => {
     await this.files.put({
       id,
       content,
       title,
       updatedAt: Date.now()
     });
-  }
+  };
 }
 
 function doNothing(): any {}

@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styled from "styled-components";
-import { Provider } from "mobx-react";
 import TabBar from "./templates/TabBar";
 import Renderer from "./templates/Renderer";
-import { MarkdownFilesStore } from "../stores";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import actionCreators, { Action } from "../lib/redux/actionCreators";
 
 const Container = styled.div`
   display: grid;
@@ -13,17 +14,30 @@ const Container = styled.div`
   overflow-y: hidden;
 `;
 
-const App: React.SFC<{ markdownFilesStore: MarkdownFilesStore }> = ({
-  markdownFilesStore
-}) => {
+interface Props {
+  init: () => Action;
+}
+
+const App: React.SFC<Props> = ({ init }) => {
+  useEffect(function() {
+    init();
+  }, []);
   return (
-    <Provider markdownFilesStore={markdownFilesStore}>
-      <Container>
-        <TabBar />
-        <Renderer />
-      </Container>
-    </Provider>
+    <Container>
+      <TabBar />
+      <Renderer />
+    </Container>
   );
 };
 
-export default App;
+export default connect(
+  null,
+  dispatch => ({
+    ...bindActionCreators(
+      {
+        init: actionCreators.init
+      },
+      dispatch
+    )
+  })
+)(App);

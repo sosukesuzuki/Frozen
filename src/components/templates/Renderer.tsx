@@ -1,15 +1,13 @@
 import React from "react";
 import styled from "styled-components";
+import { connect } from "react-redux";
 import { MarkdownFile } from "../../lib/types";
-import { inject, observer } from "mobx-react";
-import Stores from "../../stores";
+import { State } from "../../lib/redux/reducer";
 import markdownProcessor from "../../lib/markdownProcessor";
 import { dracula } from "../../lib/colors";
-
-interface RendererProps {
-  file?: MarkdownFile;
-  updateFile?: (value: { content: string; id: string }) => void;
-}
+import { bindActionCreators } from "redux";
+import actionCreators, { Action } from "../../lib/redux/actionCreators";
+import { getFileFormFiles } from "../../lib/utils/getFileFromFiles";
 
 const Container = styled.div`
   display: grid;
@@ -55,7 +53,12 @@ const TextareaContainer = styled.div`
   background-color: ${dracula.background};
 `;
 
-const Renderer: React.SFC<RendererProps> = ({ updateFile, file }) => {
+interface Props {
+  file: MarkdownFile | undefined;
+  updateFile: (id: string, content: string) => Action;
+}
+
+const Renderer: React.SFC<Props> = ({ updateFile, file }) => {
   return (
     <Container>
       {file != null ? (
@@ -64,19 +67,16 @@ const Renderer: React.SFC<RendererProps> = ({ updateFile, file }) => {
             <Textarea
               className="editor"
               onChange={(e: React.ChangeEvent) => {
-                updateFile!({
-                  content: (e.target as HTMLTextAreaElement).value,
-                  id: file!.id
-                });
+                updateFile(file.id, (e.target as HTMLTextAreaElement).value);
               }}
-              value={file!.content}
+              value={file.content}
               autoFocus
             />
           </TextareaContainer>
           <MarkdownContainer
             className="markdown-body"
             dangerouslySetInnerHTML={{
-              __html: markdownProcessor.processSync(file!.content).toString()
+              __html: markdownProcessor.processSync(file.content).toString()
             }}
           />
         </>
@@ -87,7 +87,11 @@ const Renderer: React.SFC<RendererProps> = ({ updateFile, file }) => {
   );
 };
 
-export default inject((stores: Stores) => ({
-  file: stores.markdownFilesStore.file,
-  updateFile: stores.markdownFilesStore.updateFile
-}))(observer(Renderer));
+export default connect(
+  (state: State) => ({
+    file: getFileFormFiles(state.currentFileId, state.files)
+  }),
+  dispatch => ({
+    ...bindActionCreators({ updateFile: actionCreators.updateFile }, dispatch)
+  })
+)(Renderer);

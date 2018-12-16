@@ -1,12 +1,15 @@
 import React from "react";
 import styled from "styled-components";
-import { observer, inject } from "mobx-react";
-import Stores from "../../stores";
+import { connect } from "react-redux";
 import { MarkdownFile } from "../../lib/types";
 import { generateFile } from "../../lib/utils";
 import { dracula } from "../../lib/colors";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile } from "@fortawesome/free-solid-svg-icons";
+import actionCreators, { Action } from "../../lib/redux/actionCreators";
+import { State } from "../../lib/redux/reducer";
+import { bindActionCreators } from "redux";
+import { getFileFormFiles } from "../../lib/utils/getFileFromFiles";
 
 const Container = styled.div`
   display: flex;
@@ -82,28 +85,28 @@ const AddButton = styled.button`
 `;
 
 interface TabBarProps {
-  files?: MarkdownFile[];
-  addFile?: (file: MarkdownFile) => void;
-  setCurrentFile?: (file: MarkdownFile) => void;
-  removeFile?: (file: MarkdownFile) => void;
+  files: MarkdownFile[];
+  addFile: (file: MarkdownFile) => void;
+  switchCurrentFile: (file: MarkdownFile) => Action;
+  deleteFile: (file: MarkdownFile) => Action;
   file?: MarkdownFile;
 }
 
 const TabBar: React.SFC<TabBarProps> = ({
   files,
   addFile,
-  setCurrentFile,
-  removeFile,
+  switchCurrentFile,
+  deleteFile,
   file
 }) => {
-  const currentFileId = file! == null ? "NOTHING" : file!.id;
+  const currentFileId = file == null ? "NOTHING" : file.id;
   return (
     <Container>
-      {files!.map(file => (
+      {files.map(file => (
         <Tab key={file.id} isCurrentFile={file.id === currentFileId}>
           <div
             onClick={() => {
-              setCurrentFile!(file);
+              switchCurrentFile(file);
             }}
           >
             <span>
@@ -113,7 +116,7 @@ const TabBar: React.SFC<TabBarProps> = ({
           </div>
           <CloseButton
             onClick={() => {
-              removeFile!(file);
+              deleteFile(file);
             }}
           >
             &times;
@@ -123,8 +126,8 @@ const TabBar: React.SFC<TabBarProps> = ({
       <AddButton
         onClick={() => {
           const newFile = generateFile("");
-          addFile!(newFile);
-          setCurrentFile!(newFile);
+          addFile(newFile);
+          switchCurrentFile(newFile);
         }}
       >
         <div>+</div>
@@ -133,10 +136,19 @@ const TabBar: React.SFC<TabBarProps> = ({
   );
 };
 
-export default inject((stores: Stores) => ({
-  files: stores.markdownFilesStore.files,
-  addFile: stores.markdownFilesStore.addFile,
-  removeFile: stores.markdownFilesStore.removeFile,
-  setCurrentFile: stores.markdownFilesStore.setCurrentFileFromFile,
-  file: stores.markdownFilesStore.file
-}))(observer(TabBar));
+export default connect(
+  (state: State) => ({
+    files: state.files,
+    file: getFileFormFiles(state.currentFileId, state.files)
+  }),
+  dispatch => ({
+    ...bindActionCreators(
+      {
+        addFile: actionCreators.addFile,
+        deleteFile: actionCreators.deleteFile,
+        switchCurrentFile: actionCreators.switchCurrentFile
+      },
+      dispatch
+    )
+  })
+)(TabBar);
