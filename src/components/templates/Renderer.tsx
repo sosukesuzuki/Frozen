@@ -19,7 +19,7 @@ interface Props {
   file: MarkdownFile | undefined;
 }
 
-const Renderer: React.SFC<Props> = ({ file }) => {
+const Renderer: React.FC<Props> = ({ file }) => {
   return (
     <Container>
       {file != null ? (

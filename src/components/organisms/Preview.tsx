@@ -31,7 +31,7 @@ interface Props {
   file: MarkdownFile;
 }
 
-const Preview: React.SFC<Props> = ({ file }) => {
+const Preview: React.FC<Props> = ({ file }) => {
   return (
     <MarkdownContainer
       className="markdown-body"

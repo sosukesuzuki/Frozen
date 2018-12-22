@@ -26,7 +26,7 @@ interface Props {
   updateFile: (id: string, content: string) => Action;
 }
 
-const Editor: React.SFC<Props> = ({ file, updateFile }) => {
+const Editor: React.FC<Props> = ({ file, updateFile }) => {
   return (
     <TextareaContainer>
       <Textarea

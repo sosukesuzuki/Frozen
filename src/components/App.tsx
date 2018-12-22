@@ -4,7 +4,7 @@ import TabBar from "./templates/TabBar";
 import Renderer from "./templates/Renderer";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import actionCreators, { Action } from "../lib/redux/actionCreators";
+import actionCreators, { ActionTypes } from "../lib/redux/actionCreators";
 
 const Container = styled.div`
   display: grid;
@@ -15,10 +15,10 @@ const Container = styled.div`
 `;
 
 interface Props {
-  init: () => Action;
+  init: () => { type: ActionTypes.INIT };
 }
 
-const App: React.SFC<Props> = ({ init }) => {
+const App: React.FC<Props> = ({ init }) => {
   useEffect(function() {
     init();
   }, []);
@@ -33,11 +33,6 @@ const App: React.SFC<Props> = ({ init }) => {
 export default connect(
   null,
   dispatch => ({
-    ...bindActionCreators(
-      {
-        init: actionCreators.init
-      },
-      dispatch
-    )
+    ...bindActionCreators({ init: actionCreators.init }, dispatch)
   })
 )(App);

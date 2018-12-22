@@ -4,12 +4,12 @@ import { connect } from "react-redux";
 import { MarkdownFile } from "../../lib/types";
 import { generateFile } from "../../lib/utils";
 import { dracula } from "../../lib/colors";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faFile } from "@fortawesome/free-solid-svg-icons";
 import actionCreators, { Action } from "../../lib/redux/actionCreators";
 import { State } from "../../lib/redux/reducer";
-import { bindActionCreators } from "redux";
+import { bindActionCreators, Dispatch, Action as ReduxAction } from "redux";
 import { getFileFormFiles } from "../../lib/utils/getFileFromFiles";
+import IconButton from "../atoms/IconButton";
+import Tab from "../molecules/Tab";
 
 const Container = styled.div`
   display: flex;
@@ -26,65 +26,12 @@ const Container = styled.div`
     background: ${dracula.scrollBarThumb};
   }
 `;
-const Tab = styled.div`
-  height: 30px;
-  cursor: pointer;
-  line-height: 30px;
-  transition: 0.1s;
-  display: flex;
-  justify-content: space-between;
-  max-width: 250px;
-  min-width: 180px;
-  background-color: ${dracula.selection};
-  ${({ isCurrentFile }: { isCurrentFile: boolean }) =>
-    isCurrentFile &&
-    `
-    background-color: rgba(193, 193, 193, 0.2);
-  `}
-  div {
-    width: 100%;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    max-width: 225px;
-  }
-  span {
-    max-width: 250px;
-    font-size: 13px;
-  }
-  svg {
-    padding: 0 10px;
-  }
-`;
-const CloseButton = styled.button`
-  border: none;
-  background-color: transparent;
-  font-weight: normal;
-  outline: none;
-  width: 25px;
-  transition: 0.1s;
-  color: ${dracula.foreground};
-  &:hover {
-    transition: 0.1s;
-    font-weight: bold;
-  }
-`;
-const AddButton = styled.button`
-  border: none;
-  background-color: transparent;
-  font-weight: normal;
+const AddButton = styled(IconButton)`
   height: 30px;
   width: 30px;
-  outline: none;
-  transition: 0.1s;
-  color: ${dracula.foreground};
-  &:hover {
-    transition: 0.1s;
-    font-weight: bold;
-  }
 `;
 
-interface TabBarProps {
+interface Props {
   files: MarkdownFile[];
   addFile: (file: MarkdownFile) => void;
   switchCurrentFile: (file: MarkdownFile) => Action;
@@ -92,7 +39,7 @@ interface TabBarProps {
   file?: MarkdownFile;
 }
 
-const TabBar: React.SFC<TabBarProps> = ({
+const TabBar: React.FC<Props> = ({
   files,
   addFile,
   switchCurrentFile,
@@ -103,25 +50,13 @@ const TabBar: React.SFC<TabBarProps> = ({
   return (
     <Container>
       {files.map(file => (
-        <Tab key={file.id} isCurrentFile={file.id === currentFileId}>
-          <div
-            onClick={() => {
-              switchCurrentFile(file);
-            }}
-          >
-            <span>
-              <FontAwesomeIcon icon={faFile} />
-              {file.title}
-            </span>
-          </div>
-          <CloseButton
-            onClick={() => {
-              deleteFile(file);
-            }}
-          >
-            &times;
-          </CloseButton>
-        </Tab>
+        <Tab
+          key={file.id}
+          file={file}
+          deleteFile={deleteFile}
+          switchCurrentFile={switchCurrentFile}
+          currentFileId={currentFileId}
+        />
       ))}
       <AddButton
         onClick={() => {
@@ -136,12 +71,15 @@ const TabBar: React.SFC<TabBarProps> = ({
   );
 };
 
-export default connect(
-  (state: State) => ({
+function mapStateToProps(state: State) {
+  return {
     files: state.files,
     file: getFileFormFiles(state.currentFileId, state.files)
-  }),
-  dispatch => ({
+  };
+}
+
+function mapDispatchToProps(dispatch: Dispatch<ReduxAction<any>>) {
+  return {
     ...bindActionCreators(
       {
         addFile: actionCreators.addFile,
@@ -150,5 +88,10 @@ export default connect(
       },
       dispatch
     )
-  })
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
 )(TabBar);
