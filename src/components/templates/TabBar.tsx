@@ -73,7 +73,7 @@ interface TabBarProps {
   file?: MarkdownFile;
 }
 
-const TabBar: React.SFC<TabBarProps> = ({
+const TabBar: React.FC<TabBarProps> = ({
   files,
   addFile,
   switchCurrentFile,

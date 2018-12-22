@@ -18,7 +18,7 @@ interface Props {
   init: () => { type: ActionTypes.INIT };
 }
 
-const App: React.SFC<Props> = ({ init }) => {
+const App: React.FC<Props> = ({ init }) => {
   useEffect(function() {
     init();
   }, []);
