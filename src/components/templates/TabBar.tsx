@@ -10,6 +10,7 @@ import actionCreators, { Action } from "../../lib/redux/actionCreators";
 import { State } from "../../lib/redux/reducer";
 import { bindActionCreators } from "redux";
 import { getFileFormFiles } from "../../lib/utils/getFileFromFiles";
+import IconButton from "../atoms/IconButton";
 
 const Container = styled.div`
   display: flex;
@@ -56,32 +57,12 @@ const Tab = styled.div`
     padding: 0 10px;
   }
 `;
-const CloseButton = styled.button`
-  border: none;
-  background-color: transparent;
-  font-weight: normal;
-  outline: none;
+const CloseButton = styled(IconButton)`
   width: 25px;
-  transition: 0.1s;
-  color: ${dracula.foreground};
-  &:hover {
-    transition: 0.1s;
-    font-weight: bold;
-  }
 `;
-const AddButton = styled.button`
-  border: none;
-  background-color: transparent;
-  font-weight: normal;
+const AddButton = styled(IconButton)`
   height: 30px;
   width: 30px;
-  outline: none;
-  transition: 0.1s;
-  color: ${dracula.foreground};
-  &:hover {
-    transition: 0.1s;
-    font-weight: bold;
-  }
 `;
 
 interface TabBarProps {
