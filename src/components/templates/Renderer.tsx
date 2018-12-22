@@ -1,12 +1,11 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
+import Editor from "../organisms/Editor";
 import { MarkdownFile } from "../../lib/types";
 import { State } from "../../lib/redux/reducer";
 import markdownProcessor from "../../lib/markdownProcessor";
 import { dracula } from "../../lib/colors";
-import { bindActionCreators } from "redux";
-import actionCreators, { Action } from "../../lib/redux/actionCreators";
 import { getFileFormFiles } from "../../lib/utils/getFileFromFiles";
 
 const Container = styled.div`
@@ -14,16 +13,6 @@ const Container = styled.div`
   grid-template-columns: 50% 1fr;
   background-color: ${dracula.background};
   color: ${dracula.foreground};
-`;
-const Textarea = styled.textarea`
-  resize: none;
-  outline: none;
-  background-color: ${dracula.background};
-  color: ${dracula.cyan};
-  height: calc(100vh - 75px);
-  width: 100%;
-  font-size: 15px;
-  border: none;
 `;
 const MarkdownContainer = styled.div`
   padding: 20px;
@@ -47,31 +36,17 @@ const MarkdownContainer = styled.div`
     }
   }
 `;
-const TextareaContainer = styled.div`
-  padding: 20px;
-  background-color: ${dracula.background};
-`;
 
 interface Props {
   file: MarkdownFile | undefined;
-  updateFile: (id: string, content: string) => Action;
 }
 
-const Renderer: React.SFC<Props> = ({ updateFile, file }) => {
+const Renderer: React.SFC<Props> = ({ file }) => {
   return (
     <Container>
       {file != null ? (
         <>
-          <TextareaContainer>
-            <Textarea
-              className="editor"
-              onChange={(e: React.ChangeEvent) => {
-                updateFile(file.id, (e.target as HTMLTextAreaElement).value);
-              }}
-              value={file.content}
-              autoFocus
-            />
-          </TextareaContainer>
+          <Editor file={file} />
           <MarkdownContainer
             className="markdown-body"
             dangerouslySetInnerHTML={{
@@ -86,11 +61,6 @@ const Renderer: React.SFC<Props> = ({ updateFile, file }) => {
   );
 };
 
-export default connect(
-  (state: State) => ({
-    file: getFileFormFiles(state.currentFileId, state.files)
-  }),
-  dispatch => ({
-    ...bindActionCreators({ updateFile: actionCreators.updateFile }, dispatch)
-  })
-)(Renderer);
+export default connect((state: State) => ({
+  file: getFileFormFiles(state.currentFileId, state.files)
+}))(Renderer);
