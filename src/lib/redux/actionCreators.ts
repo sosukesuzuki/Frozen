@@ -1,3 +1,4 @@
+import { action } from "typesafe-actions";
 import { MarkdownFile } from "../types";
 
 export enum ActionTypes {
@@ -18,85 +19,43 @@ export interface Action {
   payload: any;
 }
 
+const init = () => action(ActionTypes.INIT);
+
+const setInitialization = (files: MarkdownFile[], currentFile?: MarkdownFile) =>
+  action(ActionTypes.SET_INITIALIZATION, { files, currentFile });
+
+const addFile = (file: MarkdownFile) => action(ActionTypes.ADD_FILE, { file });
+
+const setNewFile = (file: MarkdownFile) =>
+  action(ActionTypes.SET_NEW_FILE, { file });
+
+const deleteFile = (file: MarkdownFile) =>
+  action(ActionTypes.DELTE_FILE, { file });
+
+const setDeletedFiles = (files: MarkdownFile[]) =>
+  action(ActionTypes.SET_DELETED_FILES, { files });
+
+const updateFile = (id: string, content: string) =>
+  action(ActionTypes.UPDATE_FILE, { id, content });
+
+const setUpdatedFile = (file: MarkdownFile) =>
+  action(ActionTypes.SET_UPDATED_FILE, { file });
+
+const switchCurrentFile = (file: MarkdownFile) =>
+  action(ActionTypes.SWITCH_CURRENT_FILE, { file });
+
+const setCurrentFile = (file: MarkdownFile) =>
+  action(ActionTypes.SET_CURRENT_FILE, { file });
+
 export default {
-  init(): Action {
-    return {
-      type: ActionTypes.INIT,
-      payload: null
-    };
-  },
-  setInitialization(files: MarkdownFile[], currentFile?: MarkdownFile): Action {
-    return {
-      type: ActionTypes.SET_INITIALIZATION,
-      payload: {
-        files,
-        currentFile
-      }
-    };
-  },
-  addFile(file: MarkdownFile): Action {
-    return {
-      type: ActionTypes.ADD_FILE,
-      payload: {
-        file
-      }
-    };
-  },
-  setNewFile(file: MarkdownFile): Action {
-    return {
-      type: ActionTypes.SET_NEW_FILE,
-      payload: {
-        file
-      }
-    };
-  },
-  deleteFile(file: MarkdownFile): Action {
-    return {
-      type: ActionTypes.DELTE_FILE,
-      payload: {
-        file
-      }
-    };
-  },
-  setDeletedFiles(files: MarkdownFile[]): Action {
-    return {
-      type: ActionTypes.SET_DELETED_FILES,
-      payload: {
-        files
-      }
-    };
-  },
-  updateFile(id: string, content: string) {
-    return {
-      type: ActionTypes.UPDATE_FILE,
-      payload: {
-        id,
-        content
-      }
-    };
-  },
-  setUpdatedFile(file: MarkdownFile): Action {
-    return {
-      type: ActionTypes.SET_UPDATED_FILE,
-      payload: {
-        file
-      }
-    };
-  },
-  switchCurrentFile(file: MarkdownFile): Action {
-    return {
-      type: ActionTypes.SWITCH_CURRENT_FILE,
-      payload: {
-        file
-      }
-    };
-  },
-  setCurrentFile(file: MarkdownFile): Action {
-    return {
-      type: ActionTypes.SET_CURRENT_FILE,
-      payload: {
-        file
-      }
-    };
-  }
+  init,
+  setInitialization,
+  addFile,
+  setNewFile,
+  deleteFile,
+  setDeletedFiles,
+  updateFile,
+  setUpdatedFile,
+  switchCurrentFile,
+  setCurrentFile
 };
