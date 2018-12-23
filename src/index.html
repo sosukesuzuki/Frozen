@@ -12,7 +12,7 @@
     />
   </head>
   <body>
-    <div class="root"></div>
+    <div id="root"></div>
     <style>
       body {
         margin: 0;
@@ -29,7 +29,7 @@
       }
       (async () => {
         try {
-          const el = document.querySelector(".root");
+          const el = document.querySelector("#root");
           el.innerHTML = `<div style="width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; font-size: 1.5em; background-color: #282a36; color: #f8f8f2;"><span>Loading assets</span></div>`;
           if (location.hostname !== "localhost") {
             navigator.serviceWorker.register("./sw.js");

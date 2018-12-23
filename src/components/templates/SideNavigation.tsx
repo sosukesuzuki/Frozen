@@ -21,14 +21,16 @@ const WorkspaceIcon = styled.div`
 
 interface Props {
   workspaces: Workspace[];
+  openWorkspaceModal: () => void;
 }
 
-const Renderer: React.FC<Props> = ({ workspaces }) => {
+const Renderer: React.FC<Props> = ({ workspaces, openWorkspaceModal }) => {
   return (
     <Container>
       {workspaces.map(workspace => (
         <WorkspaceIcon backgroundColor={workspace.color} />
       ))}
+      <button onClick={openWorkspaceModal}>Add</button>
     </Container>
   );
 };

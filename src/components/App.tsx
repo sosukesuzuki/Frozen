@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import styled from "styled-components";
 import TabBar from "./templates/TabBar";
 import Renderer from "./templates/Renderer";
@@ -6,6 +6,7 @@ import SideNavigation from "./templates/SideNavigation";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import actionCreators, { ActionTypes } from "../lib/redux/actionCreators";
+import WorkspaceModal from "./templates/WorkspaceModal";
 
 const Container = styled.div`
   display: grid;
@@ -30,13 +31,28 @@ const App: React.FC<Props> = ({ init }) => {
     init();
   }, []);
 
+  const [isOpenWorkspaceModal, setIsOpenWorkspaceModal] = useState(false);
+  const setIsOpenModal = useCallback(function(isOpen: boolean) {
+    setIsOpenWorkspaceModal(isOpen);
+  }, []);
+
   return (
     <Container>
-      <SideNavigation />
+      <SideNavigation
+        openWorkspaceModal={() => {
+          setIsOpenModal(true);
+        }}
+      />
       <ContentContainer>
         <TabBar />
         <Renderer />
       </ContentContainer>
+      <WorkspaceModal
+        isOpen={isOpenWorkspaceModal}
+        closeModal={() => {
+          setIsOpenModal(false);
+        }}
+      />
     </Container>
   );
 };
