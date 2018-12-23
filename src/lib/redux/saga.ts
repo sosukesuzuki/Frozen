@@ -27,10 +27,7 @@ function* initSaga(
     workspaces.push(newWorkspace);
   }
 
-  yield put({
-    type: ActionTypes.SET_INITIALIZATION,
-    payload: { files, currentFileId, workspaces }
-  });
+  yield put(actionCreators.setInitialization(files, workspaces, currentFileId));
 }
 
 function* addFileSaga(db: DBServiceInterface): SagaIterator {

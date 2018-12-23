@@ -30,8 +30,9 @@ const init = () => action(ActionTypes.INIT);
 const setInitialization = (
   files: MarkdownFile[],
   workspaces: Workspace[],
-  currentFile?: MarkdownFile
-) => action(ActionTypes.SET_INITIALIZATION, { files, workspaces, currentFile });
+  currentFileId: string
+) =>
+  action(ActionTypes.SET_INITIALIZATION, { files, workspaces, currentFileId });
 
 const addFile = (file: MarkdownFile) => action(ActionTypes.ADD_FILE, { file });
 
