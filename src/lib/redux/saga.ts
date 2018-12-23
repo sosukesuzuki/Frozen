@@ -77,6 +77,39 @@ function* switchCurrentFileSaga(
   }
 }
 
+function* addWorkspaceSaga(db: DBServiceInterface): SagaIterator {
+  while (true) {
+    const { payload } = yield take(ActionTypes.ADD_WORKSPACE);
+    const { workspace }: { workspace: Workspace } = payload;
+    yield call(db.addWorkspace, workspace);
+    yield put(actionCreators.addWorkspace(workspace));
+  }
+}
+
+function* updateWorkspaceSaga(db: DBServiceInterface): SagaIterator {
+  while (true) {
+    const { payload } = yield take(ActionTypes.UPDATE_WORKSPACE);
+    const { id, name, color } = payload;
+    const workspace = {
+      id,
+      name,
+      color
+    };
+    yield call(db.updateWorkspace, workspace);
+    yield put(actionCreators.setUpdatedWorkspace(workspace));
+  }
+}
+
+function* deleteWorkspaceSaga(db: DBServiceInterface): SagaIterator {
+  while (true) {
+    const { payload } = yield take(ActionTypes.DELETE_WORKSPACE);
+    const { id } = payload;
+    yield call(db.deleteWorkspace, id);
+    const workspaces: Workspace[] = yield call(db.getWorkspaces);
+    yield put(actionCreators.setDeletedWorkspace(workspaces));
+  }
+}
+
 export default function* saga(): SagaIterator {
   yield fork(
     bindDependencies(initSaga, [Types.DBService, Types.LocalStorageService])
@@ -87,4 +120,7 @@ export default function* saga(): SagaIterator {
   yield fork(
     bindDependencies(switchCurrentFileSaga, [Types.LocalStorageService])
   );
+  yield fork(bindDependencies(addWorkspaceSaga, [Types.DBService]));
+  yield fork(bindDependencies(updateWorkspaceSaga, [Types.DBService]));
+  yield fork(bindDependencies(deleteWorkspaceSaga, [Types.DBService]));
 }
