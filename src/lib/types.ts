@@ -4,9 +4,16 @@ export interface MarkdownFile {
   id: string;
 }
 
-export interface DBItem {
+export interface DBFileItem {
   id: string;
   content: string;
   title: string;
   updatedAt: number;
+  workspaceId: string;
+}
+
+export interface Workspace {
+  name: string;
+  id: string;
+  color: string;
 }

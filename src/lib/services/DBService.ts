@@ -1,32 +1,41 @@
 import { injectable } from "inversify";
 import Dexie from "dexie";
-import { DBItem, MarkdownFile } from "../types";
+import { DBFileItem, MarkdownFile, Workspace } from "../types";
 
 class DB extends Dexie {
-  files!: Dexie.Table<DBItem, string>;
+  files!: Dexie.Table<DBFileItem, string>;
+  workspaces!: Dexie.Table<Workspace, string>;
 
   constructor() {
-    super("FilesDatabase");
+    super("Database");
     this.version(1).stores({
-      files: "id, content"
+      files: "id, content",
+      workspaces: "id, name, color"
     });
   }
 }
 
 export interface DBServiceInterface {
   getFiles: () => Promise<MarkdownFile[]>;
+  getFilesByWorkspaceId: (workspaceId: string) => Promise<MarkdownFile[]>;
+  getWorkspaces: () => Promise<Workspace[]>;
   addFile: (file: MarkdownFile) => Promise<void>;
   deleteFile: (id: string) => Promise<void>;
   updateFile: (file: MarkdownFile) => Promise<void>;
+  addWorkspace: (workspace: Workspace) => Promise<void>;
+  updateWorkspace: (workspace: Workspace) => Promise<void>;
+  deleteWorkspace: (workspace: Workspace) => Promise<void>;
 }
 
 @injectable()
 export class DBService implements DBService {
-  files!: Dexie.Table<DBItem, string>;
+  files!: Dexie.Table<DBFileItem, string>;
+  workspaces!: Dexie.Table<Workspace, string>;
 
   constructor() {
     const db = new DB();
     this.files = db.files;
+    this.workspaces = db.workspaces;
   }
 
   getFiles = async (): Promise<MarkdownFile[]> => {
@@ -38,12 +47,33 @@ export class DBService implements DBService {
     }));
   };
 
-  addFile = async ({ id, content, title }: MarkdownFile): Promise<void> => {
+  getWorkspaces = async (): Promise<Workspace[]> => {
+    return await this.workspaces.toArray();
+  };
+
+  getFilesByWorkspaceId = async (
+    workspaceId: string
+  ): Promise<MarkdownFile[]> => {
+    const items = await this.files
+      .filter((item: DBFileItem) => item.workspaceId === workspaceId)
+      .toArray();
+    return items.map(({ id, title, content }) => ({
+      id,
+      title,
+      content
+    }));
+  };
+
+  addFile = async (
+    { id, content, title }: MarkdownFile,
+    workspaceId: string = ""
+  ): Promise<void> => {
     await this.files.add({
       id,
       content,
       title,
-      updatedAt: Date.now()
+      updatedAt: Date.now(),
+      workspaceId
     });
   };
 
@@ -51,13 +81,29 @@ export class DBService implements DBService {
     await this.files.delete(id);
   };
 
-  updateFile = async ({ id, content, title }: MarkdownFile): Promise<void> => {
+  updateFile = async (
+    { id, content, title }: MarkdownFile,
+    workspaceId: string = ""
+  ): Promise<void> => {
     await this.files.put({
       id,
       content,
       title,
-      updatedAt: Date.now()
+      updatedAt: Date.now(),
+      workspaceId
     });
+  };
+
+  addWorkspace = async (workspace: Workspace) => {
+    await this.workspaces.add(workspace);
+  };
+
+  updateWorkspace = async (workspace: Workspace) => {
+    await this.workspaces.put(workspace);
+  };
+
+  deleteWorkspace = async (id: string) => {
+    await this.workspaces.delete(id);
   };
 }
 
@@ -66,7 +112,12 @@ function doNothing(): any {}
 @injectable()
 export class MockDBService implements DBServiceInterface {
   getFiles = doNothing;
+  getFilesByWorkspaceId = doNothing;
+  getWorkspaces = doNothing;
   addFile = doNothing;
   deleteFile = doNothing;
   updateFile = doNothing;
+  addWorkspace = doNothing;
+  updateWorkspace = doNothing;
+  deleteWorkspace = doNothing;
 }
