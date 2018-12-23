@@ -79,7 +79,7 @@ function* addWorkspaceSaga(db: DBServiceInterface): SagaIterator {
     const { payload } = yield take(ActionTypes.ADD_WORKSPACE);
     const { workspace }: { workspace: Workspace } = payload;
     yield call(db.addWorkspace, workspace);
-    yield put(actionCreators.addWorkspace(workspace));
+    yield put(actionCreators.setNewWorkspaces(workspace));
   }
 }
 
@@ -92,6 +92,7 @@ function* updateWorkspaceSaga(db: DBServiceInterface): SagaIterator {
       name,
       color
     };
+    console.log({ workspace });
     yield call(db.updateWorkspace, workspace);
     yield put(actionCreators.setUpdatedWorkspace(workspace));
   }

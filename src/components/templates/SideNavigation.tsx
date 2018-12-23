@@ -28,9 +28,9 @@ const Renderer: React.FC<Props> = ({ workspaces, openWorkspaceModal }) => {
   return (
     <Container>
       {workspaces.map(workspace => (
-        <WorkspaceIcon backgroundColor={workspace.color} />
+        <WorkspaceIcon key={workspace.id} backgroundColor={workspace.color} />
       ))}
-      <button onClick={openWorkspaceModal}>Add</button>
+      <button onClick={openWorkspaceModal}>Configuration</button>
     </Container>
   );
 };
