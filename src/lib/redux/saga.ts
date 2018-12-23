@@ -5,9 +5,10 @@ import bindDependencies from "../utils/bindDependencies";
 import Types from "../services/Types";
 import { DBServiceInterface } from "../services/DBService";
 import { LocalStorageServiceInterface } from "../services/LocalStorageService";
-import { MarkdownFile } from "../types";
+import { MarkdownFile, Workspace } from "../types";
 import _ from "lodash";
 import { findNoteTitle } from "../utils";
+import { generateWorkspace } from "../utils/generateWorkspace";
 
 function* initSaga(
   db: DBServiceInterface,
@@ -16,9 +17,19 @@ function* initSaga(
   yield take(ActionTypes.INIT);
   const files: MarkdownFile[] = yield call(db.getFiles, null);
   const currentFileId: string = yield call(localStorage.getCurrentFile);
+
+  const workspaces: Workspace[] = yield call(db.getWorkspaces);
+  // If does not exist workspace in DB
+  // create new workspace named "Default Workspace"
+  if (workspaces.length === 0) {
+    const newWorkspace = generateWorkspace("Default Workspace");
+    yield call(db.addWorkspace, newWorkspace);
+    workspaces.push(newWorkspace);
+  }
+
   yield put({
     type: ActionTypes.SET_INITIALIZATION,
-    payload: { files, currentFileId }
+    payload: { files, currentFileId, workspaces }
   });
 }
 

@@ -1,5 +1,5 @@
 import { action } from "typesafe-actions";
-import { MarkdownFile } from "../types";
+import { MarkdownFile, Workspace } from "../types";
 
 export enum ActionTypes {
   INIT = "INIT",
@@ -11,7 +11,13 @@ export enum ActionTypes {
   UPDATE_FILE = "UPDATE_FILE",
   SET_UPDATED_FILE = "SET_UPDATED_FILE",
   SWITCH_CURRENT_FILE = "SWITCH_CURRENT_FILE",
-  SET_CURRENT_FILE = "SET_CURRENT_FILE"
+  SET_CURRENT_FILE = "SET_CURRENT_FILE",
+  ADD_WORKSPACE = "ADD_WORKSPACE",
+  SET_NEW_WORKSPACE = "SET_NEW_WORKSPACE",
+  UPDATE_WORKSPACE = "UPDATE_WORKSPACE",
+  SET_UPDATED_WORKSPACE = "SET_UPDATED_WORKSPACE",
+  DELETE_WORKSPACE = "DELETE_WORKSPACE",
+  SET_DELETED_WORKSPACES = "SET_DELETED_WORKSPACES"
 }
 
 export interface Action {
@@ -21,8 +27,11 @@ export interface Action {
 
 const init = () => action(ActionTypes.INIT);
 
-const setInitialization = (files: MarkdownFile[], currentFile?: MarkdownFile) =>
-  action(ActionTypes.SET_INITIALIZATION, { files, currentFile });
+const setInitialization = (
+  files: MarkdownFile[],
+  workspaces: Workspace[],
+  currentFile?: MarkdownFile
+) => action(ActionTypes.SET_INITIALIZATION, { files, workspaces, currentFile });
 
 const addFile = (file: MarkdownFile) => action(ActionTypes.ADD_FILE, { file });
 
@@ -47,6 +56,24 @@ const switchCurrentFile = (file: MarkdownFile) =>
 const setCurrentFile = (file: MarkdownFile) =>
   action(ActionTypes.SET_CURRENT_FILE, { file });
 
+const addWorkspace = (workspace: Workspace) =>
+  action(ActionTypes.ADD_WORKSPACE, { workspace });
+
+const setNewWorkspaces = (workspace: Workspace) =>
+  action(ActionTypes.SET_NEW_WORKSPACE, { workspace });
+
+const updateWorkspace = (workspace: Workspace) =>
+  action(ActionTypes.UPDATE_WORKSPACE, { workspace });
+
+const setUpdatedWorkspace = (workspace: Workspace) =>
+  action(ActionTypes.SET_UPDATED_WORKSPACE, { workspace });
+
+const deleteWorkspace = (workspace: Workspace) =>
+  action(ActionTypes.DELETE_WORKSPACE, { workspace });
+
+const setDeletedWorkspace = (workspaces: Workspace[]) =>
+  action(ActionTypes.SET_DELETED_WORKSPACES, { workspaces });
+
 export default {
   init,
   setInitialization,
@@ -57,5 +84,11 @@ export default {
   updateFile,
   setUpdatedFile,
   switchCurrentFile,
-  setCurrentFile
+  setCurrentFile,
+  addWorkspace,
+  setNewWorkspaces,
+  updateWorkspace,
+  setUpdatedWorkspace,
+  deleteWorkspace,
+  setDeletedWorkspace
 };
