@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { Workspace } from "../../lib/types";
@@ -8,7 +8,9 @@ import UpdateWorkspaceNameForm from "./UpdateWorkspaceNameForm";
 
 const Container = styled.div`
   display: flex;
+  justify-content: space-between;
 `;
+const Buttons = styled.div``;
 
 interface Props {
   workspace: Workspace;
@@ -27,23 +29,25 @@ const WorkspaceListItem: React.FC<Props> = ({ workspace, deleteWorkspace }) => {
       ) : (
         <p>{workspace.name}</p>
       )}
-      <button
-        onClick={() => {
-          setIsEditting(true);
-        }}
-      >
-        Edit
-      </button>
-      <button
-        onClick={() => {
-          const result = confirm(
-            "Delete the workspace. You cannot revert this process."
-          );
-          if (result) deleteWorkspace(workspace.id);
-        }}
-      >
-        Delete
-      </button>
+      <Buttons>
+        <button
+          onClick={() => {
+            setIsEditting(true);
+          }}
+        >
+          Edit
+        </button>
+        <button
+          onClick={() => {
+            const result = confirm(
+              "Delete the workspace. You cannot revert this process."
+            );
+            if (result) deleteWorkspace(workspace.id);
+          }}
+        >
+          Delete
+        </button>
+      </Buttons>
     </Container>
   );
 };
