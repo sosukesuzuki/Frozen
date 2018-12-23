@@ -62,14 +62,14 @@ const addWorkspace = (workspace: Workspace) =>
 const setNewWorkspaces = (workspace: Workspace) =>
   action(ActionTypes.SET_NEW_WORKSPACE, { workspace });
 
-const updateWorkspace = (workspace: Workspace) =>
-  action(ActionTypes.UPDATE_WORKSPACE, { workspace });
+const updateWorkspace = (id: string, name: string, color: string) =>
+  action(ActionTypes.UPDATE_WORKSPACE, { id, name, color });
 
 const setUpdatedWorkspace = (workspace: Workspace) =>
   action(ActionTypes.SET_UPDATED_WORKSPACE, { workspace });
 
-const deleteWorkspace = (workspace: Workspace) =>
-  action(ActionTypes.DELETE_WORKSPACE, { workspace });
+const deleteWorkspace = (id: string) =>
+  action(ActionTypes.DELETE_WORKSPACE, { id });
 
 const setDeletedWorkspace = (workspaces: Workspace[]) =>
   action(ActionTypes.SET_DELETED_WORKSPACES, { workspaces });
