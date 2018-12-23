@@ -5,12 +5,14 @@ export interface State {
   files: MarkdownFile[];
   currentFileId: string;
   workspaces: Workspace[];
+  currentWorkspaceId: string;
 }
 
 const initialState: State = {
   files: [],
   currentFileId: "",
-  workspaces: []
+  workspaces: [],
+  currentWorkspaceId: ""
 };
 
 export default function reducer(
@@ -70,6 +72,11 @@ export default function reducer(
       return {
         ...state,
         workspaces: payload.workspaces
+      };
+    case ActionTypes.SET_SWITCHED_WORKSPACE:
+      return {
+        ...state,
+        files: payload.files
       };
     default:
       return {

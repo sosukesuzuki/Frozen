@@ -17,7 +17,9 @@ export enum ActionTypes {
   UPDATE_WORKSPACE = "UPDATE_WORKSPACE",
   SET_UPDATED_WORKSPACE = "SET_UPDATED_WORKSPACE",
   DELETE_WORKSPACE = "DELETE_WORKSPACE",
-  SET_DELETED_WORKSPACES = "SET_DELETED_WORKSPACES"
+  SET_DELETED_WORKSPACES = "SET_DELETED_WORKSPACES",
+  SWITCH_WORKSPACE = "SWITCH_WORKSPACE",
+  SET_SWITCHED_WORKSPACE = "SET_SWITCHED_WORKSPACE"
 }
 
 export interface Action {
@@ -75,6 +77,12 @@ const deleteWorkspace = (id: string) =>
 const setDeletedWorkspace = (workspaces: Workspace[]) =>
   action(ActionTypes.SET_DELETED_WORKSPACES, { workspaces });
 
+const switchWorkspace = (workspaceId: string) =>
+  action(ActionTypes.SWITCH_WORKSPACE, { workspaceId });
+
+const setSwitchedWorkspace = (files: MarkdownFile[]) =>
+  action(ActionTypes.SET_SWITCHED_WORKSPACE, { files });
+
 export default {
   init,
   setInitialization,
@@ -91,5 +99,7 @@ export default {
   updateWorkspace,
   setUpdatedWorkspace,
   deleteWorkspace,
-  setDeletedWorkspace
+  setDeletedWorkspace,
+  switchWorkspace,
+  setSwitchedWorkspace
 };
