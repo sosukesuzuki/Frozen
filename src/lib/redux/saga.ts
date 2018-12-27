@@ -20,6 +20,10 @@ function* initSaga(
 
   const workspaces: Workspace[] = yield call(db.getWorkspaces);
 
+  let currentWorkspaceId: string | null;
+
+  currentWorkspaceId = yield call(localStorage.getCurrentWorkspace);
+
   if (workspaces.length === 0) {
     const newWorkspace = generateWorkspace("Default Workspace");
     yield call(db.addWorkspace, newWorkspace);
@@ -27,12 +31,15 @@ function* initSaga(
     // migrate
     yield all(files.map(file => call(db.updateFile, file, newWorkspace.id)));
     workspaces.push(newWorkspace);
+    currentWorkspaceId = newWorkspace.id;
   }
 
-  let currentWorkspaceId: string | null = yield call(
-    localStorage.getCurrentWorkspace
+  const isIncludeId = workspaces.some(
+    workspace => workspace.id === currentWorkspaceId
   );
-  if (currentWorkspaceId == null) currentWorkspaceId = workspaces[0].id;
+
+  if (currentWorkspaceId == null || !isIncludeId) currentWorkspaceId = "";
+
   const files: MarkdownFile[] = yield call(
     db.getFilesByWorkspaceId,
     currentWorkspaceId
@@ -125,9 +132,14 @@ function* deleteWorkspaceSaga(db: DBServiceInterface): SagaIterator {
   while (true) {
     const { payload } = yield take(ActionTypes.DELETE_WORKSPACE);
     const { id } = payload;
-    yield call(db.deleteWorkspace, id);
-    const workspaces: Workspace[] = yield call(db.getWorkspaces);
-    yield put(actionCreators.setDeletedWorkspace(workspaces));
+    const oldWorkspaces = yield select((state: State) => state.workspaces);
+    if (oldWorkspaces.length === 1) {
+      yield call(db.deleteWorkspace, id);
+      const workspaces: Workspace[] = yield call(db.getWorkspaces);
+      yield put(actionCreators.setDeletedWorkspace(workspaces));
+    } else {
+      console.info("Workspaces should be least one.");
+    }
   }
 }
 
