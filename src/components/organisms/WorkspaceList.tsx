@@ -5,7 +5,11 @@ import { Workspace } from "../../lib/types";
 import { State } from "../../lib/redux/reducer";
 import WorkspaceListItem from "./WorkspaceListItem";
 
-const Container = styled.div``;
+const Container = styled.div`
+  margin: 10px 0;
+  overflow-y: scroll;
+  height: 500px;
+`;
 
 interface Props {
   workspaces: Workspace[];

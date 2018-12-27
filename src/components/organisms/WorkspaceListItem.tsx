@@ -5,10 +5,20 @@ import { Workspace } from "../../lib/types";
 import { Dispatch, Action, bindActionCreators } from "redux";
 import actionCreators from "../../lib/redux/actionCreators";
 import UpdateWorkspaceNameForm from "./UpdateWorkspaceNameForm";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
+import IconButton from "../atoms/IconButton";
+import { dracula } from "../../lib/colors";
 
 const Container = styled.div`
   display: flex;
   justify-content: space-between;
+  background-color: ${dracula.selection};
+  padding: 10px;
+  border-radius: 5px;
+`;
+const WorkspaceName = styled.p`
+  margin: 0;
 `;
 const Buttons = styled.div``;
 
@@ -27,17 +37,17 @@ const WorkspaceListItem: React.FC<Props> = ({ workspace, deleteWorkspace }) => {
           endEdit={() => setIsEditting(false)}
         />
       ) : (
-        <p>{workspace.name}</p>
+        <WorkspaceName>{workspace.name}</WorkspaceName>
       )}
       <Buttons>
-        <button
+        <IconButton
           onClick={() => {
             setIsEditting(true);
           }}
         >
-          Edit
-        </button>
-        <button
+          <FontAwesomeIcon icon={faEdit} />
+        </IconButton>
+        <IconButton
           onClick={() => {
             const result = confirm(
               "Delete the workspace. You cannot revert this process."
@@ -45,8 +55,8 @@ const WorkspaceListItem: React.FC<Props> = ({ workspace, deleteWorkspace }) => {
             if (result) deleteWorkspace(workspace.id);
           }}
         >
-          Delete
-        </button>
+          <FontAwesomeIcon icon={faTrashAlt} />
+        </IconButton>
       </Buttons>
     </Container>
   );
