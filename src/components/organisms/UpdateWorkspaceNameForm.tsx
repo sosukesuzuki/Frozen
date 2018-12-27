@@ -1,10 +1,4 @@
-import React, {
-  useState,
-  ChangeEvent,
-  KeyboardEvent,
-  useRef,
-  useEffect
-} from "react";
+import React, { useState, ChangeEvent, KeyboardEvent } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { Workspace } from "../../lib/types";
@@ -26,17 +20,11 @@ const UpdateWorkspaceNameForm: React.FC<Props> = ({
   endEdit
 }) => {
   const [inputContent, setInputContent] = useState(workspace.name);
-  const inputEl = useRef<HTMLInputElement>(null);
-
-  useEffect(() => {
-    if (inputEl && inputEl.current) {
-      inputEl.current.focus();
-    }
-  });
 
   return (
     <Container>
       <Input
+        autoFocus
         value={inputContent}
         onKeyPress={(e: KeyboardEvent<HTMLInputElement>) => {
           if (e.key === "Enter") {
@@ -48,7 +36,6 @@ const UpdateWorkspaceNameForm: React.FC<Props> = ({
           const value = (e.target as any).value;
           setInputContent(value);
         }}
-        ref={inputEl}
         onBlur={() => {
           endEdit();
         }}

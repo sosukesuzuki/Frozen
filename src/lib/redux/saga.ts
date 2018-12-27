@@ -31,7 +31,6 @@ function* initSaga(
     localStorage.getCurrentWorkspace
   );
   if (currentWorkspaceId == null) currentWorkspaceId = workspaces[0].id;
-  console.log(currentWorkspaceId);
   const files: MarkdownFile[] = yield call(
     db.getFilesByWorkspaceId,
     currentWorkspaceId

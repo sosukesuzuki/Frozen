@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent } from "react";
+import React, { useState, ChangeEvent, KeyboardEvent } from "react";
 import styled from "styled-components";
 import { Workspace } from "../../lib/types";
 import actionCreators, { Action } from "../../lib/redux/actionCreators";
@@ -6,7 +6,6 @@ import { connect } from "react-redux";
 import { Dispatch, Action as ReduxAction, bindActionCreators } from "redux";
 import { generateWorkspace } from "../../lib/utils/generateWorkspace";
 import Input from "../atoms/Input";
-import Button from "../atoms/Button";
 
 const Container = styled.div`
   display: flex;
@@ -31,15 +30,14 @@ const AddWorkspaceForm: React.FC<Props> = ({ addWorkspace }) => {
           const value = (e.target as any).value;
           setInputContent(value);
         }}
-      />
-      <Button
-        onClick={() => {
-          const workspace = generateWorkspace(inputContent);
-          addWorkspace(workspace);
+        onKeyPress={(e: KeyboardEvent<HTMLInputElement>) => {
+          if (e.key === "Enter") {
+            const workspace = generateWorkspace(inputContent);
+            addWorkspace(workspace);
+            setInputContent("");
+          }
         }}
-      >
-        Add
-      </Button>
+      />
     </Container>
   );
 };
