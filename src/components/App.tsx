@@ -4,9 +4,11 @@ import TabBar from "./templates/TabBar";
 import Renderer from "./templates/Renderer";
 import SideNavigation from "./templates/SideNavigation";
 import { connect } from "react-redux";
-import { bindActionCreators } from "redux";
+import { bindActionCreators, Dispatch, Action } from "redux";
 import actionCreators, { ActionTypes } from "../lib/redux/actionCreators";
 import WorkspaceModal from "./templates/WorkspaceModal";
+import { State } from "../lib/redux/reducer";
+import { dracula } from "../lib/colors";
 
 const Container = styled.div`
   display: grid;
@@ -20,13 +22,16 @@ const ContentContainer = styled.div`
   width: 100vw;
   grid-template-rows: 30px 1fr;
   overflow-y: hidden;
+  background-color: ${dracula.background};
+  color: ${dracula.foreground};
 `;
 
 interface Props {
+  currentWorkspaceId: string;
   init: () => { type: ActionTypes.INIT };
 }
 
-const App: React.FC<Props> = ({ init }) => {
+const App: React.FC<Props> = ({ currentWorkspaceId, init }) => {
   useEffect(() => {
     init();
   }, []);
@@ -44,8 +49,14 @@ const App: React.FC<Props> = ({ init }) => {
         }}
       />
       <ContentContainer>
-        <TabBar />
-        <Renderer />
+        {currentWorkspaceId !== "" ? (
+          <>
+            <TabBar />
+            <Renderer />
+          </>
+        ) : (
+          <p>Please select a workspace.</p>
+        )}
       </ContentContainer>
       <WorkspaceModal
         isOpen={isOpenWorkspaceModal}
@@ -57,9 +68,19 @@ const App: React.FC<Props> = ({ init }) => {
   );
 };
 
-export default connect(
-  null,
-  dispatch => ({
+function mapStateToProps(state: State) {
+  return {
+    currentWorkspaceId: state.currentWorkspaceId
+  };
+}
+
+function mapDispatchToProps(dispatch: Dispatch<Action<any>>) {
+  return {
     ...bindActionCreators({ init: actionCreators.init }, dispatch)
-  })
+  };
+}
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
 )(App);

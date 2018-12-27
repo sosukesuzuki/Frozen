@@ -3,12 +3,15 @@ import { MarkdownFile } from "../types";
 
 const IS_FIRST_ACCESS = "IS_FIRST_ACCESS";
 const CURRENT_FILE = "CURRENT_FILE";
+const CURRENT_WORKSPACE = "CURRENT_WORKSPACE";
 
 export interface LocalStorageServiceInterface {
   setIsFirstAccess: () => void;
   getIsFirstAccess: () => string | null;
   setCurrentFile: (file: MarkdownFile) => void;
   getCurrentFile: () => string | null;
+  setCurrentWorkspace: (workspaceId: string) => void;
+  getCurrentWorkspace: () => string | null;
 }
 
 @injectable()
@@ -29,6 +32,15 @@ export class LocalStorageService implements LocalStorageServiceInterface {
     const id = localStorage.getItem(CURRENT_FILE);
     return id == null ? null : id;
   }
+
+  setCurrentWorkspace(workspaceId: string) {
+    localStorage.setItem(CURRENT_WORKSPACE, workspaceId);
+  }
+
+  getCurrentWorkspace(): string | null {
+    const id = localStorage.getItem(CURRENT_WORKSPACE);
+    return id == null ? null : id;
+  }
 }
 
 function doNothing(): any {}
@@ -39,4 +51,6 @@ export class MockLocalStorageService implements LocalStorageServiceInterface {
   getIsFirstAccess = doNothing;
   setCurrentFile = doNothing;
   getCurrentFile = doNothing;
+  setCurrentWorkspace = doNothing;
+  getCurrentWorkspace = doNothing;
 }

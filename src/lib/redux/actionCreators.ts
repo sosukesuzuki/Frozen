@@ -32,9 +32,15 @@ const init = () => action(ActionTypes.INIT);
 const setInitialization = (
   files: MarkdownFile[],
   workspaces: Workspace[],
-  currentFileId: string
+  currentFileId: string | null,
+  currentWorkspaceId: string
 ) =>
-  action(ActionTypes.SET_INITIALIZATION, { files, workspaces, currentFileId });
+  action(ActionTypes.SET_INITIALIZATION, {
+    files,
+    workspaces,
+    currentFileId,
+    currentWorkspaceId
+  });
 
 const addFile = (file: MarkdownFile) => action(ActionTypes.ADD_FILE, { file });
 
@@ -80,8 +86,8 @@ const setDeletedWorkspace = (workspaces: Workspace[]) =>
 const switchWorkspace = (workspaceId: string) =>
   action(ActionTypes.SWITCH_WORKSPACE, { workspaceId });
 
-const setSwitchedWorkspace = (files: MarkdownFile[]) =>
-  action(ActionTypes.SET_SWITCHED_WORKSPACE, { files });
+const setSwitchedWorkspace = (workspaceId: string, files: MarkdownFile[]) =>
+  action(ActionTypes.SET_SWITCHED_WORKSPACE, { workspaceId, files });
 
 export default {
   init,

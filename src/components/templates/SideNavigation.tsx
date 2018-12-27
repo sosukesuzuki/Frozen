@@ -4,6 +4,8 @@ import styled from "styled-components";
 import { Workspace } from "../../lib/types";
 import { State } from "../../lib/redux/reducer";
 import { dracula } from "../../lib/colors";
+import { Dispatch, Action, bindActionCreators } from "redux";
+import actionCreators from "../../lib/redux/actionCreators";
 
 const Container = styled.div`
   background-color: ${dracula.selection};
@@ -22,19 +24,46 @@ const WorkspaceIcon = styled.div`
 interface Props {
   workspaces: Workspace[];
   openWorkspaceModal: () => void;
+  switchWorkspace: (workspaceId: string) => Action;
 }
 
-const Renderer: React.FC<Props> = ({ workspaces, openWorkspaceModal }) => {
+const Renderer: React.FC<Props> = ({
+  workspaces,
+  openWorkspaceModal,
+  switchWorkspace
+}) => {
   return (
     <Container>
       {workspaces.map(workspace => (
-        <WorkspaceIcon key={workspace.id} backgroundColor={workspace.color} />
+        <WorkspaceIcon
+          key={workspace.id}
+          backgroundColor={workspace.color}
+          onClick={() => {
+            switchWorkspace(workspace.id);
+          }}
+        >
+          {workspace.name}
+        </WorkspaceIcon>
       ))}
       <button onClick={openWorkspaceModal}>Configuration</button>
     </Container>
   );
 };
 
-export default connect((state: State) => ({
-  workspaces: state.workspaces
-}))(Renderer);
+function mapDispatchToProps(dispatch: Dispatch<Action<any>>) {
+  return {
+    ...bindActionCreators(
+      {
+        switchWorkspace: actionCreators.switchWorkspace
+      },
+      dispatch
+    )
+  };
+}
+
+export default connect(
+  (state: State) => ({
+    workspaces: state.workspaces
+  }),
+  mapDispatchToProps
+)(Renderer);

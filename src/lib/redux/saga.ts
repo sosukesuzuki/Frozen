@@ -1,5 +1,5 @@
 import { SagaIterator } from "redux-saga";
-import { fork, take, call, put } from "redux-saga/effects";
+import { fork, take, call, put, select } from "redux-saga/effects";
 import actionCreators, { ActionTypes } from "./actionCreators";
 import bindDependencies from "../utils/bindDependencies";
 import Types from "../services/Types";
@@ -9,14 +9,14 @@ import { MarkdownFile, Workspace } from "../types";
 import _ from "lodash";
 import { findNoteTitle } from "../utils";
 import { generateWorkspace } from "../utils/generateWorkspace";
+import { State } from "./reducer";
 
 function* initSaga(
   db: DBServiceInterface,
   localStorage: LocalStorageServiceInterface
 ): SagaIterator {
   yield take(ActionTypes.INIT);
-  const files: MarkdownFile[] = yield call(db.getFiles, null);
-  const currentFileId: string = yield call(localStorage.getCurrentFile);
+  const currentFileId: string | null = yield call(localStorage.getCurrentFile);
 
   const workspaces: Workspace[] = yield call(db.getWorkspaces);
   // If does not exist workspace in DB
@@ -27,14 +27,35 @@ function* initSaga(
     workspaces.push(newWorkspace);
   }
 
-  yield put(actionCreators.setInitialization(files, workspaces, currentFileId));
+  let currentWorkspaceId: string | null = yield call(
+    localStorage.getCurrentWorkspace
+  );
+  if (currentWorkspaceId == null) currentWorkspaceId = workspaces[0].id;
+  console.log(currentWorkspaceId);
+  const files: MarkdownFile[] = yield call(
+    db.getFilesByWorkspaceId,
+    currentWorkspaceId
+  );
+
+  yield put(
+    actionCreators.setInitialization(
+      files,
+      workspaces,
+      currentFileId,
+      currentWorkspaceId
+    )
+  );
 }
 
 function* addFileSaga(db: DBServiceInterface): SagaIterator {
   while (true) {
     const { payload } = yield take(ActionTypes.ADD_FILE);
     const { file } = payload;
-    yield call(db.addFile, file);
+    const currentWorkspaceId = yield select(
+      (state: State) => state.currentWorkspaceId
+    );
+    console.log({ currentWorkspaceId });
+    yield call(db.addFile, file, currentWorkspaceId);
     yield put({ type: ActionTypes.SET_NEW_FILE, payload: { file } });
   }
 }
@@ -58,7 +79,10 @@ function* updateFileSaga(db: DBServiceInterface): SagaIterator {
       content,
       title: findNoteTitle(content)
     };
-    yield call(_.debounce(db.updateFile, 100), file);
+    const currentWorkspaceId = yield select(
+      (state: State) => state.currentWorkspaceId
+    );
+    yield call(_.debounce(db.updateFile, 100), file, currentWorkspaceId);
     yield put(actionCreators.setUpdatedFile(file));
   }
 }
@@ -92,7 +116,6 @@ function* updateWorkspaceSaga(db: DBServiceInterface): SagaIterator {
       name,
       color
     };
-    console.log({ workspace });
     yield call(db.updateWorkspace, workspace);
     yield put(actionCreators.setUpdatedWorkspace(workspace));
   }
@@ -105,6 +128,22 @@ function* deleteWorkspaceSaga(db: DBServiceInterface): SagaIterator {
     yield call(db.deleteWorkspace, id);
     const workspaces: Workspace[] = yield call(db.getWorkspaces);
     yield put(actionCreators.setDeletedWorkspace(workspaces));
+  }
+}
+
+function* switchCurrentWorkspaceSaga(
+  db: DBServiceInterface,
+  localStorage: LocalStorageServiceInterface
+): SagaIterator {
+  while (true) {
+    const { payload } = yield take(ActionTypes.SWITCH_WORKSPACE);
+    const { workspaceId } = payload;
+    const files: MarkdownFile[] = yield call(
+      db.getFilesByWorkspaceId,
+      workspaceId
+    );
+    yield call(localStorage.setCurrentWorkspace, workspaceId);
+    yield put(actionCreators.setSwitchedWorkspace(workspaceId, files));
   }
 }
 
@@ -121,4 +160,10 @@ export default function* saga(): SagaIterator {
   yield fork(bindDependencies(addWorkspaceSaga, [Types.DBService]));
   yield fork(bindDependencies(updateWorkspaceSaga, [Types.DBService]));
   yield fork(bindDependencies(deleteWorkspaceSaga, [Types.DBService]));
+  yield fork(
+    bindDependencies(switchCurrentWorkspaceSaga, [
+      Types.DBService,
+      Types.LocalStorageService
+    ])
+  );
 }

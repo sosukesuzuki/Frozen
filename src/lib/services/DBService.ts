@@ -9,7 +9,7 @@ class DB extends Dexie {
   constructor() {
     super("Database");
     this.version(1).stores({
-      files: "id, content",
+      files: "id, content, title, workspaceId",
       workspaces: "id, name, color"
     });
   }
@@ -55,7 +55,9 @@ export class DBService implements DBService {
     workspaceId: string
   ): Promise<MarkdownFile[]> => {
     const items = await this.files
-      .filter((item: DBFileItem) => item.workspaceId === workspaceId)
+      .filter((item: DBFileItem) => {
+        return item.workspaceId === workspaceId;
+      })
       .toArray();
     return items.map(({ id, title, content }) => ({
       id,
@@ -66,7 +68,7 @@ export class DBService implements DBService {
 
   addFile = async (
     { id, content, title }: MarkdownFile,
-    workspaceId: string = ""
+    workspaceId: string
   ): Promise<void> => {
     await this.files.add({
       id,
@@ -83,7 +85,7 @@ export class DBService implements DBService {
 
   updateFile = async (
     { id, content, title }: MarkdownFile,
-    workspaceId: string = ""
+    workspaceId: string
   ): Promise<void> => {
     await this.files.put({
       id,

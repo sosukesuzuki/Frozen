@@ -76,6 +76,7 @@ export default function reducer(
     case ActionTypes.SET_SWITCHED_WORKSPACE:
       return {
         ...state,
+        currentWorkspaceId: payload.workspaceId,
         files: payload.files
       };
     default:
