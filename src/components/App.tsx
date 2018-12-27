@@ -14,12 +14,12 @@ const Container = styled.div`
   display: grid;
   grid-template-columns: 60px 1fr;
   height: 100vh;
+  width: 100vw;
   overflow-y: hidden;
 `;
 const ContentContainer = styled.div`
   display: grid;
   height: 100vh;
-  width: 100vw;
   grid-template-rows: 30px 1fr;
   overflow-y: hidden;
   background-color: ${dracula.background};
