@@ -1,14 +1,18 @@
 import { ActionTypes, Action } from "./actionCreators";
-import { MarkdownFile } from "../types";
+import { MarkdownFile, Workspace } from "../types";
 
 export interface State {
   files: MarkdownFile[];
   currentFileId: string;
+  workspaces: Workspace[];
+  currentWorkspaceId: string;
 }
 
 const initialState: State = {
   files: [],
-  currentFileId: ""
+  currentFileId: "",
+  workspaces: [],
+  currentWorkspaceId: ""
 };
 
 export default function reducer(
@@ -21,7 +25,9 @@ export default function reducer(
       return {
         ...state,
         files: payload.files,
-        currentFileId: payload.currentFileId
+        currentFileId: payload.currentFileId,
+        workspaces: payload.workspaces,
+        currentWorkspaceId: payload.currentWorkspaceId
       };
     case ActionTypes.SET_NEW_FILE:
       return {
@@ -47,6 +53,32 @@ export default function reducer(
       return {
         ...state,
         currentFileId: payload.file.id
+      };
+    case ActionTypes.SET_NEW_WORKSPACE:
+      return {
+        ...state,
+        workspaces: [...state.workspaces, payload.workspace]
+      };
+    case ActionTypes.SET_UPDATED_WORKSPACE:
+      const { workspaces } = state;
+      const newWorkspaces = workspaces.map(workspace => {
+        if (workspace.id === payload.workspace.id) return payload.workspace;
+        return workspace;
+      });
+      return {
+        ...state,
+        workspaces: newWorkspaces
+      };
+    case ActionTypes.SET_DELETED_WORKSPACES:
+      return {
+        ...state,
+        workspaces: payload.workspaces
+      };
+    case ActionTypes.SET_SWITCHED_WORKSPACE:
+      return {
+        ...state,
+        currentWorkspaceId: payload.workspaceId,
+        files: payload.files
       };
     default:
       return {
