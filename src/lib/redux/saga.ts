@@ -1,5 +1,5 @@
 import { SagaIterator } from "redux-saga";
-import { fork, take, call, put, select } from "redux-saga/effects";
+import { fork, take, call, put, select, all } from "redux-saga/effects";
 import actionCreators, { ActionTypes } from "./actionCreators";
 import bindDependencies from "../utils/bindDependencies";
 import Types from "../services/Types";
@@ -23,6 +23,9 @@ function* initSaga(
   if (workspaces.length === 0) {
     const newWorkspace = generateWorkspace("Default Workspace");
     yield call(db.addWorkspace, newWorkspace);
+    const files: MarkdownFile[] = yield call(db.getFiles);
+    // migrate
+    yield all(files.map(file => call(db.updateFile, file, newWorkspace.id)));
     workspaces.push(newWorkspace);
   }
 
