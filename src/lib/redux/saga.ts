@@ -19,8 +19,7 @@ function* initSaga(
   const currentFileId: string | null = yield call(localStorage.getCurrentFile);
 
   const workspaces: Workspace[] = yield call(db.getWorkspaces);
-  // If does not exist workspace in DB
-  // create new workspace named "Default Workspace"
+
   if (workspaces.length === 0) {
     const newWorkspace = generateWorkspace("Default Workspace");
     yield call(db.addWorkspace, newWorkspace);
@@ -53,7 +52,6 @@ function* addFileSaga(db: DBServiceInterface): SagaIterator {
     const currentWorkspaceId = yield select(
       (state: State) => state.currentWorkspaceId
     );
-    console.log({ currentWorkspaceId });
     yield call(db.addFile, file, currentWorkspaceId);
     yield put({ type: ActionTypes.SET_NEW_FILE, payload: { file } });
   }

@@ -26,7 +26,8 @@ export default function reducer(
         ...state,
         files: payload.files,
         currentFileId: payload.currentFileId,
-        workspaces: payload.workspaces
+        workspaces: payload.workspaces,
+        currentWorkspaceId: payload.currentWorkspaceId
       };
     case ActionTypes.SET_NEW_FILE:
       return {
