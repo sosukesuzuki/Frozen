@@ -11,7 +11,10 @@ import { findNoteTitle } from "../utils";
 import { generateWorkspace } from "../utils/generateWorkspace";
 import { State } from "./reducer";
 
-function* initSaga(db: DBServiceInterface, localStorage: LocalStorageServiceInterface): SagaIterator {
+function* initSaga(
+  db: DBServiceInterface,
+  localStorage: LocalStorageServiceInterface
+): SagaIterator {
   yield take(ActionTypes.INIT);
   const currentFileId: string | null = yield call(localStorage.getCurrentFile);
 
@@ -122,7 +125,10 @@ function* deleteWorkspaceSaga(db: DBServiceInterface): SagaIterator {
   }
 }
 
-function* switchCurrentWorkspaceSaga(db: DBServiceInterface, localStorage: LocalStorageServiceInterface): SagaIterator {
+function* switchCurrentWorkspaceSaga(
+  db: DBServiceInterface,
+  localStorage: LocalStorageServiceInterface
+): SagaIterator {
   while (true) {
     const { payload } = yield take(ActionTypes.SWITCH_WORKSPACE);
     const { workspaceId } = payload;
@@ -141,5 +147,7 @@ export default function* saga(): SagaIterator {
   yield fork(bindDependencies(addWorkspaceSaga, [Types.DBService]));
   yield fork(bindDependencies(updateWorkspaceSaga, [Types.DBService]));
   yield fork(bindDependencies(deleteWorkspaceSaga, [Types.DBService]));
-  yield fork(bindDependencies(switchCurrentWorkspaceSaga, [Types.DBService, Types.LocalStorageService]));
+  yield fork(
+    bindDependencies(switchCurrentWorkspaceSaga, [Types.DBService, Types.LocalStorageService])
+  );
 }

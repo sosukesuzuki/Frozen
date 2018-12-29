@@ -53,7 +53,12 @@ interface Props {
   switchWorkspace: (workspaceId: string) => Action;
 }
 
-const Renderer: React.FC<Props> = ({ workspaces, currentWorkspaceId, openWorkspaceModal, switchWorkspace }) => {
+const Renderer: React.FC<Props> = ({
+  workspaces,
+  currentWorkspaceId,
+  openWorkspaceModal,
+  switchWorkspace
+}) => {
   return (
     <Container>
       <div>

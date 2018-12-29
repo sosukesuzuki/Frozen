@@ -17,7 +17,10 @@ export function findNoteTitle(value: string): string {
       if (trimmedLine.match("```")) {
         isInsideCodeBlock = !isInsideCodeBlock;
       }
-      if (isInsideCodeBlock === false && (trimmedLine.match(/^# +/) || trimmedNextLine.match(/^=+$/))) {
+      if (
+        isInsideCodeBlock === false &&
+        (trimmedLine.match(/^# +/) || trimmedNextLine.match(/^=+$/))
+      ) {
         title = trimmedLine;
         return true;
       } else {

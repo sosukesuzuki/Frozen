@@ -14,7 +14,9 @@ const env = process.env.NODE_ENV;
 const container = new Container();
 export const { lazyInject } = getDecorators(container);
 if (env != "development" && env != "production") {
-  container.bind<LocalStorageServiceInterface>(Types.LocalStorageService).to(MockLocalStorageService);
+  container
+    .bind<LocalStorageServiceInterface>(Types.LocalStorageService)
+    .to(MockLocalStorageService);
   container.bind<DBServiceInterface>(Types.DBService).to(MockDBService);
 } else {
   container.bind<LocalStorageServiceInterface>(Types.LocalStorageService).to(LocalStorageService);
