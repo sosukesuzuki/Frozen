@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { Workspace } from "../../lib/types";
 import { Dispatch, Action, bindActionCreators } from "redux";
 import actionCreators from "../../lib/redux/actionCreators";
-import UpdateWorkspaceNameForm from "./UpdateWorkspaceNameForm";
+import UpdateWorkspaceNameForm from "../molecules/UpdateWorkspaceNameForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
 import IconButton from "../atoms/IconButton";
