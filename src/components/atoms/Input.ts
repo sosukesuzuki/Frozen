@@ -7,10 +7,10 @@ export default styled.input`
   color: ${dracula.foreground};
   border: none;
   padding: 5px;
-  border-radius: 2px;
+  border-radius: 1px;
   height: 20px;
   line-height: 30px;
   &:focus {
-    box-shadow: 0 0 0 3px ${dracula.green};
+    box-shadow: 0 0 0 1px ${dracula.green};
   }
 `;

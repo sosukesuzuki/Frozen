@@ -1,12 +1,14 @@
 import React, { useState, ChangeEvent, KeyboardEvent } from "react";
-import styled from "styled-components";
 import { connect } from "react-redux";
 import { Workspace } from "../../lib/types";
 import { Dispatch, Action as ReduxAction, bindActionCreators } from "redux";
 import actionCreators, { Action } from "../../lib/redux/actionCreators";
 import Input from "../atoms/Input";
+import styled from "styled-components";
 
-const Container = styled.div``;
+const UpdateWorkspaceNameInput = styled(Input)`
+  width: 100%;
+`;
 
 interface Props {
   workspace: Workspace;
@@ -16,27 +18,24 @@ interface Props {
 
 const UpdateWorkspaceNameForm: React.FC<Props> = ({ workspace, updateWorkspace, endEdit }) => {
   const [inputContent, setInputContent] = useState(workspace.name);
-
   return (
-    <Container>
-      <Input
-        autoFocus
-        value={inputContent}
-        onKeyPress={(e: KeyboardEvent<HTMLInputElement>) => {
-          if (e.key === "Enter") {
-            updateWorkspace(workspace.id, inputContent, workspace.color);
-            endEdit();
-          }
-        }}
-        onChange={(e: ChangeEvent) => {
-          const value = (e.target as any).value;
-          setInputContent(value);
-        }}
-        onBlur={() => {
+    <UpdateWorkspaceNameInput
+      autoFocus
+      value={inputContent}
+      onKeyPress={(e: KeyboardEvent<HTMLInputElement>) => {
+        if (e.key === "Enter") {
+          updateWorkspace(workspace.id, inputContent, workspace.color);
           endEdit();
-        }}
-      />
-    </Container>
+        }
+      }}
+      onChange={(e: ChangeEvent) => {
+        const value = (e.target as any).value;
+        setInputContent(value);
+      }}
+      onBlur={() => {
+        endEdit();
+      }}
+    />
   );
 };
 
