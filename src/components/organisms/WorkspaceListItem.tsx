@@ -15,12 +15,18 @@ const Container = styled.div`
   justify-content: space-between;
   background-color: ${dracula.selection};
   padding: 10px;
-  border-radius: 5px;
+  height: 30px;
 `;
 const WorkspaceName = styled.p`
   margin: 0;
+  height: 30px;
+  line-height: 30px;
 `;
-const Buttons = styled.div``;
+const Buttons = styled.div`
+  display: flex;
+  width: 60px;
+  padding: 0 10px;
+`;
 
 interface Props {
   workspace: Workspace;

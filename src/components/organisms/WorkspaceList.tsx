@@ -9,6 +9,7 @@ const Container = styled.div`
   margin: 10px 0;
   overflow-y: scroll;
   height: 500px;
+  margin-left: 15px;
 `;
 
 interface Props {
