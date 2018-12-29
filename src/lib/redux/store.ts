@@ -3,7 +3,7 @@ import createSagaMiddleWare from "redux-saga";
 import { composeWithDevTools } from "redux-devtools-extension";
 import logger from "redux-logger";
 import reducer from "./reducer";
-import rootSaga from "./saga";
+import rootSaga from "./sagas/rootSaga";
 
 const env = process.env.NODE_ENV;
 
