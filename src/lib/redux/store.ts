@@ -12,10 +12,7 @@ const sagaMiddleware = createSagaMiddleWare();
 const store =
   env === "production"
     ? createStore(reducer, applyMiddleware(sagaMiddleware))
-    : createStore(
-        reducer,
-        composeWithDevTools(applyMiddleware(sagaMiddleware, logger))
-      );
+    : createStore(reducer, composeWithDevTools(applyMiddleware(sagaMiddleware, logger)));
 
 sagaMiddleware.run(rootSaga);
 

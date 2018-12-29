@@ -51,9 +51,7 @@ export class DBService implements DBService {
     return await this.workspaces.toArray();
   };
 
-  getFilesByWorkspaceId = async (
-    workspaceId: string
-  ): Promise<MarkdownFile[]> => {
+  getFilesByWorkspaceId = async (workspaceId: string): Promise<MarkdownFile[]> => {
     const items = await this.files
       .filter((item: DBFileItem) => {
         return item.workspaceId === workspaceId;
@@ -66,10 +64,7 @@ export class DBService implements DBService {
     }));
   };
 
-  addFile = async (
-    { id, content, title }: MarkdownFile,
-    workspaceId: string
-  ): Promise<void> => {
+  addFile = async ({ id, content, title }: MarkdownFile, workspaceId: string): Promise<void> => {
     await this.files.add({
       id,
       content,
@@ -83,10 +78,7 @@ export class DBService implements DBService {
     await this.files.delete(id);
   };
 
-  updateFile = async (
-    { id, content, title }: MarkdownFile,
-    workspaceId: string
-  ): Promise<void> => {
+  updateFile = async ({ id, content, title }: MarkdownFile, workspaceId: string): Promise<void> => {
     await this.files.put({
       id,
       content,

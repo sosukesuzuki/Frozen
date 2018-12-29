@@ -15,10 +15,7 @@ const initialState: State = {
   currentWorkspaceId: ""
 };
 
-export default function reducer(
-  state: State = initialState,
-  action: Action
-): State {
+export default function reducer(state: State = initialState, action: Action): State {
   const { type, payload } = action;
   switch (type) {
     case ActionTypes.SET_INITIALIZATION:

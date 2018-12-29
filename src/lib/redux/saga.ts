@@ -11,10 +11,7 @@ import { findNoteTitle } from "../utils";
 import { generateWorkspace } from "../utils/generateWorkspace";
 import { State } from "./reducer";
 
-function* initSaga(
-  db: DBServiceInterface,
-  localStorage: LocalStorageServiceInterface
-): SagaIterator {
+function* initSaga(db: DBServiceInterface, localStorage: LocalStorageServiceInterface): SagaIterator {
   yield take(ActionTypes.INIT);
   const currentFileId: string | null = yield call(localStorage.getCurrentFile);
 
@@ -34,34 +31,20 @@ function* initSaga(
     currentWorkspaceId = newWorkspace.id;
   }
 
-  const isIncludeId = workspaces.some(
-    workspace => workspace.id === currentWorkspaceId
-  );
+  const isIncludeId = workspaces.some(workspace => workspace.id === currentWorkspaceId);
 
   if (currentWorkspaceId == null || !isIncludeId) currentWorkspaceId = "";
 
-  const files: MarkdownFile[] = yield call(
-    db.getFilesByWorkspaceId,
-    currentWorkspaceId
-  );
+  const files: MarkdownFile[] = yield call(db.getFilesByWorkspaceId, currentWorkspaceId);
 
-  yield put(
-    actionCreators.setInitialization(
-      files,
-      workspaces,
-      currentFileId,
-      currentWorkspaceId
-    )
-  );
+  yield put(actionCreators.setInitialization(files, workspaces, currentFileId, currentWorkspaceId));
 }
 
 function* addFileSaga(db: DBServiceInterface): SagaIterator {
   while (true) {
     const { payload } = yield take(ActionTypes.ADD_FILE);
     const { file } = payload;
-    const currentWorkspaceId = yield select(
-      (state: State) => state.currentWorkspaceId
-    );
+    const currentWorkspaceId = yield select((state: State) => state.currentWorkspaceId);
     yield call(db.addFile, file, currentWorkspaceId);
     yield put({ type: ActionTypes.SET_NEW_FILE, payload: { file } });
   }
@@ -86,17 +69,13 @@ function* updateFileSaga(db: DBServiceInterface): SagaIterator {
       content,
       title: findNoteTitle(content)
     };
-    const currentWorkspaceId = yield select(
-      (state: State) => state.currentWorkspaceId
-    );
+    const currentWorkspaceId = yield select((state: State) => state.currentWorkspaceId);
     yield call(_.debounce(db.updateFile, 100), file, currentWorkspaceId);
     yield put(actionCreators.setUpdatedFile(file));
   }
 }
 
-function* switchCurrentFileSaga(
-  localStorage: LocalStorageServiceInterface
-): SagaIterator {
+function* switchCurrentFileSaga(localStorage: LocalStorageServiceInterface): SagaIterator {
   while (true) {
     const { payload } = yield take(ActionTypes.SWITCH_CURRENT_FILE);
     const { file } = payload;
@@ -143,39 +122,24 @@ function* deleteWorkspaceSaga(db: DBServiceInterface): SagaIterator {
   }
 }
 
-function* switchCurrentWorkspaceSaga(
-  db: DBServiceInterface,
-  localStorage: LocalStorageServiceInterface
-): SagaIterator {
+function* switchCurrentWorkspaceSaga(db: DBServiceInterface, localStorage: LocalStorageServiceInterface): SagaIterator {
   while (true) {
     const { payload } = yield take(ActionTypes.SWITCH_WORKSPACE);
     const { workspaceId } = payload;
-    const files: MarkdownFile[] = yield call(
-      db.getFilesByWorkspaceId,
-      workspaceId
-    );
+    const files: MarkdownFile[] = yield call(db.getFilesByWorkspaceId, workspaceId);
     yield call(localStorage.setCurrentWorkspace, workspaceId);
     yield put(actionCreators.setSwitchedWorkspace(workspaceId, files));
   }
 }
 
 export default function* saga(): SagaIterator {
-  yield fork(
-    bindDependencies(initSaga, [Types.DBService, Types.LocalStorageService])
-  );
+  yield fork(bindDependencies(initSaga, [Types.DBService, Types.LocalStorageService]));
   yield fork(bindDependencies(addFileSaga, [Types.DBService]));
   yield fork(bindDependencies(deleteFileSaga, [Types.DBService]));
   yield fork(bindDependencies(updateFileSaga, [Types.DBService]));
-  yield fork(
-    bindDependencies(switchCurrentFileSaga, [Types.LocalStorageService])
-  );
+  yield fork(bindDependencies(switchCurrentFileSaga, [Types.LocalStorageService]));
   yield fork(bindDependencies(addWorkspaceSaga, [Types.DBService]));
   yield fork(bindDependencies(updateWorkspaceSaga, [Types.DBService]));
   yield fork(bindDependencies(deleteWorkspaceSaga, [Types.DBService]));
-  yield fork(
-    bindDependencies(switchCurrentWorkspaceSaga, [
-      Types.DBService,
-      Types.LocalStorageService
-    ])
-  );
+  yield fork(bindDependencies(switchCurrentWorkspaceSaga, [Types.DBService, Types.LocalStorageService]));
 }

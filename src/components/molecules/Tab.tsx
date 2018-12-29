@@ -48,12 +48,7 @@ interface Props {
   deleteFile: (file: MarkdownFile) => Action;
 }
 
-const Tab: React.FC<Props> = ({
-  file,
-  currentFileId,
-  switchCurrentFile,
-  deleteFile
-}) => {
+const Tab: React.FC<Props> = ({ file, currentFileId, switchCurrentFile, deleteFile }) => {
   return (
     <Container isCurrentFile={file.id === currentFileId}>
       <div

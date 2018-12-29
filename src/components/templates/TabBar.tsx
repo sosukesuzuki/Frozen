@@ -39,13 +39,7 @@ interface Props {
   file?: MarkdownFile;
 }
 
-const TabBar: React.FC<Props> = ({
-  files,
-  addFile,
-  switchCurrentFile,
-  deleteFile,
-  file
-}) => {
+const TabBar: React.FC<Props> = ({ files, addFile, switchCurrentFile, deleteFile, file }) => {
   const currentFileId = file == null ? "NOTHING" : file.id;
   return (
     <Container>
