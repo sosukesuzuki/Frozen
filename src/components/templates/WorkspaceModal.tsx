@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import Modal from "react-modal";
-import AddWorkspaceForm from "../organisms/AddWorkspaceForm";
+import AddWorkspaceForm from "../molecules/AddWorkspaceForm";
 import WorkspaceList from "../organisms/WorkspaceList";
 import { dracula } from "../../lib/colors";
 
