@@ -12,7 +12,7 @@ import "codemirror/mode/gfm/gfm";
 import "codemirror/keymap/vim";
 import "codemirror/theme/dracula.css";
 
-const cmOptions = {
+const cmOptions: CodeMirror.EditorConfiguration = {
   lineNumbers: true,
   mode: "markdown",
   theme: "dracula",
