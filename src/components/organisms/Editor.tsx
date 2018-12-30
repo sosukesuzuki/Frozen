@@ -14,7 +14,7 @@ import "codemirror/theme/dracula.css";
 
 const cmOptions = {
   lineNumbers: true,
-  mode: "gfm",
+  mode: "markdown",
   theme: "dracula",
   lineWrapping: true,
   keyMap: "vim",
@@ -91,7 +91,7 @@ const Editor: React.FC<Props> = ({ file, updateFile }) => {
 
   return (
     <TextareaContainer>
-      <textarea className="editor" ref={textarea} />
+      <textarea ref={textarea} />
     </TextareaContainer>
   );
 };
