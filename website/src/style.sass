@@ -1,0 +1,77 @@
+@import "normalize.css"
+@import "suitcss-utils"
+  
+/* colors */
+$background: #282a36
+$foreground: #f8f8f2
+$selection: #44475a
+$purple: #bd93f9
+$cyan: #8be9fd
+
+/* consts */
+$topNavHeight: 40px
+
+/* utils */
+.center
+  margin: 0 auto
+  max-width: 1000px
+
+.bold
+  font-weight: bold
+
+body
+  font-family: 'Open Sans', sans-serif
+
+nav
+  background-color: $background
+  color: $foreground
+  height: $topNavHeight
+  padding: 10px
+  top: 0
+  right: 0
+  left: 0
+  div
+    h1
+      margin: 0
+      line-height: $topNavHeight
+    a
+      color: $foreground
+      i
+        font-size: $topNavHeight
+        width: $topNavHeight
+        height: $topNavHeight
+
+.feature-hero
+  margin-top: 60px
+  background-color: $foreground
+  color: $selection
+  height: 500px
+  padding: 20px
+  padding-bottom: 0
+  h2
+    font-size: 40px
+    margin: 0 0 20px 0
+  p
+    margin: 0
+    margin-bottom: 20px
+
+.feature
+  color: $foreground
+  background-color: $background
+  padding: 30px
+  .content
+    h3
+      margin-top: 0
+      font-size: 25px
+    a
+      color: $purple
+      font-weight: bold
+      text-decoration: none
+      &:hover
+        text-decoration: underline
+    p
+      margin-top: 0
+    img
+      width: 500px
+      height: 400px
+  
