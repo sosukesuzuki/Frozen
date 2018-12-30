@@ -16,6 +16,10 @@
     <style>
       body {
         margin: 0;
+        font-family: NotoSansJP;
+      }
+      .markdown-body {
+        font-family: NotoSansJP;
       }
       .CodeMirror {
         font-family: Inconsolata;
@@ -23,14 +27,17 @@
     </style>
     <script type="module">
       async function setUpFonts() {
-        const font = new FontFace("Inconsolata", "url(/Inconsolata.otf)");
-        const loadedFace = await font.load();
-        document.fonts.add(loadedFace);
+        const fonts = [
+          new FontFace("Inconsolata", "url(/Inconsolata.otf)"),
+          new FontFace("NotoSansJP", "url(/NotoSansJP-Regular.otf)")
+        ];
+        const loadedFaces = await Promise.all(fonts.map(font => font.load()));
+        loadedFaces.forEach(face => document.fonts.add(face));
       }
       (async () => {
         try {
           const el = document.querySelector("#root");
-          el.innerHTML = `<div style="width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; font-size: 1.5em; background-color: #282a36; color: #f8f8f2;"><span>Loading assets</span></div>`;
+          el.innerHTML = `<div style="width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; font-size: 1.5em; background-color: #282a36; color: #f8f8f2;"><span>Loading assets...</span></div>`;
           if (location.hostname !== "localhost") {
             navigator.serviceWorker.register("./sw.js");
           }
