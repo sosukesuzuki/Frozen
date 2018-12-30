@@ -10,38 +10,68 @@ html(lang="en")
     title Frozen
   body
     nav.u-posFixed
-      div.u-flex.u-flexJustifyBetween.center
+      .u-flex.u-flexJustifyBetween.center
         h1 Frozen
         a(href="https://github.com/sosukesuzuki/Frozen" target="_blank")
           i.fab.fa-github
-    div.feature-hero.u-textCenter
+    .feature-hero.u-textCenter
       h2 Frozen
       p The draft editor for your work.
       img(alt="screenshot" width="800px" height="396px" src="https://github.com/sosukesuzuki/Frozen/raw/master/resources/Frozen.jpg")
-    div.feature-1.feature
-      div.content.center
+    .feature-1.feature.dark
+      .content.center
         h3 For writing a draft.
         p
           span.bold Frozen was designed for writing draft easily.
-        p
-        | We often encounter the case that need to take a notes.
-        | Do you want to open the heavy heavy Electron application for taking a markdown note, in this case?
-        | I hate it.
-        | We should take a 
-        span.bold draft 
-        | for a note easily.
-        p
-        | Also, there are many chances that we want to take drafts.
-        |  (eg: to send e-mail, organize todos, etc.) 
-        | Frozen helps you when those cases.
-    .feature-2.feature
-      div.center.content
-        h3 As Markdown.
+        .u-flex.half
+          div
+            p
+            | We often encounter the case that need to take a notes.
+            | Do you want to open the heavy heavy Electron application for taking a markdown note, in this case?
+            | I hate it.
+            | We should take a 
+            span.bold draft 
+            | for a note easily.
+            p
+            | Also, there are many chances that we want to take drafts.
+            |  (eg: to send e-mail, organize todos, etc.) 
+            | Frozen helps you when those cases.
+          div
+            img(alt="screenshot" height="300px" src="https://github.com/sosukesuzuki/Frozen/raw/master/resources/Frozen.jpg")
+    .feature-2.feature.soft-dark
+      .center.content
+        h3 Supports Markdown.
         p
           span.bold Frozen supports GFM.
+        .u-flex.half
+          div
+            p
+            | You can write drafts as Markdown on Frozen.
+            br
+            | Frozen use #[a(href="https://remark.js.org/" target="blank") Remark.js].
+            | So we can use various Markdown extensions.(eg: #[a(href="https://github.com/Rokt33r/remark-math") Katex], #[a(href="https://github.com/rhysd/remark-emoji") emoji] , etc.)
+          div
+            img(alt="screenshot" height="300px" src="https://github.com/sosukesuzuki/Frozen/raw/master/resources/Frozen.jpg")
+    .feature-3.feature.dark
+      .center.content
+        h3 Works on browsers, but works in offline
         p
-        | You can write drafts as Markdown on Frozen.
-        br
-        | Frozen use #[a(href="https://remark.js.org/" target="blank") Remark.js].
-        | So we can use various Markdown extensions.(eg: Katex, emoji, etc.)
+          span.bold Frozen works as Progressive Web Apps.
+        u-flex.u-flex.half
+          div
+            p
+            | You can use Frozen on modern browsers.
+            | You don't need to open the Desktop Application.
+            | Frozen cache static data with Service Worker.
+            | Also, Flozen save notes data to IndexedDB.
+            | So, You can use Frozen in offline.
+            p
+            span.bold Note: 
+            | We have no idea to sync saved notes between multiple devices.
+            | If you have important notes, you need to save it to the other great note-taking application. 
+          div
+            img(alt="screenshot" height="300px" src="https://github.com/sosukesuzuki/Frozen/raw/master/resources/Frozen.jpg")
+    footer
+      div.center
+        p Copyright (c) 2018 sosukesuzuki All Rights Reserved.
 

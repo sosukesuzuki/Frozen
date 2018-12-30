@@ -7,6 +7,7 @@ $foreground: #f8f8f2
 $selection: #44475a
 $purple: #bd93f9
 $cyan: #8be9fd
+$pink: #ff79c6
 
 /* consts */
 $topNavHeight: 40px
@@ -19,6 +20,18 @@ $topNavHeight: 40px
 .bold
   font-weight: bold
 
+.half
+  div
+    padding-right: 10px
+    width: 50%
+
+.dark
+  background-color: $background
+
+.soft-dark
+  background-color: $selection
+
+/* DOM */
 body
   font-family: 'Open Sans', sans-serif
 
@@ -55,16 +68,23 @@ nav
     margin: 0
     margin-bottom: 20px
 
+.feature-bottom
+  background-color: $foreground
+  color: $selection
+  padding: 20px
+  h2
+    font-size: 40px
+    margin: 0 0 20px 0
+
 .feature
   color: $foreground
-  background-color: $background
   padding: 30px
   .content
     h3
       margin-top: 0
       font-size: 25px
     a
-      color: $purple
+      color: $pink
       font-weight: bold
       text-decoration: none
       &:hover
@@ -74,4 +94,12 @@ nav
     img
       width: 500px
       height: 400px
+
+footer
+  background-color: $foreground
+  color: $selection
+  height: 100px
+  padding: 20px
+  p
+    margin: 0 
   
