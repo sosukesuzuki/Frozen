@@ -5,6 +5,22 @@ import { dracula } from "../../lib/colors";
 import { MarkdownFile } from "../../lib/types";
 import actionCreators, { Action } from "../../lib/redux/actionCreators";
 import { bindActionCreators } from "redux";
+import CodeMirror from "codemirror";
+import "codemirror/lib/codemirror.css";
+import "codemirror/addon/edit/continuelist";
+import "codemirror/mode/gfm/gfm";
+import "codemirror/keymap/vim";
+
+const cmOptions = {
+  lineNumbers: true,
+  mode: "gfm",
+  theme: "github-light",
+  lineWrapping: true,
+  keyMap: "vim",
+  extraKeys: {
+    Enter: "newlineAndIndentContinueMarkdownList"
+  }
+};
 
 const TextareaContainer = styled.div`
   padding: 20px;
