@@ -1,4 +1,4 @@
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, useState } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { dracula } from "../../lib/colors";
@@ -31,7 +31,14 @@ const TextareaContainer = styled.div`
     z-index: 0;
     height: 100%;
     bottom: 0;
+    .CodeMirror-dialog-bottom span {
+      font-size: 60px;
+    }
   }
+`;
+const KeyBuffer = styled.div`
+  font-family: Inconsolata;
+  border-top: 1px solid ${dracula.foreground};
 `;
 
 interface Props {
@@ -43,6 +50,8 @@ const Editor: React.FC<Props> = ({ file, updateFile }) => {
   const cm = useRef<CodeMirror.EditorFromTextArea>(null);
   const textarea = useRef<HTMLTextAreaElement>(null);
   const disabledHandleChange = useRef<boolean>(false);
+
+  const [keyBuffer, setKeyBuffer] = useState("");
 
   useEffect(
     () => {
@@ -57,11 +66,16 @@ const Editor: React.FC<Props> = ({ file, updateFile }) => {
 
         cm.current!.getDoc().setValue(file.content);
         cm.current!.on("change", onChange);
+        // Type difinition for vim mode is broken.
+        cm.current!.on("vim-keypress", onVimKeypress as any);
+        cm.current!.on("vim-command-done", onVimCommandDone);
       }
 
       return () => {
         if (cm && cm.current) {
           cm.current!.off("change", onChange);
+          cm.current!.off("vim-keypress", onVimKeypress as any);
+          cm.current!.off("vim-command-done", onVimCommandDone);
           cm.current!.toTextArea();
         }
       };
@@ -80,18 +94,29 @@ const Editor: React.FC<Props> = ({ file, updateFile }) => {
     }
   });
 
-  const onChange = (cm: CodeMirror.Editor) => {
+  function onChange(cm: CodeMirror.Editor) {
     const value = cm.getDoc().getValue();
     disabledHandleChange.current = true;
 
     updateFile(file.id, value);
 
     disabledHandleChange.current = false;
-  };
+  }
+
+  function onVimKeypress(key: string) {
+    setKeyBuffer(key);
+  }
+
+  function onVimCommandDone() {
+    setKeyBuffer("");
+  }
 
   return (
     <TextareaContainer>
       <textarea ref={textarea} />
+      <KeyBuffer>
+        <span>{keyBuffer}</span>
+      </KeyBuffer>
     </TextareaContainer>
   );
 };
