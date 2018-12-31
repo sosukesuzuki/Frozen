@@ -24,7 +24,8 @@ function* deleteFileSaga(db: DBServiceInterface): SagaIterator {
     const { payload } = yield take(ActionTypes.DELTE_FILE);
     const { file } = payload;
     yield call(db.deleteFile, file.id);
-    const newFiles: MarkdownFile[] = yield call(db.getFiles);
+    const currentWorkspaceId: string = yield select((state: State) => state.currentWorkspaceId);
+    const newFiles: MarkdownFile[] = yield call(db.getFilesByWorkspaceId, currentWorkspaceId);
     yield put(actionCreators.setDeletedFiles(newFiles));
   }
 }
