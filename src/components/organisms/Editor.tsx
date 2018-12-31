@@ -69,6 +69,8 @@ const Editor: React.FC<Props> = ({ file, updateFile }) => {
         // Type difinition for vim mode is broken.
         cm.current!.on("vim-keypress", onVimKeypress as any);
         cm.current!.on("vim-command-done", onVimCommandDone);
+
+        setKeyBuffer("");
       }
 
       return () => {
