@@ -31,14 +31,13 @@ const TextareaContainer = styled.div`
     z-index: 0;
     height: 100%;
     bottom: 0;
-    .CodeMirror-dialog-bottom span {
-      font-size: 60px;
-    }
   }
 `;
-const KeyBuffer = styled.div`
+const BottomBar = styled.div`
   font-family: Inconsolata;
   border-top: 1px solid ${dracula.foreground};
+  display: flex;
+  justify-content: space-between;
 `;
 
 interface Props {
@@ -116,9 +115,10 @@ const Editor: React.FC<Props> = ({ file, updateFile }) => {
   return (
     <TextareaContainer>
       <textarea ref={textarea} />
-      <KeyBuffer>
+      <BottomBar>
         <span>{keyBuffer}</span>
-      </KeyBuffer>
+        <span>{file.content.length}</span>
+      </BottomBar>
     </TextareaContainer>
   );
 };
