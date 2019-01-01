@@ -5,6 +5,7 @@ import { MarkdownFile } from "../../lib/types";
 import markdownProcessor from "../../lib/markdownProcessor";
 
 const MarkdownContainer = styled.div`
+  font-family: NotoSansJP;
   padding: 20px;
   background-color: ${dracula.selection};
   color: ${dracula.foreground};

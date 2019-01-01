@@ -31,6 +31,8 @@ const TextareaContainer = styled.div`
     z-index: 0;
     height: 100%;
     bottom: 0;
+    font-family: Inconsolata;
+    font-size: 14px;
   }
 `;
 const BottomBar = styled.div`
