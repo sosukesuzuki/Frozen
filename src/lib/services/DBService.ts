@@ -19,12 +19,12 @@ export interface DBServiceInterface {
   getFiles: () => Promise<MarkdownFile[]>;
   getFilesByWorkspaceId: (workspaceId: string) => Promise<MarkdownFile[]>;
   getWorkspaces: () => Promise<Workspace[]>;
-  addFile: (file: MarkdownFile) => Promise<void>;
+  addFile: (file: MarkdownFile, workspaceId: string) => Promise<void>;
   deleteFile: (id: string) => Promise<void>;
-  updateFile: (file: MarkdownFile) => Promise<void>;
+  updateFile: (file: MarkdownFile, workspaceId: string) => Promise<void>;
   addWorkspace: (workspace: Workspace) => Promise<void>;
   updateWorkspace: (workspace: Workspace) => Promise<void>;
-  deleteWorkspace: (workspace: Workspace) => Promise<void>;
+  deleteWorkspace: (id: string) => Promise<void>;
 }
 
 @injectable()
