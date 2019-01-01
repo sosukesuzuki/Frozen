@@ -22,17 +22,24 @@
         const loadedFaces = await Promise.all(fonts.map(font => font.load()));
         loadedFaces.forEach(face => document.fonts.add(face));
       }
+
+      function showMessageComponent(message, { isError } = { isError: false }) {
+        const el = document.querySelector("#root");
+        el.innerHTML = `<div style="width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; font-size: 1.5em; background-color: #282a36; color: ${
+          isError ? "#f44242" : "#f8f8f2"
+        };"><span>${message}</span></div>`;
+      }
+
       (async () => {
         try {
-          const el = document.querySelector("#root");
-          el.innerHTML = `<div style="width: 100vw; height: 100vh; display: flex; justify-content: center; align-items: center; font-size: 1.5em; background-color: #282a36; color: #f8f8f2;"><span>Loading assets...</span></div>`;
+          showMessageComponent("Loading assets...");
           if (location.hostname !== "localhost") {
             navigator.serviceWorker.register("./sw.js");
           }
           await setUpFonts();
           await import("./main.js");
         } catch (error) {
-          console.error(error);
+          showMessageComponent(error.message, { isError: true });
         }
       })();
     </script>
