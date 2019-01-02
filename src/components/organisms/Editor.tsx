@@ -1,4 +1,4 @@
-import React, { useRef, useEffect, useState } from "react";
+import React, { useRef, useEffect, useState, useLayoutEffect } from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { dracula } from "../../lib/colors";
@@ -54,7 +54,7 @@ const Editor: React.FC<Props> = ({ file, updateFile }) => {
 
   const [keyBuffer, setKeyBuffer] = useState("");
 
-  useEffect(
+  useLayoutEffect(
     () => {
       if (textarea && textarea.current) {
         // React.RefObject is broken...
