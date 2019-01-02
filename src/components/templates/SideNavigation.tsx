@@ -9,6 +9,8 @@ import actionCreators from "../../lib/redux/actionCreators";
 import IconButton from "../atoms/IconButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
+import Tooltip from "rc-tooltip";
+import "rc-tooltip/assets/bootstrap_white.css";
 
 interface WorkspaceIconProps {
   backgroundColor: string;
@@ -63,16 +65,18 @@ const Renderer: React.FC<Props> = ({
     <Container>
       <div>
         {workspaces.map(workspace => (
-          <WorkspaceIcon
-            isCurrentWorkspace={currentWorkspaceId === workspace.id}
-            key={workspace.id}
-            backgroundColor={workspace.color}
-            onClick={() => {
-              switchWorkspace(workspace.id);
-            }}
-          >
-            {workspace.name.charAt(0)}
-          </WorkspaceIcon>
+          <Tooltip placement="left" trigger={["hover"]} overlay={<span>{workspace.name}</span>}>
+            <WorkspaceIcon
+              isCurrentWorkspace={currentWorkspaceId === workspace.id}
+              key={workspace.id}
+              backgroundColor={workspace.color}
+              onClick={() => {
+                switchWorkspace(workspace.id);
+              }}
+            >
+              {workspace.name.charAt(0)}
+            </WorkspaceIcon>
+          </Tooltip>
         ))}
       </div>
       <CongigurationButton onClick={openWorkspaceModal}>
