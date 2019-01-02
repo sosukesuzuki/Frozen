@@ -35,7 +35,7 @@ const WorkspaceIcon = styled.div`
   ${({ isCurrentWorkspace }: WorkspaceIconProps) =>
     isCurrentWorkspace &&
     `
-    box-shadow: 0 0 0 3px ${dracula.orange} inset;
+    box-shadow: 0 0 0 3px ${dracula.purple} inset;
   `}
 `;
 const CongigurationButton = styled(IconButton)`
