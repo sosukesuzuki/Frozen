@@ -10,7 +10,7 @@ import IconButton from "../atoms/IconButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCog } from "@fortawesome/free-solid-svg-icons";
 import Tooltip from "rc-tooltip";
-import "rc-tooltip/assets/bootstrap_white.css";
+import "rc-tooltip/assets/bootstrap.css";
 
 interface WorkspaceIconProps {
   backgroundColor: string;
@@ -65,7 +65,7 @@ const Renderer: React.FC<Props> = ({
     <Container>
       <div>
         {workspaces.map(workspace => (
-          <Tooltip placement="left" trigger={["hover"]} overlay={<span>{workspace.name}</span>}>
+          <Tooltip placement="right" trigger={["hover"]} overlay={<span>{workspace.name}</span>}>
             <WorkspaceIcon
               isCurrentWorkspace={currentWorkspaceId === workspace.id}
               key={workspace.id}
