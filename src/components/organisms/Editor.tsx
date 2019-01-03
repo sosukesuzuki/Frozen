@@ -11,6 +11,7 @@ import "codemirror/addon/edit/continuelist";
 import "codemirror/mode/gfm/gfm";
 import "codemirror/keymap/vim";
 import "codemirror/theme/dracula.css";
+import EditorBottomBar from "../molecules/EditorBottomBar";
 
 const cmOptions: CodeMirror.EditorConfiguration = {
   lineNumbers: true,
@@ -34,12 +35,6 @@ const TextareaContainer = styled.div`
     font-family: Inconsolata;
     font-size: 14px;
   }
-`;
-const BottomBar = styled.div`
-  font-family: Inconsolata;
-  border-top: 1px solid ${dracula.foreground};
-  display: flex;
-  justify-content: space-between;
 `;
 
 interface Props {
@@ -117,10 +112,7 @@ const Editor: React.FC<Props> = ({ file, updateFile }) => {
   return (
     <TextareaContainer>
       <textarea ref={textarea} />
-      <BottomBar>
-        <span>{keyBuffer}</span>
-        <span>{file.content.length}</span>
-      </BottomBar>
+      <EditorBottomBar keyBuffer={keyBuffer} fileContent={file.content} />
     </TextareaContainer>
   );
 };
