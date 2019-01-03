@@ -1,20 +1,15 @@
 # Frozen
 
-The PWA Markdown editor.
+Markdown edit and preview and simply management.
 
-![Frozen ScreenShot](./resources/Frozen.jpg)
+## Features
 
-## About
-
-This is the PWA text editor to write Markdown.
-
-## Usage
-
-Please open https://frozen-editor.netlify.com.
-
-## Author
-
-- [sosukesuzuki](https://github.com/sosukesuzuki)
+- Edit/Preview Markdown
+- Tabs
+- Workspaces
+- Vim keybinding
+- Desktop PWA
+- Files were saved to IndexedDB
 
 ## Licence
 
