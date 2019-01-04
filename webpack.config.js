@@ -20,7 +20,11 @@ module.exports = {
   mode: MODE,
   devtool: DEV ? "inline-source-map" : "source-map",
   resolve: {
-    extensions: [".ts", ".tsx", ".js", ".jsx"]
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
+    alias: {
+      "@lib": path.resolve(__dirname, "src/lib"),
+      "@components": path.resolve(__dirname, "src/components")
+    }
   },
   module: {
     rules: [
