@@ -1,6 +1,6 @@
 # Frozen
 
-Markdown edit and preview and simply management.
+Markdown edit, preview and simply management.
 
 ## Features
 
