@@ -2,7 +2,7 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { MarkdownFile } from "../../lib/types";
-import { generateFile } from "../../lib/utils";
+import { generateFile } from "../../lib/utils/ItemGenerator";
 import { dracula } from "../../lib/colors";
 import actionCreators, { Action } from "../../lib/redux/actionCreators";
 import { State } from "../../lib/redux/reducer";

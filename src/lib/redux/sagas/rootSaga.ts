@@ -4,7 +4,7 @@ import { DBServiceInterface } from "../../services/DBService";
 import { LocalStorageServiceInterface } from "../../services/LocalStorageService";
 import actionCreators, { ActionTypes } from "../actionCreators";
 import { MarkdownFile, Workspace } from "../../types";
-import { generateWorkspace } from "../../utils/generateWorkspace";
+import { generateWorkspace } from "../../utils/ItemGenerator";
 import bindDependencies from "../../utils/bindDependencies";
 import Types from "../../services/Types";
 import filesSaga from "./filesSaga";
