@@ -1,7 +1,7 @@
 import removeMd from "remove-markdown";
 import striptags from "striptags";
 
-function stripMdAndHtml(value: string): string {
+export function stripMdAndHtml(value: string): string {
   return striptags(removeMd(value));
 }
 
