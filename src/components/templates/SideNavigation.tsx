@@ -65,7 +65,12 @@ const Renderer: React.FC<Props> = ({
     <Container>
       <div>
         {workspaces.map(workspace => (
-          <Tooltip placement="right" trigger={["hover"]} overlay={<span>{workspace.name}</span>}>
+          <Tooltip
+            placement="right"
+            trigger={["hover"]}
+            overlay={<span>{workspace.name}</span>}
+            key={workspace.id}
+          >
             <WorkspaceIcon
               isCurrentWorkspace={currentWorkspaceId === workspace.id}
               key={workspace.id}
