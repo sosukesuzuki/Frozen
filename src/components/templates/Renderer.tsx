@@ -6,7 +6,7 @@ import Preview from "../organisms/Preview";
 import { MarkdownFile } from "../../lib/types";
 import { State } from "../../lib/redux/reducer";
 import { dracula } from "../../lib/colors";
-import { getFileFormFiles } from "../../lib/utils/getFileFromFiles";
+import { getFileById } from "../../lib/utils/getFileById";
 
 const Container = styled.div`
   display: grid;
@@ -35,5 +35,5 @@ const Renderer: React.FC<Props> = ({ file }) => {
 };
 
 export default connect((state: State) => ({
-  file: getFileFormFiles(state.currentFileId, state.files)
+  file: getFileById(state.currentFileId, state.files)
 }))(Renderer);
