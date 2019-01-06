@@ -7,7 +7,7 @@ import { findNoteTitle } from "../../utils/findNoteTitle";
 import { State } from "../reducer";
 import bindDependencies from "../../utils/bindDependencies";
 import Types from "../../services/Types";
-import _ from "lodash";
+import debounce from "lodash/debounce";
 
 function* addFileSaga(db: DBServiceInterface): SagaIterator {
   while (true) {
@@ -40,7 +40,7 @@ function* updateFileSaga(db: DBServiceInterface): SagaIterator {
       title: findNoteTitle(content)
     };
     const currentWorkspaceId = yield select((state: State) => state.currentWorkspaceId);
-    yield call(_.debounce(db.updateFile, 100), file, currentWorkspaceId);
+    yield call(debounce(db.updateFile, 100), file, currentWorkspaceId);
     yield put(actionCreators.setUpdatedFile(file));
   }
 }

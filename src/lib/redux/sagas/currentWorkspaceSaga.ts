@@ -6,7 +6,6 @@ import actionCreators, { ActionTypes } from "../actionCreators";
 import { MarkdownFile } from "../../types";
 import bindDependencies from "../../utils/bindDependencies";
 import Types from "../../services/Types";
-import _ from "lodash";
 
 function* switchCurrentWorkspaceSaga(
   db: DBServiceInterface,

@@ -6,7 +6,6 @@ import { Workspace } from "../../types";
 import { State } from "../reducer";
 import bindDependencies from "../../utils/bindDependencies";
 import Types from "../../services/Types";
-import _ from "lodash";
 
 function* addWorkspaceSaga(db: DBServiceInterface): SagaIterator {
   while (true) {
