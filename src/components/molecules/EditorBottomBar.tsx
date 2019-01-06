@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { dracula } from "../../lib/colors";
-import { countWords, countChar } from "../../lib/utils/Counter";
+import { countWords, countChars } from "../../lib/utils/Counter";
 
 const Container = styled.div`
   font-family: Inconsolata;
@@ -39,7 +39,7 @@ const EditorBottomBar: React.FC<Props> = ({ keyBuffer, fileContent }) => {
       <span>{keyBuffer}</span>
       <CounterText onClick={toggleCountStatus}>
         {countStatus === CountStatus.Char
-          ? `Chars: ${countChar(fileContent)}`
+          ? `Chars: ${countChars(fileContent)}`
           : `Words: ${countWords(fileContent)}`}
       </CounterText>
     </Container>

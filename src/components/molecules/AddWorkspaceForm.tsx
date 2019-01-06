@@ -4,7 +4,7 @@ import { Workspace } from "../../lib/types";
 import actionCreators, { Action } from "../../lib/redux/actionCreators";
 import { connect } from "react-redux";
 import { Dispatch, Action as ReduxAction, bindActionCreators } from "redux";
-import { generateWorkspace } from "../../lib/utils/generateWorkspace";
+import { generateWorkspace } from "../../lib/utils/ItemGenerator";
 import Input from "../atoms/Input";
 
 const Container = styled.div`

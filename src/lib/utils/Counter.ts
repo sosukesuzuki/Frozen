@@ -1,4 +1,4 @@
-export function countChar(content: string): number {
+export function countChars(content: string): number {
   return content.length;
 }
 

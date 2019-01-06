@@ -2,12 +2,12 @@ import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
 import { MarkdownFile } from "../../lib/types";
-import { generateFile } from "../../lib/utils";
+import { generateFile } from "../../lib/utils/ItemGenerator";
 import { dracula } from "../../lib/colors";
 import actionCreators, { Action } from "../../lib/redux/actionCreators";
 import { State } from "../../lib/redux/reducer";
 import { bindActionCreators, Dispatch, Action as ReduxAction } from "redux";
-import { getFileFormFiles } from "../../lib/utils/getFileFromFiles";
+import { getFileById } from "../../lib/utils/getFileById";
 import IconButton from "../atoms/IconButton";
 import Tab from "../molecules/Tab";
 
@@ -68,7 +68,7 @@ const TabBar: React.FC<Props> = ({ files, addFile, switchCurrentFile, deleteFile
 function mapStateToProps(state: State) {
   return {
     files: state.files,
-    file: getFileFormFiles(state.currentFileId, state.files)
+    file: getFileById(state.currentFileId, state.files)
   };
 }
 
