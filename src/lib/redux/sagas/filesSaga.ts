@@ -3,7 +3,7 @@ import { fork, take, call, put, select } from "redux-saga/effects";
 import { DBServiceInterface } from "../../services/DBService";
 import actionCreators, { ActionTypes } from "../actionCreators";
 import { MarkdownFile } from "../../types";
-import { findNoteTitle } from "../../utils";
+import { findNoteTitle } from "../../utils/findNoteTitle";
 import { State } from "../reducer";
 import bindDependencies from "../../utils/bindDependencies";
 import Types from "../../services/Types";
