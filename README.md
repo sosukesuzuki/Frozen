@@ -1,4 +1,4 @@
-<h1 align="center">:snowflake:Frozen</h1>
+<h1 align="center">:snowflake:Frozen:snowflake:</h1>
 
 <p align="center">Markdown edit, preview and simply management.</p>
 
