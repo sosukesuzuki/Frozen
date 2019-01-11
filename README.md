@@ -2,6 +2,8 @@
 
 <p align="center">Markdown edit, preview and simply management.</p>
 
+![Frozen ScreenShot](./resources/Frozen.jpg)
+
 ## Features
 
 - Edit/Preview Markdown
