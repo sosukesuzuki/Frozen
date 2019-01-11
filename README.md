@@ -1,6 +1,6 @@
-# Frozen
+<h1 align="center">:snowflake:Frozen</h1>
 
-Markdown edit, preview and simply management.
+<p align="center">Markdown edit, preview and simply management.</p>
 
 ## Features
 
