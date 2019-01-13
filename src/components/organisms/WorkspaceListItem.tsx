@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
 import IconButton from "../atoms/IconButton";
 import { dracula } from "../../lib/colors";
+import alertConfirm from "@lib/utils/alertConfirm";
 
 const Container = styled.div`
   display: flex;
@@ -52,8 +53,9 @@ const WorkspaceListItem: React.FC<Props> = ({ workspace, deleteWorkspace }) => {
         </IconButton>
         <IconButton
           onClick={() => {
-            const result = confirm("Delete the workspace. You cannot revert this process.");
-            if (result) deleteWorkspace(workspace.id);
+            alertConfirm("Delete the workspace. You cannot revert this process.", () =>
+              deleteWorkspace(workspace.id)
+            );
           }}
         >
           <FontAwesomeIcon icon={faTrashAlt} />
