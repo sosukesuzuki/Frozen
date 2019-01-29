@@ -34,6 +34,10 @@ const Renderer: React.FC<Props> = ({ file }) => {
   );
 };
 
-export default connect((state: State) => ({
-  file: getFileById(state.currentFileId, state.files)
-}))(Renderer);
+function mapStateToProps(state: State) {
+  return {
+    file: getFileById(state.currentFileId, state.files)
+  };
+}
+
+export default connect(mapStateToProps)(Renderer);
