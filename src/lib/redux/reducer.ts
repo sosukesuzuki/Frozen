@@ -1,18 +1,22 @@
 import { ActionTypes, Action } from "./actionCreators";
 import { MarkdownFile, Workspace } from "../types";
 
+export type EditorMode = "FULL" | "HALF";
+
 export interface State {
   files: MarkdownFile[];
   currentFileId: string;
   workspaces: Workspace[];
   currentWorkspaceId: string;
+  editorMode: "FULL" | "HALF";
 }
 
 const initialState: State = {
   files: [],
   currentFileId: "",
   workspaces: [],
-  currentWorkspaceId: ""
+  currentWorkspaceId: "",
+  editorMode: "HALF"
 };
 
 export default function reducer(state: State = initialState, action: Action): State {
@@ -76,6 +80,12 @@ export default function reducer(state: State = initialState, action: Action): St
         ...state,
         currentWorkspaceId: payload.workspaceId,
         files: payload.files
+      };
+    case ActionTypes.SWITCH_EDITOR_MODE:
+      const newEditorMode = state.editorMode === "FULL" ? "HALF" : "FULL";
+      return {
+        ...state,
+        editorMode: newEditorMode
       };
     default:
       return {

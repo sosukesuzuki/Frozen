@@ -8,7 +8,7 @@ import { Dispatch, Action, bindActionCreators } from "redux";
 import actionCreators from "../../lib/redux/actionCreators";
 import IconButton from "../atoms/IconButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCog } from "@fortawesome/free-solid-svg-icons";
+import { faCog, faEdit } from "@fortawesome/free-solid-svg-icons";
 import Tooltip from "rc-tooltip";
 import "rc-tooltip/assets/bootstrap.css";
 
@@ -40,6 +40,11 @@ const WorkspaceIcon = styled.div`
     box-shadow: 0 0 0 3px ${dracula.purple} inset;
   `}
 `;
+const ButtonsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+`;
 const CongigurationButton = styled(IconButton)`
   &:hover {
     svg {
@@ -53,13 +58,15 @@ interface Props {
   currentWorkspaceId: string;
   openWorkspaceModal: () => void;
   switchWorkspace: (workspaceId: string) => Action;
+  switchEditorMode: () => Action;
 }
 
 const Renderer: React.FC<Props> = ({
   workspaces,
   currentWorkspaceId,
   openWorkspaceModal,
-  switchWorkspace
+  switchWorkspace,
+  switchEditorMode
 }) => {
   return (
     <Container>
@@ -84,9 +91,14 @@ const Renderer: React.FC<Props> = ({
           </Tooltip>
         ))}
       </div>
-      <CongigurationButton onClick={openWorkspaceModal}>
-        <FontAwesomeIcon icon={faCog} />
-      </CongigurationButton>
+      <ButtonsContainer>
+        <IconButton onClick={switchEditorMode}>
+          <FontAwesomeIcon icon={faEdit} />
+        </IconButton>
+        <CongigurationButton onClick={openWorkspaceModal}>
+          <FontAwesomeIcon icon={faCog} />
+        </CongigurationButton>
+      </ButtonsContainer>
     </Container>
   );
 };
@@ -102,7 +114,8 @@ function mapDispatchToProps(dispatch: Dispatch<Action<any>>) {
   return {
     ...bindActionCreators(
       {
-        switchWorkspace: actionCreators.switchWorkspace
+        switchWorkspace: actionCreators.switchWorkspace,
+        switchEditorMode: actionCreators.switchEditorMode
       },
       dispatch
     )

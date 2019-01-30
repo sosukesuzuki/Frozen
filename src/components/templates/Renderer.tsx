@@ -1,32 +1,32 @@
 import React from "react";
 import styled from "styled-components";
 import { connect } from "react-redux";
-import Editor from "../organisms/Editor";
-import Preview from "../organisms/Preview";
+import HalfEditor from "../organisms/HalfEditor";
+import FullEditor from "../organisms/FullEditor";
 import { MarkdownFile } from "../../lib/types";
-import { State } from "../../lib/redux/reducer";
+import { State, EditorMode } from "../../lib/redux/reducer";
 import { dracula } from "../../lib/colors";
 import { getFileById } from "../../lib/utils/getFileById";
 
 const Container = styled.div`
-  display: grid;
-  grid-template-columns: 50% 1fr;
   background-color: ${dracula.background};
   color: ${dracula.foreground};
 `;
 
 interface Props {
   file: MarkdownFile | undefined;
+  editorMode: EditorMode;
 }
 
-const Renderer: React.FC<Props> = ({ file }) => {
+const Renderer: React.FC<Props> = ({ file, editorMode }) => {
   return (
     <Container>
       {file != null ? (
-        <>
-          <Editor file={file} />
-          <Preview file={file} />
-        </>
+        editorMode === "FULL" ? (
+          <FullEditor file={file} />
+        ) : (
+          <HalfEditor file={file} />
+        )
       ) : (
         <p>Please add a new tab.</p>
       )}
@@ -36,7 +36,8 @@ const Renderer: React.FC<Props> = ({ file }) => {
 
 function mapStateToProps(state: State) {
   return {
-    file: getFileById(state.currentFileId, state.files)
+    file: getFileById(state.currentFileId, state.files),
+    editorMode: state.editorMode
   };
 }
 
