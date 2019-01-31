@@ -8,7 +8,7 @@ export interface State {
   currentFileId: string;
   workspaces: Workspace[];
   currentWorkspaceId: string;
-  editorMode: "FULL" | "HALF";
+  editorMode: EditorMode
 }
 
 const initialState: State = {
