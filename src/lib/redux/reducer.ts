@@ -8,7 +8,7 @@ export interface State {
   currentFileId: string;
   workspaces: Workspace[];
   currentWorkspaceId: string;
-  editorMode: EditorMode
+  editorMode: EditorMode;
 }
 
 const initialState: State = {
@@ -19,7 +19,10 @@ const initialState: State = {
   editorMode: "HALF"
 };
 
-export default function reducer(state: State = initialState, action: Action): State {
+export default function reducer(
+  state: State = initialState,
+  action: Action
+): State {
   const { type, payload } = action;
   switch (type) {
     case ActionTypes.SET_INITIALIZATION:

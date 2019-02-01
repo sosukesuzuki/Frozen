@@ -16,7 +16,11 @@ interface Props {
   endEdit: () => void;
 }
 
-const UpdateWorkspaceNameForm: React.FC<Props> = ({ workspace, updateWorkspace, endEdit }) => {
+const UpdateWorkspaceNameForm: React.FC<Props> = ({
+  workspace,
+  updateWorkspace,
+  endEdit
+}) => {
   const [inputContent, setInputContent] = useState(workspace.name);
   return (
     <UpdateWorkspaceNameInput

@@ -15,7 +15,10 @@ function* switchCurrentWorkspaceSaga(
   while (true) {
     const { payload } = yield take(ActionTypes.SWITCH_WORKSPACE);
     const { workspaceId } = payload;
-    const files: MarkdownFile[] = yield call(db.getFilesByWorkspaceId, workspaceId);
+    const files: MarkdownFile[] = yield call(
+      db.getFilesByWorkspaceId,
+      workspaceId
+    );
     yield call(localStorage.setCurrentWorkspace, workspaceId);
     yield put(actionCreators.setSwitchedWorkspace(workspaceId, files));
   }
@@ -23,6 +26,9 @@ function* switchCurrentWorkspaceSaga(
 
 export default function*(): SagaIterator {
   yield fork(
-    bindDependencies(switchCurrentWorkspaceSaga, [Types.DBService, Types.LocalStorageService])
+    bindDependencies(switchCurrentWorkspaceSaga, [
+      Types.DBService,
+      Types.LocalStorageService
+    ])
   );
 }

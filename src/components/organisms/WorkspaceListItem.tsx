@@ -39,7 +39,10 @@ const WorkspaceListItem: React.FC<Props> = ({ workspace, deleteWorkspace }) => {
   return (
     <Container>
       {isEditting ? (
-        <UpdateWorkspaceNameForm workspace={workspace} endEdit={() => setIsEditting(false)} />
+        <UpdateWorkspaceNameForm
+          workspace={workspace}
+          endEdit={() => setIsEditting(false)}
+        />
       ) : (
         <WorkspaceName>{workspace.name}</WorkspaceName>
       )}
@@ -53,8 +56,9 @@ const WorkspaceListItem: React.FC<Props> = ({ workspace, deleteWorkspace }) => {
         </IconButton>
         <IconButton
           onClick={() => {
-            alertConfirm("Delete the workspace. You cannot revert this process.", () =>
-              deleteWorkspace(workspace.id)
+            alertConfirm(
+              "Delete the workspace. You cannot revert this process.",
+              () => deleteWorkspace(workspace.id)
             );
           }}
         >

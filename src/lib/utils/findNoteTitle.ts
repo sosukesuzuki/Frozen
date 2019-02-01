@@ -13,7 +13,8 @@ export function findNoteTitle(value: string): string {
   if (title === null) {
     splitted.some((line: string, index: number) => {
       const trimmedLine = line.trim();
-      const trimmedNextLine = splitted[index + 1] === undefined ? "" : splitted[index + 1].trim();
+      const trimmedNextLine =
+        splitted[index + 1] === undefined ? "" : splitted[index + 1].trim();
       if (trimmedLine.match("```")) {
         isInsideCodeBlock = !isInsideCodeBlock;
       }

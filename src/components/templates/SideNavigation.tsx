@@ -33,7 +33,8 @@ const WorkspaceIcon = styled.div`
   line-height: 35px;
   cursor: pointer;
   font-weight: bold;
-  background-color: ${({ backgroundColor }: WorkspaceIconProps) => backgroundColor};
+  background-color: ${({ backgroundColor }: WorkspaceIconProps) =>
+    backgroundColor};
   ${({ isCurrentWorkspace }: WorkspaceIconProps) =>
     isCurrentWorkspace &&
     `

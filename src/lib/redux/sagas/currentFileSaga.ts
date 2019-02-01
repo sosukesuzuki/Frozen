@@ -5,7 +5,9 @@ import { ActionTypes } from "../actionCreators";
 import bindDependencies from "../../utils/bindDependencies";
 import Types from "../../services/Types";
 
-function* switchCurrentFileSaga(localStorage: LocalStorageServiceInterface): SagaIterator {
+function* switchCurrentFileSaga(
+  localStorage: LocalStorageServiceInterface
+): SagaIterator {
   while (true) {
     const { payload } = yield take(ActionTypes.SWITCH_CURRENT_FILE);
     const { file } = payload;
@@ -15,5 +17,7 @@ function* switchCurrentFileSaga(localStorage: LocalStorageServiceInterface): Sag
 }
 
 export default function*(): SagaIterator {
-  yield fork(bindDependencies(switchCurrentFileSaga, [Types.LocalStorageService]));
+  yield fork(
+    bindDependencies(switchCurrentFileSaga, [Types.LocalStorageService])
+  );
 }

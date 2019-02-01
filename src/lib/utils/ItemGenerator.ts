@@ -13,7 +13,10 @@ export function generateFile(content: string): MarkdownFile {
   return file;
 }
 
-export function generateWorkspace(name: string, color: string = "#ffffff"): Workspace {
+export function generateWorkspace(
+  name: string,
+  color: string = "#ffffff"
+): Workspace {
   const id = uuid();
 
   const mathcer = color.match("^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$");

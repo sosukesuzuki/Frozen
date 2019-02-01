@@ -35,17 +35,31 @@ function* initSaga(
     currentWorkspaceId = newWorkspace.id;
   }
 
-  const isIncludeId = workspaces.some(workspace => workspace.id === currentWorkspaceId);
+  const isIncludeId = workspaces.some(
+    workspace => workspace.id === currentWorkspaceId
+  );
 
   if (currentWorkspaceId == null || !isIncludeId) currentWorkspaceId = "";
 
-  const files: MarkdownFile[] = yield call(db.getFilesByWorkspaceId, currentWorkspaceId);
+  const files: MarkdownFile[] = yield call(
+    db.getFilesByWorkspaceId,
+    currentWorkspaceId
+  );
 
-  yield put(actionCreators.setInitialization(files, workspaces, currentFileId, currentWorkspaceId));
+  yield put(
+    actionCreators.setInitialization(
+      files,
+      workspaces,
+      currentFileId,
+      currentWorkspaceId
+    )
+  );
 }
 
 export default function*() {
-  yield fork(bindDependencies(initSaga, [Types.DBService, Types.LocalStorageService]));
+  yield fork(
+    bindDependencies(initSaga, [Types.DBService, Types.LocalStorageService])
+  );
   yield fork(filesSaga);
   yield fork(currentFileSaga);
   yield fork(workspacesSaga);
