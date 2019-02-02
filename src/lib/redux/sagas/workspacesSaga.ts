@@ -1,7 +1,11 @@
 import { SagaIterator } from "redux-saga";
 import { fork, take, call, put, select } from "redux-saga/effects";
 import { DBServiceInterface } from "../../services/DBService";
-import actionCreators from "../actionCreators";
+import {
+  setNewWorkspaces,
+  setUpdatedWorkspace,
+  setDeletedWorkspace
+} from "../actionCreators/Workspace";
 import * as ActionTypes from "../actionCreators/types";
 import { Workspace } from "../../types";
 import { State } from "../reducer";
@@ -14,7 +18,7 @@ function* addWorkspaceSaga(db: DBServiceInterface): SagaIterator {
     const { payload } = yield take(ActionTypes.ADD_WORKSPACE);
     const { workspace }: { workspace: Workspace } = payload;
     yield call(db.addWorkspace, workspace);
-    yield put(actionCreators.setNewWorkspaces(workspace));
+    yield put(setNewWorkspaces(workspace));
   }
 }
 
@@ -28,7 +32,7 @@ function* updateWorkspaceSaga(db: DBServiceInterface): SagaIterator {
       color
     };
     yield call(db.updateWorkspace, workspace);
-    yield put(actionCreators.setUpdatedWorkspace(workspace));
+    yield put(setUpdatedWorkspace(workspace));
   }
 }
 
@@ -40,7 +44,7 @@ function* deleteWorkspaceSaga(db: DBServiceInterface): SagaIterator {
     if (oldWorkspaces.length !== 1) {
       yield call(db.deleteWorkspace, id);
       const workspaces: Workspace[] = yield call(db.getWorkspaces);
-      yield put(actionCreators.setDeletedWorkspace(workspaces));
+      yield put(setDeletedWorkspace(workspaces));
     } else {
       console.info("Workspaces should be least one.");
     }
