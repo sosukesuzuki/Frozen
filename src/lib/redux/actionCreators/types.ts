@@ -1,0 +1,30 @@
+// Root
+export const INIT = "INIT";
+export const SET_INITIALIZATION = "SET_INITIALIZATION";
+
+// Files
+export const ADD_FILE = "ADD_FILE";
+export const SET_NEW_FILE = "SET_NEW_FILE";
+export const DELTE_FILE = "DELETE_FILE";
+export const SET_DELETED_FILES = "SET_DELETED_FILES";
+export const UPDATE_FILE = "UPDATE_FILE";
+export const SET_UPDATED_FILE = "SET_UPDATED_FILE";
+
+// CurrentFile
+export const SWITCH_CURRENT_FILE = "SWITCH_CURRENT_FILE";
+export const SET_CURRENT_FILE = "SET_CURRENT_FILE";
+
+// Workspaces
+export const ADD_WORKSPACE = "ADD_WORKSPACE";
+export const SET_NEW_WORKSPACE = "SET_NEW_WORKSPACE";
+export const UPDATE_WORKSPACE = "UPDATE_WORKSPACE";
+export const SET_UPDATED_WORKSPACE = "SET_UPDATED_WORKSPACE";
+export const DELETE_WORKSPACE = "DELETE_WORKSPACE";
+export const SET_DELETED_WORKSPACES = "SET_DELETED_WORKSPACES";
+
+// CurrentWorkspace
+export const SWITCH_WORKSPACE = "SWITCH_WORKSPACE";
+export const SET_SWITCHED_WORKSPACE = "SET_SWITCHED_WORKSPACE";
+
+// EditorMode
+export const SWITCH_EDITOR_MODE = "SWITH_EDITOR_MODE";

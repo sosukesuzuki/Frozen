@@ -1,7 +1,8 @@
 import { SagaIterator } from "redux-saga";
 import { fork, take, call, put, select } from "redux-saga/effects";
 import { DBServiceInterface } from "../../services/DBService";
-import actionCreators, { ActionTypes } from "../actionCreators";
+import actionCreators from "../actionCreators";
+import * as ActionTypes from "../actionCreators/types";
 import { MarkdownFile } from "../../types";
 import { findNoteTitle } from "../../utils/findNoteTitle";
 import { State } from "../reducer";

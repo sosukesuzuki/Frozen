@@ -1,7 +1,7 @@
 import { SagaIterator } from "redux-saga";
 import { fork, take, call, put } from "redux-saga/effects";
 import { LocalStorageServiceInterface } from "../../services/LocalStorageService";
-import { ActionTypes } from "../actionCreators";
+import * as ActionTypes from "../actionCreators/types";
 import bindDependencies from "../../utils/bindDependencies";
 import Types from "../../services/Types";
 

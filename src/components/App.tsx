@@ -5,7 +5,7 @@ import Renderer from "./templates/Renderer";
 import SideNavigation from "./templates/SideNavigation";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch, Action } from "redux";
-import actionCreators, { ActionTypes } from "../lib/redux/actionCreators";
+import actionCreators from "../lib/redux/actionCreators";
 import WorkspaceModal from "./templates/WorkspaceModal";
 import { State } from "../lib/redux/reducer";
 import { dracula } from "../lib/colors";
@@ -28,7 +28,7 @@ const ContentContainer = styled.div`
 
 interface Props {
   currentWorkspaceId: string;
-  init: () => { type: ActionTypes.INIT };
+  init: () => Action;
 }
 
 const App: React.FC<Props> = ({ currentWorkspaceId, init }) => {
