@@ -7,23 +7,6 @@ export interface Action {
   payload: any;
 }
 
-const addFile = (file: MarkdownFile) => action(ActionTypes.ADD_FILE, { file });
-
-const setNewFile = (file: MarkdownFile) =>
-  action(ActionTypes.SET_NEW_FILE, { file });
-
-const deleteFile = (file: MarkdownFile) =>
-  action(ActionTypes.DELTE_FILE, { file });
-
-const setDeletedFiles = (files: MarkdownFile[]) =>
-  action(ActionTypes.SET_DELETED_FILES, { files });
-
-const updateFile = (id: string, content: string) =>
-  action(ActionTypes.UPDATE_FILE, { id, content });
-
-const setUpdatedFile = (file: MarkdownFile) =>
-  action(ActionTypes.SET_UPDATED_FILE, { file });
-
 const switchCurrentFile = (file: MarkdownFile) =>
   action(ActionTypes.SWITCH_CURRENT_FILE, { file });
 
@@ -57,12 +40,6 @@ const setSwitchedWorkspace = (workspaceId: string, files: MarkdownFile[]) =>
 const switchEditorMode = () => action(ActionTypes.SWITCH_EDITOR_MODE);
 
 export default {
-  addFile,
-  setNewFile,
-  deleteFile,
-  setDeletedFiles,
-  updateFile,
-  setUpdatedFile,
   switchCurrentFile,
   setCurrentFile,
   addWorkspace,
