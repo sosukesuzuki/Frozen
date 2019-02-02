@@ -5,7 +5,7 @@ import Renderer from "./templates/Renderer";
 import SideNavigation from "./templates/SideNavigation";
 import { connect } from "react-redux";
 import { bindActionCreators, Dispatch, Action } from "redux";
-import actionCreators from "../lib/redux/actionCreators";
+import { init } from "../lib/redux/actionCreators/Root";
 import WorkspaceModal from "./templates/WorkspaceModal";
 import { State } from "../lib/redux/reducer";
 import { dracula } from "../lib/colors";
@@ -76,7 +76,7 @@ function mapStateToProps(state: State) {
 
 function mapDispatchToProps(dispatch: Dispatch<Action<any>>) {
   return {
-    ...bindActionCreators({ init: actionCreators.init }, dispatch)
+    ...bindActionCreators({ init }, dispatch)
   };
 }
 

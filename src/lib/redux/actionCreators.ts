@@ -7,21 +7,6 @@ export interface Action {
   payload: any;
 }
 
-const init = () => action(ActionTypes.INIT);
-
-const setInitialization = (
-  files: MarkdownFile[],
-  workspaces: Workspace[],
-  currentFileId: string | null,
-  currentWorkspaceId: string
-) =>
-  action(ActionTypes.SET_INITIALIZATION, {
-    files,
-    workspaces,
-    currentFileId,
-    currentWorkspaceId
-  });
-
 const addFile = (file: MarkdownFile) => action(ActionTypes.ADD_FILE, { file });
 
 const setNewFile = (file: MarkdownFile) =>
@@ -72,8 +57,6 @@ const setSwitchedWorkspace = (workspaceId: string, files: MarkdownFile[]) =>
 const switchEditorMode = () => action(ActionTypes.SWITCH_EDITOR_MODE);
 
 export default {
-  init,
-  setInitialization,
   addFile,
   setNewFile,
   deleteFile,
