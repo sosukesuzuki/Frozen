@@ -7,12 +7,6 @@ export interface Action {
   payload: any;
 }
 
-const switchCurrentFile = (file: MarkdownFile) =>
-  action(ActionTypes.SWITCH_CURRENT_FILE, { file });
-
-const setCurrentFile = (file: MarkdownFile) =>
-  action(ActionTypes.SET_CURRENT_FILE, { file });
-
 const addWorkspace = (workspace: Workspace) =>
   action(ActionTypes.ADD_WORKSPACE, { workspace });
 
@@ -40,8 +34,6 @@ const setSwitchedWorkspace = (workspaceId: string, files: MarkdownFile[]) =>
 const switchEditorMode = () => action(ActionTypes.SWITCH_EDITOR_MODE);
 
 export default {
-  switchCurrentFile,
-  setCurrentFile,
   addWorkspace,
   setNewWorkspaces,
   updateWorkspace,

@@ -4,8 +4,9 @@ import { connect } from "react-redux";
 import { MarkdownFile } from "../../lib/types";
 import { generateFile } from "../../lib/utils/ItemGenerator";
 import { dracula } from "../../lib/colors";
-import actionCreators, { Action } from "../../lib/redux/actionCreators";
+import { Action } from "../../lib/redux/actionCreators";
 import { addFile, deleteFile } from "@lib/redux/actionCreators/Files";
+import { switchCurrentFile } from "@lib/redux/actionCreators/CurrentFile";
 import { State } from "../../lib/redux/reducer";
 import { bindActionCreators, Dispatch, Action as ReduxAction } from "redux";
 import { getFileById } from "../../lib/utils/getFileById";
@@ -85,7 +86,7 @@ function mapDispatchToProps(dispatch: Dispatch<ReduxAction<any>>) {
       {
         addFile: addFile,
         deleteFile: deleteFile,
-        switchCurrentFile: actionCreators.switchCurrentFile
+        switchCurrentFile: switchCurrentFile
       },
       dispatch
     )
