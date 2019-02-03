@@ -4,7 +4,7 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import { dracula } from "../../lib/colors";
 import { MarkdownFile } from "../../lib/types";
-import actionCreators from "../../lib/redux/actionCreators";
+import { updateFile } from "../../lib/redux/actionCreators/Files";
 import { bindActionCreators } from "redux";
 import CodeMirror from "codemirror";
 import "codemirror/lib/codemirror.css";
@@ -120,7 +120,7 @@ const Editor: React.FC<Props> = ({ file, updateFile }) => {
 
 function mapDispatchToProps(dispatch: Dispatch<Action<any>>) {
   return {
-    ...bindActionCreators({ updateFile: actionCreators.updateFile }, dispatch)
+    ...bindActionCreators({ updateFile }, dispatch)
   };
 }
 

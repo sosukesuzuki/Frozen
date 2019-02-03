@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { connect } from "react-redux";
 import { Workspace } from "../../lib/types";
 import { Dispatch, Action, bindActionCreators } from "redux";
-import actionCreators from "../../lib/redux/actionCreators";
+import { deleteWorkspace } from "../../lib/redux/actionCreators/Workspace";
 import UpdateWorkspaceNameForm from "../molecules/UpdateWorkspaceNameForm";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashAlt, faEdit } from "@fortawesome/free-solid-svg-icons";
@@ -73,7 +73,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<any>>) {
   return {
     ...bindActionCreators(
       {
-        deleteWorkspace: actionCreators.deleteWorkspace
+        deleteWorkspace
       },
       dispatch
     )

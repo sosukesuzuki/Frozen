@@ -1,7 +1,8 @@
 import React, { useState, ChangeEvent, KeyboardEvent } from "react";
 import styled from "styled-components";
 import { Workspace } from "../../lib/types";
-import actionCreators, { Action } from "../../lib/redux/actionCreators";
+import { Action } from "../../lib/redux/types";
+import { addWorkspace } from "@lib/redux/actionCreators/Workspace";
 import { connect } from "react-redux";
 import { Dispatch, Action as ReduxAction, bindActionCreators } from "redux";
 import { generateWorkspace } from "../../lib/utils/ItemGenerator";
@@ -46,7 +47,7 @@ function mapDispatchToProps(dispatch: Dispatch<ReduxAction<any>>) {
   return {
     ...bindActionCreators(
       {
-        addWorkspace: actionCreators.addWorkspace
+        addWorkspace
       },
       dispatch
     )

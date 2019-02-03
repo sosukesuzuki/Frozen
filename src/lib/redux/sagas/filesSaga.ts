@@ -1,7 +1,8 @@
 import { SagaIterator } from "redux-saga";
 import { fork, take, call, put, select } from "redux-saga/effects";
 import { DBServiceInterface } from "../../services/DBService";
-import actionCreators, { ActionTypes } from "../actionCreators";
+import { setDeletedFiles, setUpdatedFile } from "../actionCreators/Files";
+import * as ActionTypes from "../actionCreators/types";
 import { MarkdownFile } from "../../types";
 import { findNoteTitle } from "../../utils/findNoteTitle";
 import { State } from "../reducer";
@@ -33,7 +34,7 @@ function* deleteFileSaga(db: DBServiceInterface): SagaIterator {
       db.getFilesByWorkspaceId,
       currentWorkspaceId
     );
-    yield put(actionCreators.setDeletedFiles(newFiles));
+    yield put(setDeletedFiles(newFiles));
   }
 }
 
@@ -50,7 +51,7 @@ function* updateFileSaga(db: DBServiceInterface): SagaIterator {
       (state: State) => state.currentWorkspaceId
     );
     yield call(_.debounce(db.updateFile, 100), file, currentWorkspaceId);
-    yield put(actionCreators.setUpdatedFile(file));
+    yield put(setUpdatedFile(file));
   }
 }
 

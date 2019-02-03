@@ -5,7 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faFile } from "@fortawesome/free-solid-svg-icons";
 import { dracula } from "../../lib/colors";
 import { MarkdownFile } from "../../lib/types";
-import { Action } from "../../lib/redux/actionCreators";
+import { Action } from "../../lib/redux/types";
 
 const Container = styled.div`
   height: 30px;

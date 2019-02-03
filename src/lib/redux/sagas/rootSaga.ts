@@ -2,7 +2,8 @@ import { SagaIterator } from "redux-saga";
 import { fork, take, call, all, put } from "redux-saga/effects";
 import { DBServiceInterface } from "../../services/DBService";
 import { LocalStorageServiceInterface } from "../../services/LocalStorageService";
-import actionCreators, { ActionTypes } from "../actionCreators";
+import { setInitialization } from "../actionCreators/Root";
+import * as ActionTypes from "../actionCreators/types";
 import { MarkdownFile, Workspace } from "../../types";
 import { generateWorkspace } from "../../utils/ItemGenerator";
 import bindDependencies from "../../utils/bindDependencies";
@@ -47,12 +48,7 @@ function* initSaga(
   );
 
   yield put(
-    actionCreators.setInitialization(
-      files,
-      workspaces,
-      currentFileId,
-      currentWorkspaceId
-    )
+    setInitialization(files, workspaces, currentFileId, currentWorkspaceId)
   );
 }
 
