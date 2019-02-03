@@ -2,7 +2,7 @@ import { SagaIterator } from "redux-saga";
 import { fork, take, call, put } from "redux-saga/effects";
 import { DBServiceInterface } from "../../services/DBService";
 import { LocalStorageServiceInterface } from "../../services/LocalStorageService";
-import actionCreators from "../actionCreators";
+import { setSwitchedWorkspace } from "../actionCreators/CurrentWorkspace";
 import * as ActionTypes from "../actionCreators/types";
 import { MarkdownFile } from "../../types";
 import bindDependencies from "../../utils/bindDependencies";
@@ -21,7 +21,7 @@ function* switchCurrentWorkspaceSaga(
       workspaceId
     );
     yield call(localStorage.setCurrentWorkspace, workspaceId);
-    yield put(actionCreators.setSwitchedWorkspace(workspaceId, files));
+    yield put(setSwitchedWorkspace(workspaceId, files));
   }
 }
 
