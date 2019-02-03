@@ -2,7 +2,7 @@ import React, { useState, ChangeEvent, KeyboardEvent } from "react";
 import { connect } from "react-redux";
 import { Workspace } from "../../lib/types";
 import { Dispatch, Action as ReduxAction, bindActionCreators } from "redux";
-import { Action } from "../../lib/redux/actionCreators";
+import { Action } from "../../lib/redux/types";
 import { updateWorkspace } from "@lib/redux/actionCreators/Workspace";
 import Input from "../atoms/Input";
 import styled from "styled-components";

@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, KeyboardEvent } from "react";
 import styled from "styled-components";
 import { Workspace } from "../../lib/types";
-import { Action } from "../../lib/redux/actionCreators";
+import { Action } from "../../lib/redux/types";
 import { addWorkspace } from "@lib/redux/actionCreators/Workspace";
 import { connect } from "react-redux";
 import { Dispatch, Action as ReduxAction, bindActionCreators } from "redux";

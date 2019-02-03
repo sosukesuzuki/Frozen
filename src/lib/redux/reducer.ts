@@ -1,5 +1,5 @@
+import { Action } from "./types";
 import * as ActionTypes from "./actionCreators/types";
-import { Action } from "./actionCreators";
 import { MarkdownFile, Workspace } from "../types";
 
 export type EditorMode = "FULL" | "HALF";

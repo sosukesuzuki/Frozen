@@ -5,7 +5,7 @@ import { Workspace } from "../../lib/types";
 import { State } from "../../lib/redux/reducer";
 import { dracula } from "../../lib/colors";
 import { Dispatch, Action, bindActionCreators } from "redux";
-import actionCreators from "../../lib/redux/actionCreators";
+import { switchEditorMode } from "../../lib/redux/actionCreators/EditorMode";
 import { switchWorkspace } from "../../lib/redux/actionCreators/CurrentWorkspace";
 import IconButton from "../atoms/IconButton";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -117,7 +117,7 @@ function mapDispatchToProps(dispatch: Dispatch<Action<any>>) {
     ...bindActionCreators(
       {
         switchWorkspace,
-        switchEditorMode: actionCreators.switchEditorMode
+        switchEditorMode
       },
       dispatch
     )
